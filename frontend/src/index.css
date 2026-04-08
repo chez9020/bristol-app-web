@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Liberation+Mono:wght@400;700&family=Montserrat:ital,wght@0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+  --color-bg-main: #2F2016;
+  --color-bg-card: #2a1d15;
+  --color-primary: #00B4D8;
+  --color-primary-transparent: rgba(0, 180, 216, 0.1);
+  --color-text-light: #94a3b8;
+  --color-text-white: #ffffff;
+  --color-nav-bg: rgba(47, 32, 22, 0.9);
+  --color-nav-border: rgba(255, 255, 255, 0.1);
+  
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'Liberation Mono', monospace;
+  --font-gotham: 'Montserrat', sans-serif; /* fallback for gotham */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-white);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base styles for material icons */
+.material-icons {
+  font-family: 'Material Icons';
+}
+
+.material-icons-round {
+  font-family: 'Material Icons Round';
+}
+
+.material-icons,
+.material-icons-round,
+.material-symbols-outlined {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Identificador global en la parte inferior */
+.bottom-code-indicator {
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 16px;
+  color: var(--color-text-white);
+  text-align: center;
+  width: 100%;
+  margin-top: auto;        /* Empuja el indicador hacia abajo con el flexbox siempre si hay poco contenido */
+  padding-top: 15px;       /* Separación del contenido para que nunca se encimen */
+  padding-bottom: env(safe-area-inset-bottom, 20px); 
+  z-index: 10;
+  opacity: 0.8;
+  position: relative;      /* Estática en el flujo para evitar que flote mágicamente de forma absoluta */
+}
+
+/* This allows spacing right above the navigation bar when inside App component pages */
+.bottom-code-indicator.with-nav {
+  padding-bottom: 95px; /* Empuja el contenedor del indicador porque el nav flotará sobre de él (89px alto) */
+}

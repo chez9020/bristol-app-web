@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+backend/venv/
+backend/.venv/
+venv/
+.venv/
+
+# Node dependencies (rebuilt in Docker)
+frontend/node_modules/
+
+# Local dev artifacts
+frontend/.vite/
+*.log
+firebase-debug.log
+
+# Test files
+backend/constancia-test.png
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,47 @@
+[debug] [2026-03-02T20:10:45.709Z] ----------------------------------------------------------------------
+[debug] [2026-03-02T20:10:45.715Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\bin\firebase.js apps:sdkconfig web --project shaq-brand-bot
+[debug] [2026-03-02T20:10:45.715Z] CLI Version:   15.8.0
+[debug] [2026-03-02T20:10:45.716Z] Platform:      win32
+[debug] [2026-03-02T20:10:45.716Z] Node Version:  v20.11.1
+[debug] [2026-03-02T20:10:45.716Z] Time:          Mon Mar 02 2026 14:10:45 GMT-0600 (Central Standard Time)
+[debug] [2026-03-02T20:10:45.716Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-02T20:10:45.720Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-03-02T20:10:45.904Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-02T20:10:46.179Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-03-02T20:10:46.180Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2026-03-02T20:10:46.245Z] Running auto auth
+[debug] [2026-03-02T20:10:46.247Z] No OAuth tokens found
+[debug] [2026-03-02T20:10:46.249Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps pageSize=100
+[debug] [2026-03-02T20:10:46.538Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps 404
+[debug] [2026-03-02T20:10:46.538Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps {"error":{"code":404,"message":"Firebase project 312857934600 not found.","status":"NOT_FOUND"}}
+[debug] [2026-03-02T20:10:46.540Z] Request to https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps?pageSize=100 had HTTP Error: 404, Firebase project 312857934600 not found.
+[debug] [2026-03-02T20:10:46.542Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps?pageSize=100 had HTTP Error: 404, Firebase project 312857934600 not found.
+    at responseToError (C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\apiv2.js:330:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to list Firebase WEB apps. See firebase-debug.log for more info.
+[debug] [2026-03-02T20:11:12.438Z] ----------------------------------------------------------------------
+[debug] [2026-03-02T20:11:12.444Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\bin\firebase.js apps:create web Agent IO Web --project shaq-brand-bot
+[debug] [2026-03-02T20:11:12.445Z] CLI Version:   15.8.0
+[debug] [2026-03-02T20:11:12.445Z] Platform:      win32
+[debug] [2026-03-02T20:11:12.445Z] Node Version:  v20.11.1
+[debug] [2026-03-02T20:11:12.445Z] Time:          Mon Mar 02 2026 14:11:12 GMT-0600 (Central Standard Time)
+[debug] [2026-03-02T20:11:12.445Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-02T20:11:12.505Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-02T20:11:12.870Z] Running auto auth
+[info] Create your WEB app in project shaq-brand-bot:
+[debug] [2026-03-02T20:11:12.877Z] No OAuth tokens found
+[debug] [2026-03-02T20:11:12.878Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps [none]
+[debug] [2026-03-02T20:11:12.879Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps {"displayName":"Agent IO Web"}
+[debug] [2026-03-02T20:11:13.164Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps 404
+[debug] [2026-03-02T20:11:13.164Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps {"error":{"code":404,"message":"Firebase project 312857934600 not found.","status":"NOT_FOUND"}}
+[debug] [2026-03-02T20:11:13.166Z] Request to https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps had HTTP Error: 404, Firebase project 312857934600 not found.
+[debug] [2026-03-02T20:11:13.168Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/shaq-brand-bot/webApps had HTTP Error: 404, Firebase project 312857934600 not found.
+    at responseToError (C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\ejjommz\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\apiv2.js:330:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create Web app for project shaq-brand-bot. See firebase-debug.log for more info.

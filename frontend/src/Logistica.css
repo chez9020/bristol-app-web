@@ -1,0 +1,381 @@
+/* Logistica.css */
+
+.logistica-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #2f2016;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+/* Content */
+.logistica-content {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.logistica-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  margin: 0;
+}
+
+.subsection-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #008fb4;
+  cursor: pointer;
+}
+
+/* Vuelos y Transfers */
+.vuelos-card {
+  background-color: #2a1d15;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.vuelos-times {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-block.right {
+  align-items: center;
+}
+
+.time-large {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: white;
+}
+
+.city-small {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #008fb4;
+}
+
+.flight-divider {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 15px;
+}
+
+.divider-line {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+}
+
+.flight-icon {
+  background-color: #2a1d15; /* Match card bg to mask line */
+  color: #008fb4;
+  font-size: 18px;
+  transform: rotate(90deg);
+  padding: 0 5px;
+  z-index: 1;
+  position: relative;
+}
+
+.transfer-info {
+  background-color: rgba(0, 143, 180, 0.2);
+  border: 1px solid rgba(0, 143, 180, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transfer-icon-wrapper {
+  background-color: transparent;
+  color: #008fb4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transfer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transfer-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: #008fb4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transfer-time {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+}
+
+.btn-all-transfers {
+  background-color: #008fb4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
+  transition: transform 0.1s;
+}
+
+.btn-all-transfers:active {
+  transform: scale(0.98);
+}
+
+/* Hotel y Sede */
+.hotel-card {
+  background-color: #2a1d15;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hotel-hero {
+  position: relative;
+  height: 128px;
+  width: 100%;
+}
+
+.hotel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hotel-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(62, 44, 32, 1) 0%, rgba(62, 44, 32, 0) 100%);
+}
+
+.hotel-name {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-family: 'Gotham', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+  margin: 0;
+  line-height: 25px;
+}
+
+.hotel-times {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.time-block-hotel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.time-block-hotel.align-right {
+  align-items: flex-end;
+}
+
+.hotel-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.hotel-time-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+}
+
+.hotel-divider {
+  width: 1px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hotel-actions {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hotel-address {
+  display: flex;
+  gap: 10px;
+}
+
+.location-icon {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+}
+
+.address-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.hotel-buttons-row {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-directions {
+  flex: 2;
+  background-color: #008fb4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+
+.btn-call {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Image Cards (Mapa & Restaurantes) */
+.image-card {
+  background-color: #2a1d15;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.image-hero {
+  position: relative;
+  width: 100%;
+}
+
+.image-hero.map-hero {
+  background-color: white; /* Good to show maps clearly if transparency */
+  aspect-ratio: 4 / 3;
+}
+
+.image-hero.food-hero {
+  aspect-ratio: 16 / 9;
+}
+
+.content-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content-img.map-img {
+  object-fit: contain; /* Don't crop map too much */
+  padding: 10px;
+}
+
+.card-actions-single {
+  padding: 16px;
+  display: flex;
+}
+
+.btn-primary-action {
+  flex: 1;
+  background-color: #008fb4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
+  transition: transform 0.1s;
+}
+
+.btn-primary-action:active {
+  transform: scale(0.98);
+}
+

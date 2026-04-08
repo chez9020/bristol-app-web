@@ -1,0 +1,146 @@
+/* MapaEvento.css */
+
+.mapa-evento-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #2f2016;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+/* Content */
+.mapa-evento-content {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Map Card */
+.map-view-card {
+  background-color: #2a1d15;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.map-view-hero {
+  position: relative;
+  width: 100%;
+  background-color: white; /* Background for map image */
+  padding: 16px;
+}
+
+.map-view-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.map-view-actions {
+  padding: 16px;
+  display: flex;
+}
+
+.btn-download-map {
+  flex: 1;
+  background-color: #008fb4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.1s;
+}
+
+.btn-download-map:active {
+  transform: scale(0.98);
+}
+
+.btn-download-map .material-icons-round {
+  font-size: 18px;
+}
+
+/* Salones y Sesiones Section */
+.salones-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.salones-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
+  margin: 0;
+}
+
+.salones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Salon Row Item */
+.salon-card {
+  background-color: #3e2c20;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.salon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.salon-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  margin: 0;
+}
+
+.salon-session {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #d1d5db; /* Light gray text for session detail */
+  margin: 0;
+  white-space: pre-wrap; /* allow explicit \n breaks for multiline session text */
+}
+
+.salon-icon {
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salon-icon .material-icons-round {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 22px;
+}

@@ -1,0 +1,139 @@
+.inicio-container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 450px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg-main);
+  /* The blur overlays you requested on Figma */
+  box-shadow: inset 0 -80px 150px rgba(0, 143, 180, 0.2); 
+}
+
+.inicio-background {
+  position: absolute;
+  top: 0;
+  left: -4%; /* Small absolute adjustment from Figma */
+  width: 108%;
+  height: 100%;
+  z-index: 1;
+}
+
+.inicio-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  pointer-events: none;
+}
+
+/* Gradient to ensure logo readability */
+.top-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(20, 15, 12, 0.8) 0%, rgba(20, 15, 12, 0) 100%);
+  z-index: 2;
+}
+
+.bms-logo-container {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 193px;
+  height: 27px;
+  z-index: 3;
+}
+
+.bms-logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Bottom elements holder */
+.bottom-content-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* Gradual dark fade up to half the screen */
+  background: linear-gradient(0deg, rgba(30,20,15, 1) 0%, rgba(30,20,15, 0.95) 45%, rgba(30,20,15, 0) 100%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 45px;
+}
+
+.welcome-title {
+  font-family: var(--font-gotham);
+  font-style: italic;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  text-align: center;
+  color: #f26322; /* Bristol orange */
+  text-transform: uppercase;
+  letter-spacing: -0.9px;
+  margin: 0 0 16px 0;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.welcome-subtitle {
+  font-family: var(--font-gotham);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  color: var(--color-text-white);
+  margin: 0 0 40px 0;
+}
+
+/* The solid blue button with shadow */
+.primary-enter-button {
+  width: calc(100% - 64px);
+  max-width: 326px;
+  height: 60px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 143, 180, 0.3), 0px 4px 6px -4px rgba(0, 143, 180, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 50px;
+}
+
+.primary-enter-button:hover {
+  background-color: #00A1C2;
+  transform: translateY(-2px);
+  box-shadow: 0px 12px 20px -3px rgba(0, 143, 180, 0.4);
+}
+
+.primary-enter-button:active {
+  transform: translateY(1px);
+}
+
+.primary-enter-button span {
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.button-arrow {
+  font-size: 24px !important;
+  color: #ffffff;
+}
+
+

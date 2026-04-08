@@ -1,0 +1,213 @@
+.apuntes-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0 20px 0;
+  overflow-y: auto;
+  min-height: calc(100vh - 80px); /* Leave room for bottom nav */
+}
+
+/* Note Editor Card */
+.note-editor-card {
+  background: #2f2016; /* slightly dark brown */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 500px; /* fixed height for the editor block */
+  box-shadow: 0px 20px 25px -5px rgba(0,0,0,0.1), 0px 8px 10px -6px rgba(0,0,0,0.1);
+  margin: 24px 20px 24px 20px;
+}
+
+/* Top Bar of Editor */
+.editor-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-session-dropdown {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-bottom: 6px;
+  width: 95%; /* Responsive width */
+  text-overflow: ellipsis;
+  outline: none;
+}
+
+.editor-session-dropdown option {
+  background: #2f2016; /* Same as card background */
+  color: white;
+}
+
+/* For truncating long combo box stuff on mobile */
+.editor-session-info {
+  width: 100%;
+}
+
+.saving-indicator {
+  margin-left: 8px;
+  font-size: 11px;
+  font-style: italic;
+  color: #008fb4;
+  opacity: 0.8;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.editor-session-details {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.editor-more-options .material-icons-round {
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+/* Editor text area */
+.editor-textarea-container {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  resize: none;
+  color: white;
+  font-size: 15px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.editor-textarea:focus {
+  outline: none;
+}
+
+.editor-textarea::placeholder {
+  color: #64748b;
+}
+
+/* Bottom bar of Editor */
+.editor-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-format-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.format-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.format-btn:hover {
+  color: white;
+}
+
+.format-btn .material-icons-round {
+  font-size: 20px;
+}
+
+.format-divider {
+  height: 16px;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.editor-word-count {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Export Banner */
+.export-banner {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin: 24px 16px 24px 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.export-icon-container {
+  background: rgba(0, 143, 180, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.export-icon {
+  color: #008fb4;
+  font-size: 20px;
+}
+
+.export-text-content {
+  flex: 1;
+}
+
+.export-text-content h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin: 0 0 4px 0;
+}
+
+.export-text-content p {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.export-link {
+  color: #008fb4;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 143, 180, 0.4);
+  cursor: pointer;
+}
