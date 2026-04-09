@@ -4,9 +4,9 @@ import Traslados from './Traslados.jsx';
 import Restaurantes from './Restaurantes.jsx';
 import MapaEvento from './MapaEvento.jsx';
 
-const imgHotel = "https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
-const imgMapa = "/mapa-evento.png"; // User placeholder
-const imgRestaurantes = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+const imgHotel = "https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/Background.png";
+const imgMapa = "https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png";
+const imgRestaurantes = "https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante3.png";
 
 function Logistica({ onBack }) {
   const [showTraslados, setShowTraslados] = useState(false);
@@ -36,12 +36,12 @@ function Logistica({ onBack }) {
           </div>
         </div>
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
       <div className="logistica-content">
-        
+
         {/* Vuelos y Transfers */}
         <section className="logistica-section">
           <div className="section-title-wrapper">
@@ -66,7 +66,7 @@ function Logistica({ onBack }) {
 
             <div className="transfer-inner-card">
               <div className="transfer-icon-box">
-                <span className="material-icons-round" style={{color: 'white'}}>directions_bus</span>
+                <span className="material-icons-round" style={{ color: 'white' }}>directions_bus</span>
               </div>
               <div className="transfer-text-block">
                 <span className="transfer-label-small">RECOGIDA EN HOTEL</span>
@@ -74,8 +74,8 @@ function Logistica({ onBack }) {
               </div>
             </div>
 
-            <button 
-              className="btn-premium-gradient" 
+            <button
+              className="btn-premium-gradient"
               style={{ width: '100%' }}
               onClick={() => setShowTraslados(true)}
             >
@@ -94,7 +94,7 @@ function Logistica({ onBack }) {
                 <h3>Hotel Paradisus, Cancún</h3>
               </div>
             </div>
-            
+
             <div className="hotel-times-grid">
               <div className="hotel-time-item">
                 <span className="hotel-time-label">CHECK-IN</span>
@@ -133,7 +133,7 @@ function Logistica({ onBack }) {
             <div className="media-container" style={{ backgroundColor: 'white' }}>
               <img src={imgMapa} alt="Mapa evento" style={{ objectFit: 'contain', padding: '10px' }} />
             </div>
-            <button 
+            <button
               className="btn-premium-gradient"
               onClick={() => setShowMapa(true)}
             >
@@ -149,7 +149,7 @@ function Logistica({ onBack }) {
             <div className="media-container">
               <img src={imgRestaurantes} alt="Restaurantes" />
             </div>
-            <button 
+            <button
               className="btn-premium-gradient"
               onClick={() => setShowRestaurantes(true)}
             >

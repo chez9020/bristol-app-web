@@ -30,7 +30,7 @@ function MapaEvento({ onBack }) {
       <div className="mapa-evento-content">
         <div className="map-view-card">
           <div className="map-view-hero">
-            <img src="/mapa-evento.png" alt="Mapa" className="map-view-img" />
+            <img src="https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png" alt="Mapa" className="map-view-img" />
           </div>
           <div className="map-view-actions">
             <button className="btn-download-map" onClick={handleDownloadMap}>
