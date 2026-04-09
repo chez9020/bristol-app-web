@@ -6,43 +6,71 @@ const restaurantesData = [
     id: 1,
     name: 'Tora Cancún',
     category: 'Premium',
-    img: 'https://images.unsplash.com/photo-1579027989536-b7b1f875659b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/thBx6kdUwBPmosGk6',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante1.png',
+    link: 'https://maps.app.goo.gl/gyxEAjbK1Eean4D79?g_st=ic',
   },
   {
     id: 2,
-    name: 'Rosa negra Cancún',
+    name: 'RosaNegra Cancún',
     category: 'Premium',
-    img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/mFaUYHBFNLQ8P77a7',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante2.png',
+    link: 'https://maps.app.goo.gl/pqothSL35pHYS3TZ7?g_st=ic',
   },
   {
     id: 3,
-    name: 'Puerto santo',
+    name: 'Puerto Santo Cancún',
     category: 'Comida Mexicana',
-    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/dKrzZ8iMUvBuyLch6',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante3.png',
+    link: 'https://maps.app.goo.gl/y6Gh6NF6tbjFnHFu7?g_st=ic',
   },
   {
     id: 4,
-    name: 'Puerto madero',
+    name: 'Puerto Madero Cancún',
     category: 'Premium',
-    img: 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/9PigKSoCmaKWRyS4A',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante4.png',
+    link: 'https://maps.app.goo.gl/Ti5q6tUQUXS1npnA6?g_st=ic',
   },
   {
     id: 5,
-    name: 'Freds seafood & raw bar',
+    name: 'Fred’s Seafood & Raw Bar',
     category: 'Premium',
-    img: 'https://images.unsplash.com/photo-1551731591-224443a39e8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/gZj5G3ZMWvnGGsP59',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante5.png',
+    link: 'https://maps.app.goo.gl/MF8jspukT5RnB4qs8?g_st=ic',
   },
   {
     id: 6,
     name: 'Ilios Cancún',
     category: 'Premium',
-    img: 'https://images.unsplash.com/photo-1544124499-58912cbddaad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
-    link: 'https://maps.app.goo.gl/1CxWnv1XY7cajmco9',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante6.png',
+    link: 'https://maps.app.goo.gl/sFYd8WAo3ryw2g93A?g_st=ic',
+  },
+  {
+    id: 7,
+    name: 'Fish Fritanga',
+    category: 'Premium',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante7.png',
+    link: 'https://maps.app.goo.gl/1KapBSTe8SAxBb9n9?g_st=ic',
+  },
+  {
+    id: 8,
+    name: 'La Dolce Vita Cancún',
+    category: 'Premium',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante8.png',
+    link: 'https://maps.app.goo.gl/MrGBRSBtVLMkeuBi9?g_st=ic',
+  },
+  {
+    id: 9,
+    name: 'Porfirio’s Cancún',
+    category: 'Comida Mexicana',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante9.png',
+    link: 'https://maps.app.goo.gl/MBLehw5r7ghSBRdX9?g_st=ic',
+  },
+  {
+    id: 10,
+    name: 'Mochomos',
+    category: 'Premium',
+    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante10.png',
+    link: 'https://maps.app.goo.gl/a9pBSadVSbn7NoA7A?g_st=ic',
   },
 ];
 
@@ -51,7 +79,7 @@ const categories = ['Todos', 'Comida Mexicana', 'Premium'];
 function Restaurantes({ onBack }) {
   const [activeFilter, setActiveFilter] = useState('Todos');
 
-  const filteredRestaurantes = restaurantesData.filter(r => 
+  const filteredRestaurantes = restaurantesData.filter(r =>
     activeFilter === 'Todos' ? true : r.category === activeFilter
   );
 
@@ -66,7 +94,7 @@ function Restaurantes({ onBack }) {
           </div>
         </div>
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 

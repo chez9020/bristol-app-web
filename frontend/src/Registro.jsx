@@ -14,7 +14,7 @@ function Registro({ onRegister }) {
   const handleContinue = async (e) => {
     e.preventDefault();
     setErrorMessage('');
-    
+
     if (isFormValid) {
       setIsLoading(true);
       try {
@@ -69,14 +69,14 @@ function Registro({ onRegister }) {
       <div className="registro-overlay-card">
         <div className="registro-header-modern">
           <h1>Regístrate</h1>
-          <p>Ingresa tus datos para acceder.</p>
+          <p>Ingresa el ID unico que llego a tu correo.</p>
         </div>
 
         <form className="registro-form-modern" onSubmit={handleContinue}>
           <div className="input-field-group">
-            <input 
+            <input
               type={showId ? 'text' : 'password'}
-              placeholder="Nombre completo" 
+              placeholder="Nombre completo"
               value={name}
               onChange={(e) => {
                 const val = e.target.value.replace(/\D/g, '').slice(0, 6);
@@ -96,7 +96,7 @@ function Registro({ onRegister }) {
           </div>
 
           <div className="checkbox-agreement-group">
-            <div 
+            <div
               className={`modern-checkbox ${acceptedPolicy ? 'active' : ''}`}
               onClick={() => setAcceptedPolicy(!acceptedPolicy)}
             >
@@ -109,7 +109,7 @@ function Registro({ onRegister }) {
               <a href="#" className="policy-details-link">Ver Política</a>
             </div>
           </div>
-          
+
           {errorMessage && (
             <p className="registro-error-text">
               {errorMessage}
@@ -120,7 +120,7 @@ function Registro({ onRegister }) {
 
       {/* Action Button - Outside the card to match design positioning */}
       <div className="registration-action-container">
-        <button 
+        <button
           onClick={handleContinue}
           className={`registro-continue-button ${!isFormValid || isLoading ? 'disabled' : ''}`}
           disabled={!isFormValid || isLoading}

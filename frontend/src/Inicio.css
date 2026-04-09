@@ -65,42 +65,11 @@
   margin-bottom: 8px;
 }
 
-.camzyos-display-logo {
-  font-family: var(--font-gotham);
-  font-weight: 700;
-  font-size: 52px;
-  letter-spacing: 4px;
-  color: #ffffff;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
-.logo-o-glow-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  margin: 0 4px;
-}
-
-.logo-o-dark {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  /* Darker blue gradient for that glowing ring look */
-  background: radial-gradient(circle at center, #002d72 30%, #4facfe 100%);
-  box-shadow: 0 0 20px rgba(0, 143, 180, 0.5);
-  display: inline-block;
-  border: 1.5px solid rgba(255, 255, 255, 0.8);
-}
-
-.camzyos-display-logo > span:last-child {
-  font-size: 14px;
-  align-self: flex-start;
-  margin-top: 12px;
-  margin-left: -2px;
+.camzyos-main-logo {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 4px;
 }
 
 .main-welcome-title {

@@ -18,9 +18,7 @@ function Inicio({ onEnterMission }) {
       <div className="bottom-interactive-area">
         {/* Logo Camzyos */}
         <div className="branding-container">
-          <h2 className="camzyos-display-logo">
-            CAMZY<span className="logo-o-glow-wrapper"><span className="logo-o-dark"></span></span>S<span>®</span>
-          </h2>
+          <img src="/logo_camyoz.png" alt="Camzyos Logo" className="camzyos-main-logo" />
         </div>
 
         {/* Title */}
