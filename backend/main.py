@@ -220,7 +220,7 @@ async def generar_pdf(id_unico: str):
         agente_doc = db.collection('acceso_agentes').document(id_unico).get()
         if not agente_doc.exists:
             raise HTTPException(status_code=404, detail="Agente no encontrado")
-        nombre_agente = agente_doc.to_dict().get("nombre", "Agente IO")
+        nombre_agente = agente_doc.to_dict().get("nombre", "Agente CAMZYOS")
 
         apuntes_ref = db.collection('acceso_agentes').document(id_unico).collection('apuntes')
         apuntes_docs = apuntes_ref.stream()
@@ -277,11 +277,11 @@ async def generar_pdf(id_unico: str):
             </style>
         </head>
         <body style="background-color: #2f2016;">
-            <h1>IO SUMMIT 2026</h1>
+            <h1>CAMZYOS 2026</h1>
             <div class="subtitle">Libreta de Apuntes Oficiales</div>
             
             <div class="agent-info">
-                <b>Agente IO:</b> {nombre_agente}<br/>
+                <b>Agente CAMZYOS:</b> {nombre_agente}<br/>
                 <b>ID de Misión:</b> {id_unico}
             </div>
         """
@@ -318,7 +318,7 @@ async def generar_pdf(id_unico: str):
         pdf_buffer.seek(0)
         
         headers = {
-            'Content-Disposition': f'attachment; filename="IO_Apuntes_{id_unico}.pdf"'
+            'Content-Disposition': f'attachment; filename="CAMZYOS_Apuntes_{id_unico}.pdf"'
         }
         
         return StreamingResponse(pdf_buffer, media_type="application/pdf", headers=headers)
@@ -358,7 +358,7 @@ async def generar_constancia(id_unico: str):
             raise HTTPException(status_code=404, detail="Agente no encontrado")
         
         agente_data = agente_doc.to_dict()
-        nombre_agente = agente_data.get("nombre", "Agente IO")
+        nombre_agente = agente_data.get("nombre", "Agente CAMZYOS")
 
         # 2. Abrir la imagen de plantilla
         template_path = os.path.join(os.path.dirname(__file__), "constancia-base.png")
@@ -435,7 +435,7 @@ async def generar_constancia(id_unico: str):
         # 7. Enviar PDF como stream descargable
         safe_name = nombre_agente.replace(" ", "_").replace("/", "-")
         headers = {
-            "Content-Disposition": f'attachment; filename="Constancia_IO_SUMMIT_2026_{safe_name}.pdf"'
+            "Content-Disposition": f'attachment; filename="Constancia_CAMZYOS_2026_{safe_name}.pdf"'
         }
         return StreamingResponse(pdf_buffer, media_type="application/pdf", headers=headers)
 

@@ -68,6 +68,34 @@ export const agendaData = {
         id: 'break_viernes',
         time: '11:15 - 11:30',
         title: 'Break'
+      },
+      {
+        id: 'ruta_diagnostico',
+        time: '11:30 - 12:45',
+        title: 'La Ruta del diagnóstico:',
+        description: 'Resolución Casos Clínicos',
+        speakers: ['Dra. Zuilma Vázquez', 'Dra. Jennifer Armenta', 'Dra. Julieta Morales']
+      },
+      {
+        id: 'closing_remarks',
+        time: '12:45 - 13:00',
+        title: 'Closing Remarks',
+        speakers: ['Dr. Guillermo Antonio Llamas']
+      },
+      {
+        id: 'cierre_evento',
+        time: '13:00 - 13:15',
+        title: 'Cierre evento'
+      },
+      {
+        id: 'encuesta_salida',
+        time: '13:00 - 13:15',
+        title: 'Encuesta Salida'
+      },
+      {
+        id: 'comida_viernes',
+        time: '13:15 - 14:15',
+        title: 'Comida'
       }
     ]
   }

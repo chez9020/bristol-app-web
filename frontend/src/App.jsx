@@ -47,17 +47,17 @@ function App() {
         } else {
           localStorage.removeItem('agenteSession');
         }
-      } catch(e) { }
+      } catch (e) { }
     }
     return { screen: 'splash', agente: null };
   };
 
   const initialSession = checkSession();
-  
+
   const [activeTab, setActiveTab] = useState('Inicio');
   const [currentScreen, setCurrentScreen] = useState(initialSession.screen);
   const [agente, setAgente] = useState(initialSession.agente);
-  
+
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
 
@@ -75,7 +75,7 @@ function App() {
   return (
     <div className="app-container">
       <div style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column' }}>
-        
+
         {activeTab === 'Inicio' && (
           <div className="tab-content animate-fade-in">
             <header className="dashboard-header">
@@ -89,40 +89,40 @@ function App() {
             </div>
 
             <main className="dashboard-grid">
-              <GridCard 
-                icon="calendar_today" 
-                title="Agenda" 
-                subtitle="CRONOGRAMA" 
+              <GridCard
+                icon="calendar_today"
+                title="Agenda"
+                subtitle="CRONOGRAMA"
                 onClick={() => setActiveTab('Agenda')}
               />
-              <GridCard 
-                icon="podcasts" 
-                title="Conferencias" 
-                subtitle="EN VIVO" 
+              <GridCard
+                icon="podcasts"
+                title="Conferencias"
+                subtitle="EN VIVO"
                 onClick={() => setActiveTab('Conferencias')}
               />
-              <GridCard 
-                icon="forum" 
-                title="Interacción" 
-                subtitle="NETWORKING" 
+              <GridCard
+                icon="forum"
+                title="Interacción"
+                subtitle="PREGUNTAS"
                 onClick={() => setActiveTab('Interacciones')}
               />
-              <GridCard 
-                icon="map" 
-                title="Logística" 
-                subtitle="UBICACIÓN" 
+              <GridCard
+                icon="map"
+                title="Logística"
+                subtitle="UBICACIÓN"
                 onClick={() => setActiveTab('Logistica')}
               />
-              <GridCard 
-                icon="verified" 
-                title="Constancia" 
-                subtitle="CERTIFICADO" 
+              <GridCard
+                icon="verified"
+                title="Constancia"
+                subtitle="CERTIFICADO"
                 onClick={() => setActiveTab('Constancia')}
               />
-              <GridCard 
-                icon="edit_note" 
-                title="Apuntes" 
-                subtitle="NOTAS" 
+              <GridCard
+                icon="edit_note"
+                title="Apuntes"
+                subtitle="NOTAS"
                 onClick={() => setActiveTab('Apuntes')}
               />
             </main>
@@ -132,35 +132,35 @@ function App() {
         {/* Existing Tab Components (Keeping logic intact) */}
         {activeTab === 'Agenda' && <Agenda onBack={() => setActiveTab('Inicio')} />}
         {activeTab === 'Conferencias' && (
-          <Conferencias 
-            onBack={() => setActiveTab('Inicio')} 
+          <Conferencias
+            onBack={() => setActiveTab('Inicio')}
             onDetalle={(conf) => {
               setSelectedConferencia(conf);
               setActiveTab('Detalle');
-            }} 
+            }}
           />
         )}
         {activeTab === 'Detalle' && (
-          <DetalleConferencias 
+          <DetalleConferencias
             conferencia={selectedConferencia}
-            onBack={() => setActiveTab('Conferencias')} 
+            onBack={() => setActiveTab('Conferencias')}
             onBiografia={(ponente) => {
               setSelectedPonente(ponente);
               setActiveTab('Biografia');
-            }} 
+            }}
           />
         )}
         {activeTab === 'Biografia' && (
-          <BiografiaSpeaker 
+          <BiografiaSpeaker
             ponente={selectedPonente}
-            onBack={() => setActiveTab('Detalle')} 
+            onBack={() => setActiveTab('Detalle')}
           />
         )}
         {activeTab === 'Apuntes' && <Apuntes onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Perfil' && (
-          <Perfil 
-            onBack={() => setActiveTab('Inicio')} 
-            agente={agente} 
+          <Perfil
+            onBack={() => setActiveTab('Inicio')}
+            agente={agente}
             onLogout={() => {
               localStorage.removeItem('agenteSession');
               setAgente(null);
@@ -180,29 +180,29 @@ function App() {
       </div>
 
       <nav className="modern-bottom-nav">
-        <NavItem 
-          icon="home" 
-          label="Inicio" 
-          isActive={activeTab === 'Inicio'} 
-          onClick={() => setActiveTab('Inicio')} 
+        <NavItem
+          icon="home"
+          label="Inicio"
+          isActive={activeTab === 'Inicio'}
+          onClick={() => setActiveTab('Inicio')}
         />
-        <NavItem 
-          icon="event_note" 
-          label="Agenda" 
-          isActive={activeTab === 'Agenda'} 
-          onClick={() => setActiveTab('Agenda')} 
+        <NavItem
+          icon="event_note"
+          label="Agenda"
+          isActive={activeTab === 'Agenda'}
+          onClick={() => setActiveTab('Agenda')}
         />
-        <NavItem 
-          icon="forum" 
-          label="Interacciones" 
-          isActive={activeTab === 'Interacciones'} 
-          onClick={() => setActiveTab('Interacciones')} 
+        <NavItem
+          icon="forum"
+          label="Interacciones"
+          isActive={activeTab === 'Interacciones'}
+          onClick={() => setActiveTab('Interacciones')}
         />
-        <NavItem 
-          icon="person" 
-          label="Perfil" 
-          isActive={activeTab === 'Perfil'} 
-          onClick={() => setActiveTab('Perfil')} 
+        <NavItem
+          icon="person"
+          label="Perfil"
+          isActive={activeTab === 'Perfil'}
+          onClick={() => setActiveTab('Perfil')}
         />
       </nav>
     </div>
