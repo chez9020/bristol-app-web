@@ -61,6 +61,16 @@ function App() {
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
 
+  const handleUpdateAgente = (newAgenteData) => {
+    setAgente(newAgenteData);
+    // Persist to localStorage so it survives refreshes
+    const sessionData = {
+      agente: newAgenteData,
+      timestamp: new Date().getTime()
+    };
+    localStorage.setItem('agenteSession', JSON.stringify(sessionData));
+  };
+
   if (currentScreen === 'splash') {
     return <Inicio onEnterMission={() => setCurrentScreen('registro')} />;
   }
@@ -167,7 +177,7 @@ function App() {
               setCurrentScreen('splash');
               setActiveTab('Inicio');
             }}
-            onUpdateAgente={setAgente}
+            onUpdateAgente={handleUpdateAgente}
           />
         )}
         {activeTab === 'Constancia' && <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />}
