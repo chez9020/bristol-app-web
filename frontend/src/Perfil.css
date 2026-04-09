@@ -61,6 +61,28 @@
   padding: 16px 20px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+}
+
+.perfil-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perfil-input-label {
+  color: #ddbaf6;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding-left: 4px;
+}
+
+.perfil-field-icon {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 18px !important;
 }
 
 .perfil-input-field {

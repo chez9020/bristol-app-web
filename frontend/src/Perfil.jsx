@@ -83,33 +83,52 @@ function Perfil({ onBack, agente, onLogout, onUpdateAgente }) {
       </div>
 
       <div className="perfil-form-section">
-        <div className="perfil-glass-input">
-          <input 
-            type="text" 
-            className="perfil-input-field" 
-            placeholder="Nombre"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            onBlur={handleUpdate}
-          />
+        <div className="perfil-input-group">
+          <label className="perfil-input-label">NOMBRE</label>
+          <div className="perfil-glass-input">
+            <input 
+              type="text" 
+              className="perfil-input-field" 
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <span className="material-icons-round perfil-field-icon">edit</span>
+          </div>
         </div>
 
-        <div className="perfil-glass-input">
-          <input 
-            type="text" 
-            className="perfil-input-field" 
-            placeholder="Apellido"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            onBlur={handleUpdate}
-          />
+        <div className="perfil-input-group">
+          <label className="perfil-input-label">APELLIDO</label>
+          <div className="perfil-glass-input">
+            <input 
+              type="text" 
+              className="perfil-input-field" 
+              placeholder="Apellido"
+              value={apellido}
+              onChange={(e) => setApellido(e.target.value)}
+            />
+            <span className="material-icons-round perfil-field-icon">edit</span>
+          </div>
         </div>
+
+        <button 
+          className="btn-premium-gradient-qa" 
+          onClick={handleUpdate}
+          disabled={isLoading}
+          style={{ marginTop: '10px' }}
+        >
+          <span className="material-icons-round">save</span>
+          <span>{isLoading ? 'Guardando...' : 'Guardar cambios'}</span>
+        </button>
       </div>
 
       <div className="perfil-actions">
         <button className="btn-logout" onClick={onLogout}>
           Cerrar sesión
         </button>
+        <div className="perfil-footer-id">
+          ID DE MISIÓN: {agente?.id}
+        </div>
       </div>
 
     </div>
