@@ -1,103 +1,80 @@
-export const agendaEvents = [
-  // VIERNES
-  {
-    id: "apertura_viernes",
-    day: "Viernes",
-    time: "19:00 - 19:05",
-    module: "",
-    title: "Apertura y bienvenida",
-    presenter: "IO Business Unit Leaders",
-    details: "19:00 - 19:05 • Playa del Carmen"
+export const agendaData = {
+  Jueves: {
+    date: '16 Abril',
+    title: 'Jueves 16 de Abril',
+    items: [
+      {
+        id: 'bienvenida_jueves',
+        time: '18:00 - 18:10',
+        title: 'Bienvenida'
+      },
+      {
+        id: 'retos_diagnosticos',
+        time: '18:10 - 19:10',
+        title: 'Retos Diagnosticos de MCHo:',
+        description: 'Desde la clínica hasta la imagen',
+        speakers: ['Dr. Enrique Berrios', 'Dra. Julieta Morales']
+      },
+      {
+        id: 'mch_obstructiva_1',
+        time: '19:10 - 19:40',
+        title: 'MCH Obstructiva:',
+        description: 'Limitaciones del tratamiento convencional y retos en la práctica clínica',
+        speakers: ['Dr. Adrián Fernández']
+      },
+      {
+        id: 'break_jueves',
+        time: '19:40 - 19:55',
+        title: 'Break'
+      },
+      {
+        id: 'mch_obstructiva_2',
+        time: '19:55 - 20:25',
+        title: 'MCH Obstructiva:',
+        description: 'Evolución del tratamiento farmacológico hasta terapias dirigidas. “CENA”',
+        speakers: ['Dr. Enrique Berrios']
+      }
+    ]
   },
-  {
-    id: "ia_2026",
-    day: "Viernes",
-    time: "19:05 - 19:30",
-    module: "",
-    title: "IA 2026: Estrategia, Tendencias y Cómo Construir Soluciones en Minutos",
-    presenter: "Pepe Ocadiz",
-    details: "19:05 - 19:30 • Playa del Carmen"
-  },
-  {
-    id: "modulo_torax",
-    day: "Viernes",
-    time: "19:30 - 21:00",
-    module: "MÓDULO TÓRAX",
-    title: "¿Por qué la durabilidad redefine la elección de tratamiento en CPCNP?",
-    presenter: "Panel de Expertos",
-    details: "19:30 - 21:00 • Playa del Carmen"
-  },
-  // SÁBADO
-  {
-    id: "bienvenida_sabado",
-    day: "Sábado",
-    time: "8:00 - 8:05",
-    module: "",
-    title: "Bienvenida",
-    presenter: "IO Business Unit Leaders",
-    details: "8:00 - 8:05 • Playa del Carmen"
-  },
-  {
-    id: "modulo_gi",
-    day: "Sábado",
-    time: "8:05 - 9:35",
-    module: "MÓDULO GI",
-    title: "Tumores Gastroesofágicos, una nueva era en su abordaje",
-    presenter: "Panel de Expertos",
-    details: "8:05 - 9:35 • Playa del Carmen"
-  },
-  {
-    id: "modulo_melanoma",
-    day: "Sábado",
-    time: "9:50 - 11:20",
-    module: "MÓDULO MELANOMA",
-    title: "Del Perfil Clínico a la Decisión Terapéutica",
-    presenter: "Panel de Expertos",
-    details: "9:50 - 11:20 • Playa del Carmen"
-  },
-  {
-    id: "modulo_gu",
-    day: "Sábado",
-    time: "11:35 - 13:05",
-    module: "MÓDULO GU",
-    title: "Tomando Decisiones Críticas en RCC",
-    presenter: "Panel de Expertos",
-    details: "11:35 - 13:05 • Playa del Carmen"
-  },
-  {
-    id: "expert_meeting_1",
-    day: "Sábado",
-    time: "13:15 - 13:45",
-    module: "",
-    title: "Expert Meeting Melanoma / Tórax / GI / GU (Turno 1)",
-    presenter: "Panel de Expertos",
-    details: "13:15 - 13:45 • Salas Breakout"
-  },
-  {
-    id: "expert_meeting_2",
-    day: "Sábado",
-    time: "13:50 - 14:20",
-    module: "",
-    title: "Expert Meeting Melanoma / Tórax / GI / GU (Turno 2)",
-    presenter: "Panel de Expertos",
-    details: "13:50 - 14:20 • Salas Breakout"
-  },
-  {
-    id: "expert_meeting_3",
-    day: "Sábado",
-    time: "14:25 - 14:55",
-    module: "",
-    title: "Expert Meeting Melanoma / Tórax / GI / GU (Turno 3)",
-    presenter: "Panel de Expertos",
-    details: "14:25 - 14:55 • Salas Breakout"
-  },
-  {
-    id: "expert_meeting_4",
-    day: "Sábado",
-    time: "15:00 - 15:30",
-    module: "",
-    title: "Expert Meeting Melanoma / Tórax / GI / GU (Turno 4)",
-    presenter: "Panel de Expertos",
-    details: "15:00 - 15:30 • Salas Breakout"
+  Viernes: {
+    date: '17 Abril',
+    title: 'Viernes 17 de Abril',
+    items: [
+      {
+        id: 'desayuno_viernes',
+        time: '8:00 - 09:00',
+        title: 'Desayuno'
+      },
+      {
+        id: 'inhibicion_miosina',
+        time: '9:00 - 10:00',
+        title: 'La Inhibición de la miosina cardíaca:',
+        description: 'Rompiendo paradigmas en el tratamiento de MCHo',
+        speakers: ['Dr. Roberto Barriales']
+      },
+      {
+        id: 'evidencia_clinica',
+        time: '10:00 - 10:45',
+        title: 'De la evidencia clínica de largo plazo hacia datos del mundo real',
+        speakers: ['Dr. Adrián Fernández']
+      },
+      {
+        id: 'panel_discusion',
+        time: '10:45 - 11:15',
+        title: 'Panel de discusión',
+        speakers: ['Dr. Roberto Barriales', 'Dr. Adrián Fernández', 'Dr. Guillermo Antonio Llamas']
+      },
+      {
+        id: 'break_viernes',
+        time: '11:15 - 11:30',
+        title: 'Break'
+      }
+    ]
   }
+};
+
+// Flatten version for compatibility with components expecting an array
+export const agendaEvents = [
+  ...agendaData.Jueves.items,
+  ...agendaData.Viernes.items
 ];

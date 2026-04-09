@@ -176,16 +176,35 @@ async def get_preguntas(session_id: str, id_unico: str = None):
         
         docs = query.stream()
         preguntas = []
+        
+        # Cache for agent names to avoid redundant Firestore reads
+        nombres_cache = {}
+
         for doc in docs:
             data = doc.to_dict()
-            # If id_unico is provided, filter normally. 
-            if id_unico and data.get("id_unico") != id_unico:
+            uid = data.get("id_unico")
+            
+            # If id_unico is provided as filter, only show that user's questions
+            if id_unico and uid != id_unico:
                 continue
+            
+            nombre = "Anónimo"
+            if uid:
+                if uid in nombres_cache:
+                    nombre = nombres_cache[uid]
+                else:
+                    agente_doc = db.collection('acceso_agentes').document(uid).get()
+                    if agente_doc.exists:
+                        # Fallback for old records or different naming conventions
+                        agente_data = agente_doc.to_dict()
+                        nombre = agente_data.get("nombre") or agente_data.get("Nombre") or uid
+                    nombres_cache[uid] = nombre
                 
             preguntas.append({
                 "id": doc.id,
                 "pregunta": data.get("pregunta", ""),
-                "id_unico": data.get("id_unico", "")
+                "id_unico": uid,
+                "nombre": nombre
             })
             
         return {"success": True, "preguntas": preguntas}

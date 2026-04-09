@@ -1,73 +1,9 @@
 import { useState } from 'react';
 import './Agenda.css';
+import { agendaData } from './agendaData';
 
 function Agenda({ onBack }) {
   const [activeDay, setActiveDay] = useState('Jueves');
-
-  const agendaData = {
-    Jueves: {
-      date: '16 Abril',
-      title: 'Jueves 16 de Abril',
-      items: [
-        {
-          time: '18:00 - 18:10',
-          title: 'Bienvenida'
-        },
-        {
-          time: '18:10 - 19:10',
-          title: 'Retos Diagnosticos de MCHo:',
-          description: 'Desde la clínica hasta la imagen',
-          speakers: ['Dr. Enrique Berrios', 'Dra. Julieta Morales']
-        },
-        {
-          time: '19:10 - 19:40',
-          title: 'MCH Obstructiva:',
-          description: 'Limitaciones del tratamiento convencional y retos en la práctica clínica',
-          speakers: ['Dr. Adrián Fernández']
-        },
-        {
-          time: '19:40 - 19:55',
-          title: 'Break'
-        },
-        {
-          time: '19:55 - 20:25', // Adjusted from Figma parallel time to be sequential
-          title: 'MCH Obstructiva:',
-          description: 'Evolución del tratamiento farmacológico hasta terapias dirigidas. “CENA”',
-          speakers: ['Dr. Enrique Berrios']
-        }
-      ]
-    },
-    Viernes: {
-      date: '17 Abril',
-      title: 'Viernes 17 de Abril',
-      items: [
-        {
-          time: '8:00 - 09:00',
-          title: 'Desayuno'
-        },
-        {
-          time: '9:00 - 10:00',
-          title: 'La Inhibición de la miosina cardíaca:',
-          description: 'Rompiendo paradigmas en el tratamiento de MCHo',
-          speakers: ['Dr. Roberto Barriales']
-        },
-        {
-          time: '10:00 - 10:45',
-          title: 'De la evidencia clínica de largo plazo hacia datos del mundo real',
-          speakers: ['Dr. Adrián Fernández']
-        },
-        {
-          time: '10:45 - 11:15',
-          title: 'Panel de discusión',
-          speakers: ['Dr. Roberto Barriales', 'Dr. Adrián Fernández', 'Dr. Guillermo Antonio Llamas']
-        },
-        {
-          time: '11:15 - 11:30',
-          title: 'Break'
-        }
-      ]
-    }
-  };
 
   const currentData = agendaData[activeDay];
 
