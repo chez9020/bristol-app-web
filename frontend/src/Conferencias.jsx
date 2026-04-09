@@ -2,43 +2,37 @@ import React, { useState, useEffect } from 'react';
 import './Conferencias.css';
 import { conferenciasData } from './conferenciasData';
 
-// Helper time-checker
 function checkIsLive(fecha, inicio, fin) {
   const now = new Date();
   const yyyy = now.getFullYear();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
   const dd = String(now.getDate()).padStart(2, '0');
   const todayStr = `${yyyy}-${mm}-${dd}`;
-  
   const hh = String(now.getHours()).padStart(2, '0');
   const mins = String(now.getMinutes()).padStart(2, '0');
   const timeStr = `${hh}:${mins}`;
 
   if (todayStr === fecha) {
-    if (timeStr >= inicio && timeStr <= fin) {
-      return true;
-    }
+    if (timeStr >= inicio && timeStr <= fin) return true;
   }
   return false;
 }
 
 function Conferencias({ onBack, onDetalle }) {
   const [activeFilter, setActiveFilter] = useState('Todas las Sesiones');
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentTime, setCurrentTime] = useState(Date.now());
 
   useEffect(() => {
-    // Re-render every 30s to check live status
     const intervalId = setInterval(() => setCurrentTime(Date.now()), 30000);
     return () => clearInterval(intervalId);
   }, []);
 
-  // Filter based on activeFilter (Pills)
   const filteredData = conferenciasData.filter(conf => {
-    if (activeFilter === 'Todas las Sesiones') return true;
-    // Assuming 'Breaks Outs' would match specific modules or maybe adding a flag
-    // Currently, let's just make it return nothing if it doesn't match a generic rule, 
-    // or simulate that none of these are breakouts.
-    return activeFilter === 'Breaks Outs' ? conf.modulo.toLowerCase().includes('break') : true;
+    const matchesFilter = activeFilter === 'Todas las Sesiones' ? true : conf.modulo.toLowerCase().includes('break');
+    const matchesSearch = conf.titulo.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         conf.ponentes.some(p => p.nombre.toLowerCase().includes(searchTerm.toLowerCase()));
+    return matchesFilter && matchesSearch;
   });
 
   const liveConferencias = filteredData.filter(conf => checkIsLive(conf.fecha, conf.horario_inicio, conf.horario_fin));
@@ -46,23 +40,19 @@ function Conferencias({ onBack, onDetalle }) {
 
   return (
     <div className="conferencias-container animate-fade-in">
-      {/* Header Info */}
-      <div className="perfil-header-area" style={{ borderBottom: 'none' }}>
-        <div className="perfil-header-text">
+      <header className="agenda-header">
+        <div className="agenda-header-text">
           <h1>Conferencias</h1>
-          <div className="perfil-header-subtitle">
-            <span className="material-icons-round">event</span>
-            <span>IO SUMMIT 2026 • Playa del Carmen</span>
+          <div className="agenda-location">
+            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>event</span>
+            <span>CAMZYOS® • Cancún</span>
           </div>
         </div>
-        <div className="back-button" onClick={onBack}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        <div className="back-btn-circle" onClick={onBack}>
+          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
         </div>
-      </div>
+      </header>
 
-      {/* Controls & Search */}
       <div className="conferencias-controls">
         <div className="c-search-wrapper">
           <span className="material-icons-round c-search-icon">search</span>
@@ -70,26 +60,24 @@ function Conferencias({ onBack, onDetalle }) {
             type="text" 
             className="c-search-input" 
             placeholder="Filtrar por ponente o tema..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         
         <div className="c-pills-row">
-          <div 
-            className={`c-pill ${activeFilter === 'Todas las Sesiones' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('Todas las Sesiones')}
-          >
-            Todas las Sesiones
-          </div>
-          <div 
-            className={`c-pill ${activeFilter === 'Breaks Outs' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('Breaks Outs')}
-          >
-            Breaks Outs
-          </div>
+          {['Todas las Sesiones', 'Breaks Outs'].map(pill => (
+            <div 
+              key={pill}
+              className={`c-pill ${activeFilter === pill ? 'active' : ''}`}
+              onClick={() => setActiveFilter(pill)}
+            >
+              {pill}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Live Now Section */}
       {liveConferencias.length > 0 && (
         <div className="c-section">
           <div className="c-section-header">
@@ -97,45 +85,35 @@ function Conferencias({ onBack, onDetalle }) {
               <h2 className="c-section-title">En Vivo Ahora</h2>
               <div className="c-live-dot"></div>
             </div>
+            <span className="c-ver-todo">Ver todo</span>
           </div>
           
           {liveConferencias.map(conf => (
-            <div key={conf.id} className="c-live-card" style={{ marginBottom: '16px' }}>
+            <div key={conf.id} className="c-live-card">
               <div className="c-live-card-top">
                 <span className="c-badge-live">EN VIVO</span>
-                <span className="c-live-meta">{conf.sala} • {conf.horario_inicio} - {conf.horario_fin}</span>
+                <span className="c-live-meta">{conf.horario_inicio} - {conf.horario_fin}</span>
               </div>
-              
               <h3>{conf.titulo}</h3>
-              
               <div className="c-live-card-bottom">
                 <div className="c-speaker-info">
-                  {conf.ponentes.length > 0 && (
+                  {conf.ponentes[0] && (
                     <>
-                      <img 
-                        src={conf.ponentes[0].foto} 
-                        alt={conf.ponentes[0].nombre} 
-                        className="c-speaker-img"
-                      />
+                      <img src={conf.ponentes[0].foto} alt="Speaker" className="c-speaker-img" />
                       <div className="c-speaker-text">
-                        <span className="c-speaker-name" style={{ fontSize: '13px' }}>
-                          {conf.ponentes.length > 1 ? `${conf.ponentes[0].nombre} y más...` : conf.ponentes[0].nombre}
-                        </span>
-                        <span className="c-speaker-role">{conf.ponentes[0].puesto}</span>
+                        <span className="c-speaker-name">{conf.ponentes[0].nombre}</span>
+                        <span className="c-speaker-role">{conf.ponentes[0].puesto?.split(',')[0]}</span>
                       </div>
                     </>
                   )}
                 </div>
-                <button className="c-btn-details" onClick={() => onDetalle(conf)}>
-                  Ver detalles
-                </button>
+                <button className="c-btn-details" onClick={() => onDetalle(conf)}>Ver detalles</button>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Upcoming Section Grouped by Date */}
       {Object.entries(upcomingConferencias.reduce((acc, conf) => {
         if (!acc[conf.fecha]) acc[conf.fecha] = [];
         acc[conf.fecha].push(conf);
@@ -143,26 +121,19 @@ function Conferencias({ onBack, onDetalle }) {
       }, {})).map(([fecha, conferenciasDelDia]) => (
         <div key={fecha} className="c-section">
           <div className="c-section-header">
-            <h2 className="c-section-title">Programación</h2>
+            <h2 className="c-section-title">Próximas</h2>
             <span className="c-section-subtitle">
-              {fecha === '2026-03-06' ? 'Viernes 6 de Marzo' : 
-               fecha === '2026-03-07' ? 'Sábado 7 de Marzo' : 
-               fecha}
+              {fecha === '2026-04-16' ? 'Jueves 16 de Abril' : 'Viernes 17 de Abril'}
             </span>
           </div>
-          
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {conferenciasDelDia.map(conf => (
               <div key={conf.id} className="c-upcoming-card" onClick={() => onDetalle(conf)}>
-                <div className="c-upcoming-time">
-                  {conf.horario_inicio}
-                </div>
+                <div className="c-upcoming-time">{conf.horario_inicio}</div>
                 <div className="c-upcoming-content">
-                  <h4>{conf.titulo.length > 50 ? conf.titulo.substring(0, 50) + '...' : conf.titulo}</h4>
+                  <h4>{conf.titulo.length > 60 ? conf.titulo.substring(0, 60) + '...' : conf.titulo}</h4>
                   <div className="c-upcoming-speakers">
-                    {conf.ponentes.map((p, index) => (
-                      <span key={p.id || index}>{p.nombre}</span>
-                    ))}
+                    {conf.ponentes.map(p => p.nombre).join(', ')}
                   </div>
                 </div>
               </div>

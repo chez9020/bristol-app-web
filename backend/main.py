@@ -17,9 +17,12 @@ from reportlab.pdfgen import canvas as rl_canvas
 from reportlab.lib.utils import ImageReader
 
 def get_db():
-    # Inicializa Firebase de forma lazy para evitar problemas con Cloud Run y Uvicorn
+    # Inicializa Firebase de forma lazy usando Application Default Credentials (ADC)
     if not firebase_admin._apps:
-        firebase_admin.initialize_app()
+        firebase_admin.initialize_app(options={
+            'storageBucket': 'shaq-brand-bot.firebasestorage.app',
+            'projectId': 'shaq-brand-bot'
+        })
     return firestore.client()
 
 app = FastAPI(title="Agentes iO Backend")
@@ -40,13 +43,11 @@ class LoginRequest(BaseModel):
 async def login(request: LoginRequest):
     id_unico = request.id_unico
     
-    # Validar que cumpla la regla de los 6 dígitos por seguridad aquí en el server también
     if not id_unico.isdigit() or len(id_unico) != 6:
         raise HTTPException(status_code=400, detail="El ID debe ser de 6 números exactos")
         
     try:
         db = get_db()
-        # Consultar la colección en Firestore
         doc_ref = db.collection('acceso_agentes').document(id_unico)
         doc = doc_ref.get()
         
@@ -54,19 +55,13 @@ async def login(request: LoginRequest):
             raise HTTPException(status_code=401, detail="ID Invalido - Misión Rechazada")
             
         agente_data = doc.to_dict()
-        # Asegurar que incluimos el id en la respuesta si no está en el documento
         if "id" not in agente_data:
             agente_data["id"] = doc.id
             
-        return {
-            "success": True, 
-            "agente": agente_data
-        }
-    except HTTPException:
-        raise
+        return {"success": True, "agente": agente_data}
     except Exception as e:
         print(f"Error al consultar Firestore: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con Firestore: " + str(e))
+        raise HTTPException(status_code=500, detail="Error de conexión con Firestore: " + str(error))
 
 class UpdateRequest(BaseModel):
     id_unico: str
@@ -101,13 +96,8 @@ async def upload_agente_foto(id_unico: str = Form(...), file: UploadFile = File(
             raise HTTPException(status_code=400, detail="El archivo no es una imagen")
             
         # Initialize Google Cloud Storage Client (will use the same credentials configured in the environment)
-        storage_client = gcp_storage.Client()
-        bucket_name = 'fotos_perfil_bristol'
-        
-        bucket = storage_client.bucket(bucket_name)
-        if not bucket.exists():
-            # Si no ha sido creado, lo creamos forzando a que sea público en lectura
-            bucket = storage_client.create_bucket(bucket_name)
+        # Acceder al bucket configurado por defecto en la inicialización (ADC)
+        bucket = firebase_admin.storage.bucket()
         
         # Create a unique filename based on the agent's ID and timestamp to break cache
         file_extension = file.filename.split('.')[-1]

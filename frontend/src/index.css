@@ -3,14 +3,14 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 :root {
-  --color-bg-main: #2F2016;
-  --color-bg-card: #2a1d15;
-  --color-primary: #00B4D8;
-  --color-primary-transparent: rgba(0, 180, 216, 0.1);
+  --color-bg-main: #0a041c;
+  --color-bg-card: rgba(80, 41, 137, 0.3);
+  --color-primary: #8347ad;
+  --color-primary-transparent: rgba(131, 71, 173, 0.1);
   --color-text-light: #94a3b8;
   --color-text-white: #ffffff;
-  --color-nav-bg: rgba(47, 32, 22, 0.9);
-  --color-nav-border: rgba(255, 255, 255, 0.1);
+  --color-nav-bg: #130e35;
+  --color-nav-border: rgba(255, 255, 255, 0.2);
   
   --font-inter: 'Inter', sans-serif;
   --font-mono: 'Liberation Mono', monospace;

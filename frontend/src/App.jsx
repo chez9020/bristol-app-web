@@ -15,26 +15,22 @@ import Logistica from './Logistica.jsx';
 // NavItem and GridCard
 function NavItem({ icon, label, isActive, onClick }) {
   return (
-    <div className={`nav-item ${isActive ? 'active' : ''}`} onClick={onClick}>
-      <span className="material-icons-round nav-icon">{icon}</span>
-      <span className="nav-label">{label}</span>
+    <div className={`modern-nav-item ${isActive ? 'active' : ''}`} onClick={onClick}>
+      <span className="material-icons-round nav-icon-modern">{icon}</span>
+      <span className="nav-label-modern">{label}</span>
     </div>
   );
 }
 
 function GridCard({ icon, title, subtitle, onClick }) {
   return (
-    <div className="grid-card" onClick={onClick}>
-      <div className="card-top-right-border"></div>
-      <div className="card-bottom-left-border"></div>
-      
-      <div className="card-icon-wrapper">
-        <span className="material-icons-round card-icon">{icon}</span>
+    <div className="dashboard-card" onClick={onClick}>
+      <div className="card-icon-container">
+        <span className="material-icons-round card-icon-gradient">{icon}</span>
       </div>
-      
-      <div className="card-content">
-        <h3 className="card-title">{title}</h3>
-        <p className="card-subtitle">{subtitle}</p>
+      <div className="card-info">
+        <h3 className="card-title-main">{title}</h3>
+        <p className="card-subtitle-secondary">{subtitle}</p>
       </div>
     </div>
   );
@@ -46,13 +42,12 @@ function App() {
     if (saved) {
       try {
         const data = JSON.parse(saved);
-        // Verificar si la sesión es menor a 6 horas (6h * 60m * 60s * 1000ms = 21600000ms)
         if (new Date().getTime() - data.timestamp < 21600000) {
           return { screen: 'app', agente: data.agente };
         } else {
           localStorage.removeItem('agenteSession');
         }
-      } catch(e) { /* ignore parse error */ }
+      } catch(e) { }
     }
     return { screen: 'splash', agente: null };
   };
@@ -60,10 +55,9 @@ function App() {
   const initialSession = checkSession();
   
   const [activeTab, setActiveTab] = useState('Inicio');
-  const [currentScreen, setCurrentScreen] = useState(initialSession.screen); // 'splash', 'registro', 'app'
+  const [currentScreen, setCurrentScreen] = useState(initialSession.screen);
   const [agente, setAgente] = useState(initialSession.agente);
   
-  // Data State for deep navigation
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
 
@@ -73,83 +67,58 @@ function App() {
 
   if (currentScreen === 'registro') {
     return <Registro onRegister={(agenteData) => {
-      console.log("Agente autenticado:", agenteData);
       setAgente(agenteData);
       setCurrentScreen('app');
     }} />;
   }
 
-  // Generate dynamic avatar or use uploaded photo for the header display
-  const headerAvatarUrl = agente?.foto_url || `https://ui-avatars.com/api/?name=${agente?.nombre || 'Agente IO'}&background=3e2c20&color=008fb4&size=128&bold=true`;
-
   return (
     <div className="app-container">
-      {/* Dynamic Content Wrapper to push the bottom-code-indicator down */}
       <div style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column' }}>
         
-        {/* Content Area */}
         {activeTab === 'Inicio' && (
           <div className="tab-content animate-fade-in">
-            {/* Header Info */}
-            <header className="home-header">
-              <div className="summit-title-container">
-                <div className="security-icon-badge">
-                  <img src={headerAvatarUrl} alt="Avatar" className="header-avatar-img" />
-                </div>
-                <div className="summit-title-text">
-                  <h1>IO SUMMIT 2026</h1>
-                  <p>Agente IO {agente?.nombre ? `- ${agente.nombre}` : ''}</p>
-                </div>
-              </div>
-              <div className="mission-status-badge">
-                <div className="status-dot-container">
-                  <div className="status-dot-glow"></div>
-                  <div className="status-dot"></div>
-                </div>
-                <p className="status-text">
-                  <span>ESTADO DE LA MISIÓN: </span>
-                  <span className="status-active">ACTIVA</span>
-                </p>
-              </div>
+            <header className="dashboard-header">
+              <h1>CAMZYOS<span>®</span> 2026</h1>
+              <p>Cambiando paradigmas</p>
             </header>
 
-            {/* Main Grid */}
-            <main className="cards-grid">
+            <div className="welcome-status-bar">
+              <div className="status-dot-lilac"></div>
+              <span>Hola, {agente?.nombre || 'Bienvenido'}</span>
+            </div>
+
+            <main className="dashboard-grid">
               <GridCard 
                 icon="calendar_today" 
                 title="Agenda" 
                 subtitle="CRONOGRAMA" 
                 onClick={() => setActiveTab('Agenda')}
               />
-              
               <GridCard 
                 icon="podcasts" 
                 title="Conferencias" 
                 subtitle="EN VIVO" 
                 onClick={() => setActiveTab('Conferencias')}
               />
-              
               <GridCard 
                 icon="forum" 
                 title="Interacción" 
                 subtitle="NETWORKING" 
                 onClick={() => setActiveTab('Interacciones')}
               />
-              
               <GridCard 
                 icon="map" 
                 title="Logística" 
                 subtitle="UBICACIÓN" 
                 onClick={() => setActiveTab('Logistica')}
               />
-              
               <GridCard 
                 icon="verified" 
                 title="Constancia" 
                 subtitle="CERTIFICADO" 
                 onClick={() => setActiveTab('Constancia')}
               />
-              
               <GridCard 
                 icon="edit_note" 
                 title="Apuntes" 
@@ -160,10 +129,8 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'Agenda' && (
-          <Agenda onBack={() => setActiveTab('Inicio')} />
-        )}
-
+        {/* Existing Tab Components (Keeping logic intact) */}
+        {activeTab === 'Agenda' && <Agenda onBack={() => setActiveTab('Inicio')} />}
         {activeTab === 'Conferencias' && (
           <Conferencias 
             onBack={() => setActiveTab('Inicio')} 
@@ -173,7 +140,6 @@ function App() {
             }} 
           />
         )}
-
         {activeTab === 'Detalle' && (
           <DetalleConferencias 
             conferencia={selectedConferencia}
@@ -184,18 +150,13 @@ function App() {
             }} 
           />
         )}
-
         {activeTab === 'Biografia' && (
           <BiografiaSpeaker 
             ponente={selectedPonente}
             onBack={() => setActiveTab('Detalle')} 
           />
         )}
-
-        {activeTab === 'Apuntes' && (
-          <Apuntes onBack={() => setActiveTab('Inicio')} agente={agente} />
-        )}
-
+        {activeTab === 'Apuntes' && <Apuntes onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Perfil' && (
           <Perfil 
             onBack={() => setActiveTab('Inicio')} 
@@ -209,38 +170,16 @@ function App() {
             onUpdateAgente={setAgente}
           />
         )}
-
-        {activeTab === 'Constancia' && (
-          <Constancia 
-            onBack={() => setActiveTab('Inicio')} 
-            agente={agente}
-          />
-        )}
-
-        {activeTab === 'Interacciones' && (
-          <Votaciones 
-            onBack={() => setActiveTab('Inicio')} 
-            agente={agente}
-          />
-        )}
-
-        {activeTab === 'Logistica' && (
-          <Logistica 
-            onBack={() => setActiveTab('Inicio')} 
-          />
-        )}
+        {activeTab === 'Constancia' && <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />}
+        {activeTab === 'Interacciones' && <Votaciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
+        {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}
       </div>
 
-      {/* Bottom Code Indicator ALWAYS AFTER THE GROWING DIV */}
-      {/* We stop hiding it for Detalle/Biografia because we want it shown on ALL SCREENS. It will flow naturally. */}
-      <div className="bottom-code-indicator with-nav">
-        7356-MX-2600009
+      <div className="modern-legal-footer">
+        3500-MX-2600044
       </div>
 
-
-
-      {/* Navigation */}
-      <nav className="bottom-nav">
+      <nav className="modern-bottom-nav">
         <NavItem 
           icon="home" 
           label="Inicio" 

@@ -1,146 +1,124 @@
-/* MapaEvento.css */
-
 .mapa-evento-container {
-  width: 100%;
+  padding-bottom: 40px;
   min-height: 100vh;
-  background-color: #2f2016;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
 }
 
-/* Content */
 .mapa-evento-content {
-  padding: 24px 16px;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* Map Card */
 .map-view-card {
-  background-color: #2a1d15;
+  background: linear-gradient(180deg, rgba(80, 41, 137, 0.4) 0%, rgba(1, 44, 99, 0.4) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .map-view-hero {
-  position: relative;
-  width: 100%;
-  background-color: white; /* Background for map image */
-  padding: 16px;
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .map-view-img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   object-fit: contain;
-  display: block;
 }
 
 .map-view-actions {
-  padding: 16px;
+  padding: 24px;
   display: flex;
+  justify-content: center;
 }
 
 .btn-download-map {
-  flex: 1;
-  background-color: #008fb4;
-  color: white;
+  background: linear-gradient(93deg, #012c63 0%, #8a51b0 100%);
   border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Inter', sans-serif;
+  border-radius: 12px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  font-family: var(--font-gotham);
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.1s;
+  box-shadow: 0 4px 15px rgba(131, 71, 173, 0.3);
+  transition: transform 0.2s ease;
 }
 
 .btn-download-map:active {
   transform: scale(0.98);
 }
 
-.btn-download-map .material-icons-round {
-  font-size: 18px;
-}
-
-/* Salones y Sesiones Section */
 .salones-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .salones-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  color: white;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
   margin: 0;
 }
 
 .salones-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
-/* Salon Row Item */
 .salon-card {
-  background-color: #3e2c20;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.salon-card:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .salon-info {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .salon-name {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-gotham);
   font-weight: 700;
   font-size: 16px;
-  color: white;
+  color: #ffffff;
   margin: 0;
 }
 
 .salon-session {
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.4;
-  color: #d1d5db; /* Light gray text for session detail */
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
   margin: 0;
-  white-space: pre-wrap; /* allow explicit \n breaks for multiline session text */
 }
 
 .salon-icon {
-  margin-left: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.salon-icon .material-icons-round {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 22px;
+  color: rgba(255, 255, 255, 0.5);
 }

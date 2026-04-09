@@ -5,16 +5,14 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: var(--color-bg-main);
-  /* The blur overlays you requested on Figma */
-  box-shadow: inset 0 -80px 150px rgba(0, 143, 180, 0.2); 
+  background-color: #0b061a;
 }
 
 .inicio-background {
   position: absolute;
   top: 0;
-  left: -4%; /* Small absolute adjustment from Figma */
-  width: 108%;
+  left: 0;
+  width: 100%;
   height: 100%;
   z-index: 1;
 }
@@ -23,117 +21,143 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center 25%; /* Positioning the heart in the upper middle area */
   pointer-events: none;
 }
 
-/* Gradient to ensure logo readability */
-.top-gradient-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(180deg, rgba(20, 15, 12, 0.8) 0%, rgba(20, 15, 12, 0) 100%);
-  z-index: 2;
+.white-logo {
+  filter: brightness(0) invert(1);
 }
 
-.bms-logo-container {
+.bms-logo-top {
   position: absolute;
-  top: 48px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 193px;
-  height: 27px;
-  z-index: 3;
+  width: 200px;
+  z-index: 10;
 }
 
-.bms-logo-container img {
+.bms-logo-top img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
-  pointer-events: none;
 }
 
-/* Bottom elements holder */
-.bottom-content-area {
+/* Bottom elements holder - ensuring it stays at the bottom and doesn't push up */
+.bottom-interactive-area {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50%; /* Gradual dark fade up to half the screen */
-  background: linear-gradient(0deg, rgba(30,20,15, 1) 0%, rgba(30,20,15, 0.95) 45%, rgba(30,20,15, 0) 100%);
-  z-index: 3;
+  height: 50%; /* Strictly bottom half */
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 45px;
+  padding-bottom: 24px;
+  /* Dark fade to ensure text readability over background */
+  background: linear-gradient(180deg, rgba(11, 6, 26, 0) 0%, rgba(11, 6, 26, 0.8) 40%, rgba(11, 6, 26, 1) 100%);
 }
 
-.welcome-title {
+.branding-container {
+  margin-bottom: 8px;
+}
+
+.camzyos-display-logo {
   font-family: var(--font-gotham);
-  font-style: italic;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 45px;
+  font-weight: 700;
+  font-size: 52px;
+  letter-spacing: 4px;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo-o-glow-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 4px;
+}
+
+.logo-o-dark {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  /* Darker blue gradient for that glowing ring look */
+  background: radial-gradient(circle at center, #002d72 30%, #4facfe 100%);
+  box-shadow: 0 0 20px rgba(0, 143, 180, 0.5);
+  display: inline-block;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+}
+
+.camzyos-display-logo > span:last-child {
+  font-size: 14px;
+  align-self: flex-start;
+  margin-top: 12px;
+  margin-left: -2px;
+}
+
+.main-welcome-title {
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 40px;
   text-align: center;
-  color: #f26322; /* Bristol orange */
-  text-transform: uppercase;
-  letter-spacing: -0.9px;
-  margin: 0 0 16px 0;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  color: #ffffff;
+  margin: 0 0 12px 0;
 }
 
-.welcome-subtitle {
+.main-welcome-subtitle {
   font-family: var(--font-gotham);
-  font-style: italic;
   font-weight: 400;
   font-size: 20px;
-  line-height: 25px;
+  line-height: 26px;
   text-align: center;
-  color: var(--color-text-white);
+  color: #ffffff;
   margin: 0 0 40px 0;
+  opacity: 0.9;
 }
 
-/* The solid blue button with shadow */
-.primary-enter-button {
+.camzyos-primary-button {
   width: calc(100% - 64px);
-  max-width: 326px;
-  height: 60px;
-  background-color: var(--color-primary);
+  max-width: 340px;
+  height: 64px;
+  background: linear-gradient(90deg, #002D72 0%, #8A51B0 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0px 10px 15px -3px rgba(0, 143, 180, 0.3), 0px 4px 6px -4px rgba(0, 143, 180, 0.2);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 50px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 60px;
 }
 
-.primary-enter-button:hover {
-  background-color: #00A1C2;
+.camzyos-primary-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0px 12px 20px -3px rgba(0, 143, 180, 0.4);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
 }
 
-.primary-enter-button:active {
-  transform: translateY(1px);
-}
-
-.primary-enter-button span {
+.camzyos-primary-button span {
   font-family: var(--font-gotham);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   color: #ffffff;
 }
 
-.button-arrow {
-  font-size: 24px !important;
+.legal-reference-bottom {
+  font-family: var(--font-gotham);
+  font-weight: 400;
+  font-size: 10px;
   color: #ffffff;
+  opacity: 0.7;
+  text-align: center;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
-
-

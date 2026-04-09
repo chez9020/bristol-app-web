@@ -1,381 +1,306 @@
-/* Logistica.css */
-
 .logistica-container {
-  width: 100%;
+  padding-bottom: 100px;
   min-height: 100vh;
-  background-color: #2f2016;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
 }
 
-/* Content */
 .logistica-content {
-  padding: 24px 16px;
+  padding: 0 24px 40px;
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
+/* Sections */
 .logistica-section {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.section-header h2 {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  color: white;
+.logistica-section h2 {
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
   margin: 0;
 }
 
-.subsection-link {
-  font-family: 'Inter', sans-serif;
+.section-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.section-subtitle-link {
+  font-family: var(--font-inter);
   font-size: 13px;
-  color: #008fb4;
+  color: #94a3b8;
   cursor: pointer;
 }
 
-/* Vuelos y Transfers */
-.vuelos-card {
-  background-color: #2a1d15;
+/* Flight Card */
+.flight-glass-card {
+  background: linear-gradient(180deg, rgba(80, 41, 137, 0.4) 0%, rgba(1, 44, 99, 0.4) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.vuelos-times {
+.flight-route-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
+  margin-bottom: 24px;
 }
 
-.time-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+.route-point {
+  text-align: center;
 }
 
-.time-block.right {
-  align-items: center;
-}
-
-.time-large {
-  font-family: 'Inter', sans-serif;
+.route-time {
+  display: block;
+  font-family: var(--font-inter);
   font-weight: 700;
-  font-size: 24px;
-  color: white;
+  font-size: 28px;
+  color: #ffffff;
 }
 
-.city-small {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  color: #008fb4;
+.route-city {
+  display: block;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-top: 4px;
 }
 
-.flight-divider {
+.flight-path {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 0 15px;
+  margin: 0 20px;
 }
 
-.divider-line {
+.path-line {
   height: 1px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.path-plane-icon {
   position: absolute;
-}
-
-.flight-icon {
-  background-color: #2a1d15; /* Match card bg to mask line */
-  color: #008fb4;
-  font-size: 18px;
+  color: #ddbaf6;
+  font-size: 20px;
+  background-color: transparent;
   transform: rotate(90deg);
-  padding: 0 5px;
-  z-index: 1;
-  position: relative;
 }
 
-.transfer-info {
-  background-color: rgba(0, 143, 180, 0.2);
-  border: 1px solid rgba(0, 143, 180, 0.2);
+.transfer-inner-card {
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.transfer-icon-wrapper {
-  background-color: transparent;
-  color: #008fb4;
+.transfer-icon-box {
+  width: 40px;
+  height: 40px;
+  background: #8347ad;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.transfer-details {
+.transfer-text-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
-.transfer-label {
-  font-family: 'Inter', sans-serif;
+.transfer-label-small {
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 10px;
-  color: #008fb4;
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.transfer-time {
-  font-family: 'Inter', sans-serif;
+.transfer-time-val {
+  font-family: var(--font-inter);
   font-weight: 700;
-  font-size: 14px;
-  color: white;
+  font-size: 18px;
+  color: #ffffff;
 }
 
-.btn-all-transfers {
-  background-color: #008fb4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
-  transition: transform 0.1s;
-}
-
-.btn-all-transfers:active {
-  transform: scale(0.98);
-}
-
-/* Hotel y Sede */
-.hotel-card {
-  background-color: #2a1d15;
+/* Hotel Card */
+.hotel-glass-card {
+  background: linear-gradient(180deg, rgba(80, 41, 137, 0.4) 0%, rgba(1, 44, 99, 0.4) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.hotel-hero {
+.hotel-image-header {
   position: relative;
-  height: 128px;
-  width: 100%;
+  height: 160px;
 }
 
-.hotel-img {
+.hotel-image-header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.hotel-hero-overlay {
+.hotel-name-overlay {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(62, 44, 32, 1) 0%, rgba(62, 44, 32, 0) 100%);
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-.hotel-name {
-  position: absolute;
-  bottom: 12px;
-  left: 16px;
-  font-family: 'Gotham', sans-serif;
+.hotel-name-overlay h3 {
+  font-family: var(--font-gotham);
   font-weight: 700;
   font-size: 20px;
-  color: white;
+  color: #ffffff;
   margin: 0;
-  line-height: 25px;
 }
 
-.hotel-times {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
+.hotel-times-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  padding: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.time-block-hotel {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.hotel-time-item {
+  text-align: center;
 }
 
-.time-block-hotel.align-right {
-  align-items: flex-end;
-}
-
-.hotel-label {
-  font-family: 'Inter', sans-serif;
+.hotel-time-label {
+  display: block;
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 10px;
   color: #94a3b8;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-bottom: 4px;
 }
 
-.hotel-time-value {
-  font-family: 'Inter', sans-serif;
+.hotel-time-hour {
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 20px;
-  color: white;
+  color: #ffffff;
 }
 
-.hotel-divider {
+.hotel-time-divider {
   width: 1px;
-  height: 40px;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.hotel-actions {
-  padding: 16px;
+.hotel-address-info {
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
-.hotel-address {
-  display: flex;
-  gap: 10px;
-}
-
-.location-icon {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 16px;
-}
-
-.address-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: #cbd5e1;
-  line-height: 1.4;
-}
-
-.hotel-buttons-row {
+.address-line {
   display: flex;
   gap: 12px;
 }
 
-.btn-directions {
-  flex: 2;
-  background-color: #008fb4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+.address-line .material-icons-round {
+  color: #ddbaf6;
+  font-size: 20px;
 }
 
-
-.btn-call {
-  flex: 1;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+.address-line p {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin: 0;
 }
 
-/* Image Cards (Mapa & Restaurantes) */
-.image-card {
-  background-color: #2a1d15;
+.hotel-button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Banner / Image Cards */
+.media-glass-card {
+  background: linear-gradient(180deg, rgba(80, 41, 137, 0.4) 0%, rgba(1, 44, 99, 0.4) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 16px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.media-container {
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 16/9;
 }
 
-.image-hero {
-  position: relative;
-  width: 100%;
-}
-
-.image-hero.map-hero {
-  background-color: white; /* Good to show maps clearly if transparency */
-  aspect-ratio: 4 / 3;
-}
-
-.image-hero.food-hero {
-  aspect-ratio: 16 / 9;
-}
-
-.content-img {
+.media-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-.content-img.map-img {
-  object-fit: contain; /* Don't crop map too much */
-  padding: 10px;
-}
-
-.card-actions-single {
-  padding: 16px;
-  display: flex;
-}
-
-.btn-primary-action {
-  flex: 1;
-  background-color: #008fb4;
-  color: white;
+/* Global Button Styles */
+.btn-premium-gradient {
+  background: linear-gradient(93deg, #002d72 0%, #8a51b0 100%);
   border: none;
   border-radius: 8px;
   padding: 12px;
-  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  font-family: var(--font-gotham);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 143, 180, 0.3);
-  transition: transform 0.1s;
+  text-align: center;
+  transition: opacity 0.2s ease;
 }
 
-.btn-primary-action:active {
-  transform: scale(0.98);
+.btn-premium-outline {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  color: #ffffff;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
+.btn-premium-gradient:hover {
+  opacity: 0.9;
+}

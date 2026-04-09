@@ -1,41 +1,25 @@
-/* DetalleConferencias.css */
-
 .detalle-container {
-  width: 100%;
-  min-height: 50vh;
-  background-color: #2f2016; /* Same backdrop as parent */
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
+  min-height: 100vh;
 }
 
 .dc-card {
-  margin: 10px 20px;
-  background-color: #22150b;
+  margin: 0 24px 24px 24px;
+  background: linear-gradient(135deg, rgba(80, 41, 137, 0.4) 0%, rgba(46, 27, 64, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.dc-modulo-label {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: #008fb4;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  margin-bottom: 8px;
+  padding: 32px 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .dc-title {
-  font-family: 'Gotham', sans-serif;
+  font-family: var(--font-gotham);
   font-weight: 700;
-  font-size: 19px;
-  color: white;
-  line-height: 1.2;
-  margin: 0 0 24px 0;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0 0 32px 0;
+  line-height: 1.4;
 }
 
 .dc-speaker-section {
@@ -52,11 +36,11 @@
 }
 
 .dc-speaker-img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .dc-speaker-text {
@@ -65,79 +49,76 @@
 }
 
 .dc-speaker-name {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-inter);
+  font-weight: 700;
   font-size: 14px;
-  color: white;
+  color: #ffffff;
 }
 
 .dc-speaker-role {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
+  font-family: var(--font-inter);
   font-size: 12px;
-  color: #008fb4;
-  margin-top: 2px;
-  line-height: 1.2;
+  color: #94a3b8;
 }
 
 .dc-btn-biografia {
-  background-color: #008fb4;
-  color: white;
-  font-family: 'Gotham', sans-serif;
+  background: #1a1a4a;
+  border: 1px solid rgba(131, 71, 173, 0.5);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 12px;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
+  background: linear-gradient(135deg, #012c63 0%, #8a51b0 100%);
 }
 
 .dc-section-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
+  font-family: var(--font-inter);
+  font-weight: 700;
   font-size: 12px;
-  color: #cbd5e1;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin: 0 0 12px 0;
+  color: #94a3b8;
+  letter-spacing: 2px;
+  margin: 0 0 16px 0;
 }
 
 .dc-description {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  color: white;
-  line-height: 1.5;
-  margin: 0 0 32px 0;
-  opacity: 0.9;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin-bottom: 32px;
 }
 
 .dc-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 32px;
 }
 
 .dc-info-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .dc-info-icon-wrapper {
-  background-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
-  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .dc-info-icon-wrapper .material-icons-round {
-  color: #9ca3af;
+  color: #ddbaf6;
   font-size: 20px;
 }
 
@@ -147,49 +128,37 @@
 }
 
 .dc-info-label {
-  font-family: 'Liberation Sans', sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter);
   font-size: 10px;
-  color: #9ca3af;
+  color: #94a3b8;
   text-transform: uppercase;
 }
 
 .dc-info-value {
-  font-family: 'Liberation Sans', sans-serif;
-  font-weight: 400;
+  font-family: var(--font-gotham);
+  font-weight: 700;
   font-size: 14px;
-  color: white;
-  margin-top: 2px;
+  color: #ffffff;
 }
 
-.dc-btn-download {
-  background-color: #008fb4;
-  color: white;
+.dc-actions {
+  padding: 0 24px;
+}
+
+.btn-download-presentation {
+  width: 100%;
+  background: linear-gradient(93deg, #012c63 0%, #8a51b0 100%);
   border: none;
-  border-radius: 4px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  font-family: 'Gotham', sans-serif;
+  color: #ffffff;
+  font-family: var(--font-gotham);
   font-weight: 700;
-  font-size: 14px;
-  box-shadow: 0 10px 15px -3px rgba(0, 143, 180, 0.2), 0 4px 6px -4px rgba(0, 143, 180, 0.2);
+  font-size: 16px;
   cursor: pointer;
-  margin-top: auto;
-}
-
-.dc-live-badge-inline {
-  display: inline-block;
-  background-color: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #f87171;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  padding: 4px 10px;
-  border-radius: 12px;
-  margin-left: 10px;
-  vertical-align: middle;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
