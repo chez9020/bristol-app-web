@@ -76,7 +76,7 @@ function Registro({ onRegister }) {
           <div className="input-field-group">
             <input
               type={showId ? 'text' : 'password'}
-              placeholder="Nombre completo"
+              placeholder="ID unico (6 dígitos)"
               value={name}
               onChange={(e) => {
                 const val = e.target.value.replace(/\D/g, '').slice(0, 6);

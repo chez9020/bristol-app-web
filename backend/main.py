@@ -212,6 +212,34 @@ async def get_preguntas(session_id: str, id_unico: str = None):
         print(f"Error cargando preguntas: {e}")
         raise HTTPException(status_code=500, detail="Error cargando preguntas: " + str(e))
 
+class EditPreguntaRequest(BaseModel):
+    pregunta: str
+
+@app.put("/api/pregunta/{session_id}/{question_id}")
+async def edit_pregunta(session_id: str, question_id: str, request: EditPreguntaRequest):
+    try:
+        db = get_db()
+        doc_ref = db.collection('preguntas_conferencia').document(session_id).collection('preguntas').document(question_id)
+        doc_ref.update({
+            "pregunta": request.pregunta,
+            "editado_en": firestore.SERVER_TIMESTAMP
+        })
+        return {"success": True, "message": "Pregunta editada correctamente"}
+    except Exception as e:
+        print(f"Error editando pregunta: {e}")
+        raise HTTPException(status_code=500, detail="Error editando pregunta: " + str(e))
+
+@app.delete("/api/pregunta/{session_id}/{question_id}")
+async def delete_pregunta(session_id: str, question_id: str):
+    try:
+        db = get_db()
+        doc_ref = db.collection('preguntas_conferencia').document(session_id).collection('preguntas').document(question_id)
+        doc_ref.delete()
+        return {"success": True, "message": "Pregunta eliminada correctamente"}
+    except Exception as e:
+        print(f"Error eliminando pregunta: {e}")
+        raise HTTPException(status_code=500, detail="Error eliminando pregunta: " + str(e))
+
 @app.get("/api/apunte/{id_unico}/pdf")
 async def generar_pdf(id_unico: str):
     try:

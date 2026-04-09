@@ -9,8 +9,33 @@ function Interacciones({ onBack, agente }) {
   const [questionText, setQuestionText] = useState('');
   const [questions, setQuestions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Modal State
+  const [modal, setModal] = useState({
+    show: false,
+    title: '',
+    text: '',
+    type: 'alert', // alert, confirm, edit
+    onConfirm: null,
+    inputValue: ''
+  });
 
   const userId = agente?.id || 'USER_DEMO_123';
+
+  const showModal = (title, text, type = 'alert', onConfirm = null, initialInput = '') => {
+    setModal({
+      show: true,
+      title,
+      text,
+      type,
+      onConfirm,
+      inputValue: initialInput
+    });
+  };
+
+  const closeModal = () => {
+    setModal(prev => ({ ...prev, show: false }));
+  };
 
   const fetchQuestions = async () => {
     if (!selectedConfId) return;
@@ -66,14 +91,63 @@ function Interacciones({ onBack, agente }) {
       }
 
       setQuestionText('');
-      alert("Pregunta enviada exitosamente.");
+      showModal("¡Éxito!", "Pregunta enviada exitosamente.");
       fetchQuestions(); // Refresh list immediately after posting
     } catch (e) {
       console.error("Error sending question:", e);
-      alert("Error al enviar la pregunta.");
+      showModal("Error", "No se pudo enviar la pregunta.");
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleEditQuestion = (qId, currentText) => {
+    showModal(
+      "Editar Pregunta", 
+      "Corrige tu pregunta a continuación:", 
+      'edit', 
+      async (newText) => {
+        try {
+          const response = await fetch(`/api/pregunta/${selectedConfId}/${qId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pregunta: newText.trim() })
+          });
+
+          if (response.ok) {
+            fetchQuestions();
+            closeModal();
+          }
+        } catch (e) {
+          console.error("Error editing question:", e);
+          showModal("Error", "No se pudo editar la pregunta.");
+        }
+      },
+      currentText
+    );
+  };
+
+  const handleDeleteQuestion = (qId) => {
+    showModal(
+      "¿Eliminar pregunta?", 
+      "Esta acción no se puede deshacer.", 
+      'confirm', 
+      async () => {
+        try {
+          const response = await fetch(`/api/pregunta/${selectedConfId}/${qId}`, {
+            method: 'DELETE'
+          });
+
+          if (response.ok) {
+            fetchQuestions();
+            closeModal();
+          }
+        } catch (e) {
+          console.error("Error deleting question:", e);
+          showModal("Error", "No se pudo eliminar la pregunta.");
+        }
+      }
+    );
   };
 
   // ─── STATE 1: List Conferences ───
@@ -159,9 +233,14 @@ function Interacciones({ onBack, agente }) {
                     ENVIADA
                   </div>
                   <div className="qa-card-actions">
-                    {/* Visual placeholders for edit/delete as per design */}
-                    <span className="material-icons-round">edit</span>
-                    <span className="material-icons-round">delete_outline</span>
+                    <span 
+                      className="material-icons-round" 
+                      onClick={() => handleEditQuestion(q.id, q.pregunta)}
+                    >edit</span>
+                    <span 
+                      className="material-icons-round" 
+                      onClick={() => handleDeleteQuestion(q.id)}
+                    >delete_outline</span>
                   </div>
                 </div>
                 <div className="qa-card-body">
@@ -199,6 +278,54 @@ function Interacciones({ onBack, agente }) {
         </div>
 
       </div>
+
+      {/* --- CUSTOM PREMIUM MODAL --- */}
+      {modal.show && (
+        <div className="qa-modal-overlay">
+          <div className="qa-modal-content">
+            <div className="qa-modal-icon-box">
+              <span className="material-icons-round">
+                {modal.type === 'confirm' ? 'help_outline' : modal.type === 'edit' ? 'edit' : 'info_outline'}
+              </span>
+            </div>
+            
+            <h3 className="qa-modal-title">{modal.title}</h3>
+            <p className="qa-modal-text">{modal.text}</p>
+            
+            {modal.type === 'edit' && (
+              <div className="qa-modal-input-container">
+                <textarea 
+                  className="qa-modal-input"
+                  value={modal.inputValue}
+                  onChange={(e) => setModal(prev => ({ ...prev, inputValue: e.target.value }))}
+                />
+              </div>
+            )}
+            
+            <div className="qa-modal-footer">
+              {modal.type !== 'alert' && (
+                <button className="qa-btn-modal-secondary" onClick={closeModal}>
+                  Cancelar
+                </button>
+              )}
+              <button 
+                className="qa-btn-modal-primary" 
+                onClick={() => {
+                  if (modal.type === 'edit') {
+                    modal.onConfirm(modal.inputValue);
+                  } else if (modal.onConfirm) {
+                    modal.onConfirm();
+                  } else {
+                    closeModal();
+                  }
+                }}
+              >
+                {modal.type === 'confirm' ? 'Eliminar' : modal.type === 'edit' ? 'Guardar' : 'Entendido'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
