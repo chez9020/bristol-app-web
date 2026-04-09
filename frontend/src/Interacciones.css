@@ -1,0 +1,351 @@
+/* Interacciones.css (formerly Votaciones.css) */
+
+.votaciones-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg-main, #0b0c10);
+  background-image: 
+    radial-gradient(circle at -10% 40%, rgba(0, 143, 180, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 110% 30%, rgba(131, 71, 173, 0.4) 0%, transparent 60%);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+/* List Conferences View */
+.v-section-container {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.v-list-title {
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px 0 0 0;
+}
+
+.v-list-desc {
+  color: rgba(255,255,255,0.6);
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.v-conf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v-conf-item {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.v-conf-item:active {
+  background-color: rgba(255,255,255,0.05);
+  transform: scale(0.98);
+}
+
+.v-conf-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.v-conf-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.v-conf-info h3 {
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.v-conf-info span {
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 12px;
+}
+
+
+/* ----------- Q&A SPECIFIC STYLES ----------- */
+
+.qa-main-wrapper {
+  padding: 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.qa-section-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.qa-section-title {
+  color: #ddbaf6;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  margin-right: 16px;
+}
+
+.qa-section-line {
+  flex: 1;
+  height: 1px;
+  background-color: #ddbaf6;
+}
+
+.qa-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  min-height: 200px;
+}
+
+.qa-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  gap: 12px;
+}
+
+.qa-empty-state p {
+  color: rgba(255,255,255,0.4);
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 14px;
+  margin: 0;
+}
+
+.qa-card-glass {
+  background: linear-gradient(135deg, rgba(1, 44, 99, 0.33) 0%, rgba(131, 71, 173, 0.33) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0px 20px 25px -5px rgba(0,0,0,0.1), 0px 8px 10px -6px rgba(0,0,0,0.1);
+}
+
+.qa-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.qa-status-badge {
+  background: rgba(131, 71, 173, 0.07);
+  border: 1px solid rgba(221, 186, 246, 0.5);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  color: #ddbaf6;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.qa-card-actions {
+  display: flex;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.qa-card-actions .material-icons-round {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.qa-card-body p {
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.qa-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.qa-input-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  min-height: 79px;
+  padding: 17px;
+}
+
+.qa-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+}
+
+.qa-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.25px;
+  text-align: left;
+}
+
+.btn-premium-gradient-qa {
+  background: linear-gradient(90deg, #012c63 0%, #8347ad 100%);
+  border-radius: 12px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-premium-gradient-qa:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qa-disclaimer {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 17px;
+  text-align: center;
+}
+
+.qa-disclaimer p {
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: 0.25px;
+}
+
+/* --- Q&A HEADER STYLES --- */
+.qa-header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 24px 20px 24px;
+  position: relative;
+}
+
+.qa-header-area::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(0,143,180,0.8) 0%, rgba(131,71,173,0.8) 50%, transparent 100%);
+  opacity: 0.6;
+}
+
+.qa-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.qa-header-text h1 {
+  color: white;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+
+.qa-header-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #cbd5e1;
+  font-family: 'Proxima_Nova', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.qa-header-subtitle .material-icons-round {
+  color: #8347ad;
+  font-size: 14px;
+}
+
+.qa-back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.qa-back-btn:active {
+  transform: scale(0.95);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.qa-back-btn .material-icons-round {
+  font-size: 18px;
+}

@@ -9,7 +9,7 @@ import Conferencias from './Conferencias.jsx';
 import DetalleConferencias from './DetalleConferencias.jsx';
 import BiografiaSpeaker from './BiografiaSpeaker.jsx';
 import Constancia from './Constancia.jsx';
-import Votaciones from './Votaciones.jsx';
+import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
 
 // NavItem and GridCard
@@ -171,7 +171,7 @@ function App() {
           />
         )}
         {activeTab === 'Constancia' && <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />}
-        {activeTab === 'Interacciones' && <Votaciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
+        {activeTab === 'Interacciones' && <Interacciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}
       </div>
 

@@ -143,7 +143,55 @@ async def save_apunte(request: ApunteRequest):
     except Exception as e:
         print(f"Error guardando apunte: {e}")
         raise HTTPException(status_code=500, detail="Error guardando apunte: " + str(e))
+        
+class PreguntaRequest(BaseModel):
+    id_unico: str
+    session_id: str
+    pregunta: str
 
+@app.post("/api/pregunta")
+async def submit_pregunta(request: PreguntaRequest):
+    try:
+        db = get_db()
+        # Save securely in a central `preguntas` collection structured by session
+        doc_ref = db.collection('preguntas_conferencia').document(request.session_id).collection('preguntas').document()
+        doc_ref.set({
+            "id_unico": request.id_unico,
+            "pregunta": request.pregunta,
+            "creado_en": firestore.SERVER_TIMESTAMP
+        })
+        return {"success": True, "message": "Pregunta enviada correctamente exitosamente"}
+    except Exception as e:
+        print(f"Error guardando pregunta: {e}")
+        raise HTTPException(status_code=500, detail="Error al procesar tu pregunta: " + str(e))
+
+@app.get("/api/preguntas/{session_id}")
+async def get_preguntas(session_id: str, id_unico: str = None):
+    try:
+        db = get_db()
+        preguntas_ref = db.collection('preguntas_conferencia').document(session_id).collection('preguntas')
+        
+        # Order by created_at descending
+        query = preguntas_ref.order_by('creado_en', direction=firestore.Query.DESCENDING)
+        
+        docs = query.stream()
+        preguntas = []
+        for doc in docs:
+            data = doc.to_dict()
+            # If id_unico is provided, filter normally. 
+            if id_unico and data.get("id_unico") != id_unico:
+                continue
+                
+            preguntas.append({
+                "id": doc.id,
+                "pregunta": data.get("pregunta", ""),
+                "id_unico": data.get("id_unico", "")
+            })
+            
+        return {"success": True, "preguntas": preguntas}
+    except Exception as e:
+        print(f"Error cargando preguntas: {e}")
+        raise HTTPException(status_code=500, detail="Error cargando preguntas: " + str(e))
 
 @app.get("/api/apunte/{id_unico}/pdf")
 async def generar_pdf(id_unico: str):
