@@ -226,28 +226,33 @@ function Interacciones({ onBack, agente }) {
             </div>
           ) : (
             questions.map(q => (
-              <div key={q.id} className="qa-card-glass">
+              <div key={q.id} className={`qa-card-glass ${q.respondida ? 'is-resolved' : ''}`}>
                 <div className="qa-card-header">
-                  <div className="qa-status-badge">
-                    <span className="material-icons-round" style={{ fontSize: '12px' }}>check_circle</span>
-                    ENVIADA
+                  <div className={`qa-status-badge ${q.respondida ? 'status-green' : ''}`}>
+                    <span className="material-icons-round" style={{ fontSize: '12px' }}>
+                      {q.respondida ? 'check_circle' : 'hourglass_top'}
+                    </span>
+                    {q.respondida ? 'RESUELTA' : 'ENVIADA'}
                   </div>
-                  <div className="qa-card-actions">
-                    <span 
-                      className="material-icons-round" 
-                      onClick={() => handleEditQuestion(q.id, q.pregunta)}
-                    >edit</span>
-                    <span 
-                      className="material-icons-round" 
-                      onClick={() => handleDeleteQuestion(q.id)}
-                    >delete_outline</span>
-                  </div>
+                  {!q.respondida && (
+                    <div className="qa-card-actions">
+                      <span 
+                        className="material-icons-round" 
+                        onClick={() => handleEditQuestion(q.id, q.pregunta)}
+                      >edit</span>
+                      <span 
+                        className="material-icons-round" 
+                        onClick={() => handleDeleteQuestion(q.id)}
+                      >delete_outline</span>
+                    </div>
+                  )}
                 </div>
                 <div className="qa-card-body">
                   <p>{q.pregunta}</p>
                 </div>
               </div>
             ))
+
           )}
         </div>
 

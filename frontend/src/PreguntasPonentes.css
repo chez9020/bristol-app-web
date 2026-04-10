@@ -23,7 +23,48 @@
 
 .ponente-card {
   border-left: 4px solid #8347ad;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ponente-card.is-answered {
+  border-left-color: #10b981;
+  opacity: 0.7;
+}
+
+.ponente-card.is-answered .qa-status-badge {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #10b981 !important;
+}
+
+.ponente-card.is-answered .ponente-question-text {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.qa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.qa-check-btn {
+  margin-left: auto;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.qa-check-btn:hover {
+  color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.qa-check-btn.checked {
+  color: #10b981;
 }
 
 .ponente-user-tag {
@@ -32,7 +73,9 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
+  flex: 1;
 }
+
 
 .ponente-question-text {
   font-size: 18px !important;

@@ -204,7 +204,8 @@ async def get_preguntas(session_id: str, id_unico: str = None):
                 "id": doc.id,
                 "pregunta": data.get("pregunta", ""),
                 "id_unico": uid,
-                "nombre": nombre
+                "nombre": nombre,
+                "respondida": data.get("respondida", False)
             })
             
         return {"success": True, "preguntas": preguntas}
@@ -228,6 +229,23 @@ async def edit_pregunta(session_id: str, question_id: str, request: EditPregunta
     except Exception as e:
         print(f"Error editando pregunta: {e}")
         raise HTTPException(status_code=500, detail="Error editando pregunta: " + str(e))
+
+class ToggleRespondidaRequest(BaseModel):
+    respondida: bool
+
+@app.put("/api/pregunta/{session_id}/{question_id}/respondida")
+async def toggle_pregunta_respondida(session_id: str, question_id: str, request: ToggleRespondidaRequest):
+    try:
+        db = get_db()
+        doc_ref = db.collection('preguntas_conferencia').document(session_id).collection('preguntas').document(question_id)
+        doc_ref.update({
+            "respondida": request.respondida
+        })
+        return {"success": True, "message": "Estado de pregunta actualizado"}
+    except Exception as e:
+        print(f"Error actualizando estado de pregunta: {e}")
+        raise HTTPException(status_code=500, detail="Error actualizando estado de pregunta: " + str(e))
+
 
 @app.delete("/api/pregunta/{session_id}/{question_id}")
 async def delete_pregunta(session_id: str, question_id: str):

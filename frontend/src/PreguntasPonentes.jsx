@@ -23,6 +23,23 @@ function PreguntasPonentes() {
     }
   };
 
+  const toggleStatus = async (questionId, currentStatus) => {
+    try {
+      const response = await fetch(`/api/pregunta/${selectedConfId}/${questionId}/respondida`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ respondida: !currentStatus }),
+      });
+      if (response.ok) {
+        fetchAllQuestions();
+      }
+    } catch (e) {
+      console.error("Error toggling question status:", e);
+    }
+  };
+
   useEffect(() => {
     if (selectedConfId) {
       setLoading(true);
@@ -76,6 +93,12 @@ function PreguntasPonentes() {
   }
 
   const conf = conferenciasData.find(c => c.id === selectedConfId);
+  
+  // Sort questions: unanswered first, then answered
+  const sortedQuestions = [...questions].sort((a, b) => {
+    if (a.respondida === b.respondida) return 0;
+    return a.respondida ? 1 : -1;
+  });
 
   return (
     <div className="ponentes-container animate-fade-in">
@@ -99,20 +122,25 @@ function PreguntasPonentes() {
         </div>
 
         <div className="ponentes-grid">
-          {questions.length === 0 ? (
+          {sortedQuestions.length === 0 ? (
             <div className="qa-empty-state" style={{ marginTop: '40px' }}>
               <span className="material-icons-round" style={{ fontSize: '48px', color: 'rgba(255,255,255,0.1)'}}>hourglass_empty</span>
               <p>Esperando preguntas de los asistentes...</p>
             </div>
           ) : (
-            questions.map((q, idx) => (
-              <div key={q.id || idx} className="qa-card-glass ponente-card">
+            sortedQuestions.map((q, idx) => (
+              <div key={q.id || idx} className={`qa-card-glass ponente-card ${q.respondida ? 'is-answered' : ''}`}>
                 <div className="qa-card-header">
                   <div className="qa-status-badge">
-                   #{questions.length - idx}
+                   #{sortedQuestions.length - idx}
                   </div>
                   <div className="ponente-user-tag">
                     {q.nombre}
+                  </div>
+                  <div className={`qa-check-btn ${q.respondida ? 'checked' : ''}`} onClick={() => toggleStatus(q.id, q.respondida)}>
+                    <span className="material-icons-round">
+                      {q.respondida ? 'check_circle' : 'radio_button_unchecked'}
+                    </span>
                   </div>
                 </div>
                 <div className="qa-card-body">
@@ -125,6 +153,7 @@ function PreguntasPonentes() {
       </div>
     </div>
   );
+
 }
 
 export default PreguntasPonentes;
