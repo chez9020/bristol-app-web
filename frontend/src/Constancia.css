@@ -45,6 +45,26 @@
   display: block;
 }
 
+.cert-preview-name-overlay {
+  position: absolute;
+  top: 48%;
+  /* Ajustado para quedar encima de la línea como en el PDF */
+  left: 52%;
+  /* Ajustado un poco a la izquierda como en el PDF */
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 1.2vw;
+  /* Escala basándose en el ancho de la tarjeta */
+  text-transform: uppercase;
+  text-align: center;
+  width: 80%;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  /* Sombra para que destaque sobre gráficos */
+  pointer-events: none;
+}
+
 .cert-full-screen-link {
   display: flex;
   align-items: center;

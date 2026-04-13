@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import landscape, A4
 from reportlab.pdfgen import canvas as rl_canvas
 from reportlab.lib.utils import ImageReader
+from pypdf import PdfReader, PdfWriter
 
 def get_db():
     # Inicializa Firebase de forma lazy usando Application Default Credentials (ADC)
@@ -392,9 +393,9 @@ async def get_apunte(id_unico: str, session_id: str):
 @app.get("/api/constancia/{id_unico}")
 async def generar_constancia(id_unico: str):
     """
-    Genera la constancia en PDF directamente en memoria.
-    Toma la imagen de plantilla, escribe el nombre del agente,
-    y la envía como PDF descargable sin guardar nada en disco ni en GCS.
+    Genera la constancia usando un archivo PDF como plantilla.
+    Escribe el nombre del agente en una capa transparente y la fusiona
+    con la plantilla original (constancia_base.pdf).
     """
     try:
         # 1. Obtener nombre del agente desde Firestore
@@ -404,92 +405,79 @@ async def generar_constancia(id_unico: str):
             raise HTTPException(status_code=404, detail="Agente no encontrado")
         
         agente_data = agente_doc.to_dict()
-        nombre_agente = agente_data.get("nombre", "Agente CAMZYOS")
+        nombre_agente = agente_data.get("nombre", "Agente CAMZYOS").upper()
 
-        # 2. Abrir la imagen de plantilla
-        template_path = os.path.join(os.path.dirname(__file__), "constancia-base.png")
+        # 2. Rutas de archivos
+        base_dir = os.path.dirname(__file__)
+        template_path = os.path.join(base_dir, "constancia_base.pdf")
+        
         if not os.path.exists(template_path):
-            raise HTTPException(status_code=500, detail="Plantilla de constancia no encontrada en el servidor")
+            raise HTTPException(status_code=500, detail="Plantilla PDF no encontrada en el servidor")
 
-        img = Image.open(template_path).convert("RGB")
-        draw = ImageDraw.Draw(img)
-        img_width, img_height = img.size
+        # 3. Crear el PDF con el nombre (capa transparente) usando ReportLab
+        packet = BytesIO()
+        # Tamaño carta horizontal (landscape) o el que tenga tu PDF original
+        page_width, page_height = landscape(A4) 
+        can = rl_canvas.Canvas(packet, pagesize=(page_width, page_height))
+        
+        # Configurar fuente
+        font_path = os.path.join(base_dir, "font-bold.ttf")
+        font_size = 28
+        
+        if os.path.exists(font_path):
+            from reportlab.pdfbase import pdfmetrics
+            from reportlab.pdfbase.ttfonts import TTFont
+            pdfmetrics.registerFont(TTFont('CustomFontBold', font_path))
+            can.setFont('CustomFontBold', font_size)
+        else:
+            can.setFont("Helvetica-Bold", font_size)
 
-        # 3. Fuente bundleada en el proyecto — funciona igual en Windows y Cloud Run (Linux)
-        font_size = int(img_width * 0.042)  # ~4.2% del ancho de imagen = tamaño proporcional
-        bundled_font = os.path.join(os.path.dirname(__file__), "font-bold.ttf")
-        try:
-            font = ImageFont.truetype(bundled_font, font_size)
-        except Exception:
-            font = ImageFont.load_default()
+        # 4. Color y Posicionamiento
+        can.setFillColorRGB(1, 1, 1) # BLANCO
 
-        # 4. Calcular posición del nombre (centro horizontal, en la línea del certificado)
-        text_x = img_width * 0.54  # Centrado en el hueco de la línea
-        text_y = img_height * 0.30 # Subimos a 30% para que flote sobre la línea
-        # Medir el texto para centrarlo horizontalmente (dejando margen del logo "a:" que está a ~13% del ancho)
-        # El espacio asignado va del ~18% al ~90% del ancho
-        zone_x_start = int(img_width * 0.18)
-        zone_x_end   = int(img_width * 0.90)
-        zone_width   = zone_x_end - zone_x_start
+        text_width = can.stringWidth(nombre_agente)
+        max_width = page_width * 0.65
+        if text_width > max_width:
+            font_size = font_size * (max_width / text_width)
+            can.setFont('CustomFontBold' if os.path.exists(font_path) else 'Helvetica-Bold', font_size)
 
-        # Reducir fuente si el nombre es muy largo para que siempre quepa
-        while True:
-            bbox = draw.textbbox((0, 0), nombre_agente, font=font)
-            text_width = bbox[2] - bbox[0]
-            if text_width <= zone_width or font_size <= 20:
-                break
-            font_size -= 2
-            try:
-                font = font.font_variant(size=font_size)
-            except Exception:
-                break
+        # Coordenadas: X es centro de la línea, Y es altura de la línea
+        target_x = page_width * 0.50
+        target_y = page_height * 0.515 # Ajustado ligeramente hacia arriba
+        
+        can.drawCentredString(target_x, target_y, nombre_agente)
+        can.save()
+        packet.seek(0)
 
-        # 4. Dibujar el nombre sobre la línea
-        # El anchor="mm" pone el centro del texto en las coordenadas (text_x, text_y)
-        draw.text(
-            (text_x, text_y), 
-            nombre_agente, 
-            font=font, 
-            fill=(58, 41, 23), # Café oscuro
-            anchor="mm"
-        )
-        # 5. Convertir imagen a PDF con ReportLab (landscape A4)
+        # 5. Fusionar (Merge) con PyPDF
+        new_pdf = PdfReader(packet)
+        existing_pdf = PdfReader(open(template_path, "rb"))
+        output = PdfWriter()
 
-        # 6. Convertir imagen a PDF con ReportLab (landscape A4)
-        pdf_buffer = BytesIO()
-        page_width, page_height = landscape(A4)
+        # Tomamos la primera página de la plantilla
+        page = existing_pdf.pages[0]
+        # Le encimamos la página que acabamos de crear con el nombre
+        page.merge_page(new_pdf.pages[0])
+        output.add_page(page)
 
-        # Ajustar la imagen al tamaño de la página manteniendo proporción
-        ratio = min(page_width / img_width, page_height / img_height)
-        draw_w = img_width  * ratio
-        draw_h = img_height * ratio
-        x_offset = (page_width  - draw_w) / 2
-        y_offset = (page_height - draw_h) / 2
+        # 6. Preparar respuesta
+        pdf_output = BytesIO()
+        output.write(pdf_output)
+        pdf_output.seek(0)
 
-        # Guardar imagen modificada en buffer temporal y usar ImageReader (requerido por ReportLab)
-        img_buffer = BytesIO()
-        img.save(img_buffer, format="PNG", dpi=(300, 300))
-        img_buffer.seek(0)
-        img_reader = ImageReader(img_buffer)
-
-        # Crear PDF
-        c = rl_canvas.Canvas(pdf_buffer, pagesize=landscape(A4))
-        c.drawImage(img_reader, x_offset, y_offset, width=draw_w, height=draw_h)
-        c.save()
-        pdf_buffer.seek(0)
-
-        # 7. Enviar PDF como stream descargable
-        safe_name = nombre_agente.replace(" ", "_").replace("/", "-")
+        safe_name = nombre_agente.replace(" ", "_")
         headers = {
             "Content-Disposition": f'attachment; filename="Constancia_CAMZYOS_2026_{safe_name}.pdf"'
         }
-        return StreamingResponse(pdf_buffer, media_type="application/pdf", headers=headers)
+        return StreamingResponse(pdf_output, media_type="application/pdf", headers=headers)
 
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Error generando constancia: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al generar constancia: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error al generar constancia PDF: {str(e)}")
+
 
 
 # ── Servir el frontend compilado (Producción y Local) ──────────────────────

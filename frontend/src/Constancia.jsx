@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Constancia.css';
+import constanciaImg from './assets/constancia-base.png';
 
 function Constancia({ onBack, agente }) {
   const [isDownloading, setIsDownloading] = useState(false);
@@ -53,10 +54,13 @@ function Constancia({ onBack, agente }) {
       <div className="cert-preview-wrapper">
         <div className="cert-preview-card">
           <img
-            src="/assets/constancia-base.png"
+            src={constanciaImg}
             alt="Constancia de Participación"
             className="cert-preview-img"
           />
+          <div className="cert-preview-name-overlay">
+            {userName}
+          </div>
         </div>
         <div className="cert-full-screen-link">
           <span className="material-icons-round">search</span>
@@ -65,7 +69,7 @@ function Constancia({ onBack, agente }) {
       </div>
 
       <div className="constancia-info">
-        <h2>{userName}: El Futuro de la IA</h2>
+        <h2>Agente IO: Lanzamiento CAMZYOS 2026</h2>
         <p>Emitido el 17 de Abril, 2026</p>
       </div>
 

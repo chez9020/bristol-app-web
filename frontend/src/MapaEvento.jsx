@@ -24,7 +24,7 @@ function MapaEvento({ onBack }) {
           </div>
         </div>
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
@@ -33,8 +33,8 @@ function MapaEvento({ onBack }) {
           <div className="map-view-hero" onClick={toggleZoom}>
             <img src={mapUrl} alt="Mapa" className="map-view-img" />
             <div className="zoom-hint">
-               <span className="material-icons-round">zoom_in</span>
-               <span>Toca para ampliar</span>
+              <span className="material-icons-round">zoom_in</span>
+              <span>Toca para ampliar</span>
             </div>
           </div>
           <div className="map-view-actions">
