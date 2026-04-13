@@ -12,13 +12,16 @@ def initialize_firebase():
     """Inicializa la conexion a Firebase."""
     if not firebase_admin._apps:
         try:
-            # Intenta usar las credenciales de entorno (por ej. si hiciste gcloud auth application-default login)
-            firebase_admin.initialize_app()
+            # Intenta usar las credenciales de entorno con el ID de proyecto explícito
+            firebase_admin.initialize_app(options={
+                'projectId': 'shaq-brand-bot'
+            })
         except Exception as e:
             print(f"Error al inicializar Firebase: {e}")
             print("Asegúrate de haber ejecutado 'gcloud auth application-default login' en tu terminal.")
             sys.exit(1)
     return firestore.client()
+
 
 def upload_users(csv_path):
     if not os.path.exists(csv_path):

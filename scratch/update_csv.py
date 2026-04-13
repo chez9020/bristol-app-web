@@ -1,0 +1,113 @@
+import csv
+
+data = """996259	Andrés Pérez Bañuelos	BMS
+838406	Eliud Samuel Montes Cruz	BMS
+279356	Marco Antonio Alcocer Gamba	BMS
+358742	Alberto Carlos Heredia Salazar	BMS
+669764	Melina Janeth Talin Bosquez	BMS
+920643	Alejandro Ordaz Farias	BMS
+814504	Gonzalo Gutierrez Vasquez	BMS
+404646	Erasmo De La Peña Almaguer	BMS
+486732	Eduardo Antonio De Obeso	BMS
+317831	Oscar Omar Rivera Munguia	BMS
+564092	Jose Luis Arenas Leon	BMS
+623741	Armando Ruiz Benitez	BMS
+405618	Jose Salvador Lainez Zelaya	BMS
+128574	Maria Del Sol Ordaz Soto	BMS
+848234	Carlos Oswaldo Castillo Okhuysen	BMS
+130101	Manuel Cabada Gamboa	BMS
+545307	Jose Pascual Salas Llamas	BMS
+475778	Nicolas Reyes Reyes	BMS
+638927	Carlos Haroldo Ixcamparij Rosales	BMS
+911295	Miguel Angel Monribot Velazquez	BMS
+352347	Janet Mijangos Chavez	BMS
+624906	Luis Adolfo Sanchez Trujillo	BMS
+943499	Victor Ochoa Perez	BMS
+570159	Jose Ernesto Pombo Bartelt	BMS
+377067	Cristobal Mancillas Villasenor	BMS
+898291	Jesus Armando Nochebuena Lopez	BMS
+997618	Eduardo Julian Chuquiurevalenzuela	BMS
+269962	Araceli Jacobo Baca	BMS
+313591	Enrique Benito Gomez Alvarez	BMS
+397326	Enrique Berrios	BMS
+334656	Julieta Morales	BMS
+234638	Zuilma Vazquez	BMS
+918665	Guillermo Antonio Llamas	BMS
+447397	Jennifer Armenta	BMS
+709127	Roberto Barriales	BMS
+896711	Adrian Fernandez	BMS
+575122	Gabriela Dominguez Trejo	BMS
+276901	Juan Carlos Gudino Gonzalez	BMS
+704911	Gamaliel Angel Vazquez Romo	BMS
+824118	Adan Pacheco Cantu	BMS
+860514	Humberto Garcia Aguilar	BMS
+278163	Julio Zaballa Contreras	BMS
+259743	Jose Maria Hernandez Hernandez	BMS
+527172	Pedro Israel Olivares Garcia	BMS
+886064	Belinda Elizabeth Gonzalez Diaz	BMS
+892499	Juan Pablo Moreno Dirzo	BMS
+696137	Escalante Seyffert Maria Cecilia	BMS
+377052	Rodolfo De Jesus Castano Guerra	BMS
+677913	Martin Chavarria Fragoso	BMS
+532424	Carlos Alberto Guizar Sanchez	BMS
+832340	Felipe Fernando Garcia Garza	BMS
+193574	Paola Diaza	BMS
+381214	Mariana Varela	BMS
+234116	Daniela Dominguez	BMS
+408361	Oracio Vargas	BMS
+650755	David Castillo	BMS
+281190	Karla Santos	BMS
+306792	Carla Da Passano	BMS
+753018	Norman Jimenez	BMS
+409685	Luis Bojorquez	BMS
+672817	Shander Tovar	BMS
+357104	Mariela Auvert	BMS
+103820	Alberto Zarate Fuentes	BMS
+231126	Álvaro Moreno Castillo	BMS
+211636	Alejandro Estrada Rodriguez	BMS
+899404	Gilberto de Campo Ortega	BMS
+810229	EXTRA	BMS
+871156	EXTRA	BMS
+715762	EXTRA	BMS
+366253	EXTRA	BMS
+934985	EXTRA	BMS
+345785	EXTRA	BMS
+789132	EXTRA	BMS
+348911	EXTRA	BMS
+454201	EXTRA	BMS
+153428	EXTRA	BMS
+877958	EXTRA	BMS
+820974	EXTRA	BMS
+721782	EXTRA	BMS
+292292	EXTRA	BMS
+359326	EXTRA	BMS
+362816	EXTRA	BMS
+318478	EXTRA	BMS
+541986	EXTRA	BMS
+881848	EXTRA	BMS
+978764	EXTRA	BMS
+275202	EXTRA	BMS
+109295	EXTRA	BMS
+830096	EXTRA	BMS"""
+
+with open('/Users/juanmartinezgomez/Documents/apps/bristol-app-web/usuarios_ejemplo.csv', 'w', encoding='utf-8-sig') as f:
+    f.write('ID,Nombre,Rol\n')
+    for line in data.split('\n'):
+        if line.strip():
+            # Replace tabs or multiple spaces with a single comma
+            parts = line.split('\t')
+            if len(parts) < 3:
+                parts = line.split('   ') # Try extra spaces if tab didn't work
+            
+            # Clean parts
+            parts = [p.strip() for p in parts if p.strip()]
+            if len(parts) >= 3:
+                f.write(f"{parts[0]},{parts[1]},{parts[2]}\n")
+            else:
+                 # Fallback for lines that might have spaces instead of tabs
+                 import re
+                 actual_parts = re.split(r'\t|\s{2,}', line.strip())
+                 if len(actual_parts) >= 3:
+                     f.write(f"{actual_parts[0]},{actual_parts[1]},{actual_parts[2]}\n")
+
+print("CSV updated successfully.")

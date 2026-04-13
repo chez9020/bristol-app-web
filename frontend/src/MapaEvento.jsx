@@ -2,14 +2,15 @@ import React from 'react';
 import './MapaEvento.css';
 
 const salonesData = [
-  { id: 1, name: "Salón del Prado", session: "PLENARIA" },
-  { id: 2, name: "Salón Goya", session: "PLENARIA" },
-  { id: 3, name: "Salón Picasso", session: "PLENARIA" }
+  { id: 1, name: "Salón del Prado", session: "PLENARIA" }
 ];
 
 function MapaEvento({ onBack }) {
-  const handleDownloadMap = () => {
-    alert("Iniciando descarga del mapa...");
+  const [isZoomed, setIsZoomed] = React.useState(false);
+  const mapUrl = "https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png";
+
+  const toggleZoom = () => {
+    setIsZoomed(!isZoomed);
   };
 
   return (
@@ -29,13 +30,17 @@ function MapaEvento({ onBack }) {
 
       <div className="mapa-evento-content">
         <div className="map-view-card">
-          <div className="map-view-hero">
-            <img src="https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png" alt="Mapa" className="map-view-img" />
+          <div className="map-view-hero" onClick={toggleZoom}>
+            <img src={mapUrl} alt="Mapa" className="map-view-img" />
+            <div className="zoom-hint">
+               <span className="material-icons-round">zoom_in</span>
+               <span>Toca para ampliar</span>
+            </div>
           </div>
           <div className="map-view-actions">
-            <button className="btn-download-map" onClick={handleDownloadMap}>
-              <span className="material-icons-round">file_download</span>
-              Descargar Mapa
+            <button className="btn-download-map" onClick={toggleZoom}>
+              <span className="material-icons-round">fullscreen</span>
+              Ampliar Mapa
             </button>
           </div>
         </div>
@@ -57,6 +62,18 @@ function MapaEvento({ onBack }) {
           </div>
         </div>
       </div>
+
+      {isZoomed && (
+        <div className="map-fullscreen-overlay animate-fade-in" onClick={toggleZoom}>
+          <div className="close-zoom-btn">
+            <span className="material-icons-round">close</span>
+          </div>
+          <div className="fullscreen-img-wrapper" onClick={(e) => e.stopPropagation()}>
+            <img src={mapUrl} alt="Mapa Fullscreen" className="fullscreen-img" />
+          </div>
+          <p className="zoom-instructions">Puedes usar dos dedos para ampliar el mapa</p>
+        </div>
+      )}
     </div>
   );
 }

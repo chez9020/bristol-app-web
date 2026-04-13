@@ -14,7 +14,7 @@ function Agenda({ onBack }) {
           <h1>Agenda</h1>
           <div className="agenda-location">
             <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>location_on</span>
-            <span>Cancún</span>
+            <span>Salón del Prado • Cancún</span>
           </div>
         </div>
         <div className="back-btn-circle" onClick={onBack}>

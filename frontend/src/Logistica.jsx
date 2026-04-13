@@ -113,14 +113,24 @@ function Logistica({ onBack }) {
                 <p>Blvd. Kukulcan, Zona Hotelera, 77500 Cancún, Q.R.</p>
               </div>
               <div className="hotel-button-group">
-                <button className="btn-premium-outline">
+                <a 
+                  href="https://bit.ly/4sslXrT" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn-premium-outline"
+                  style={{ textDecoration: 'none' }}
+                >
                   <span className="material-icons-round">directions</span>
                   Cómo llegar
-                </button>
-                <button className="btn-premium-outline">
+                </a>
+                <a 
+                  href="tel:+529988811100" 
+                  className="btn-premium-outline"
+                  style={{ textDecoration: 'none' }}
+                >
                   <span className="material-icons-round">phone</span>
                   Llamar
-                </button>
+                </a>
               </div>
             </div>
           </div>
