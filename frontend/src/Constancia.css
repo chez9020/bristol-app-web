@@ -55,7 +55,7 @@
   color: #ffffff;
   font-family: var(--font-gotham);
   font-weight: 700;
-  font-size: 1.2vw;
+  font-size: 1vw;
   /* Escala basándose en el ancho de la tarjeta */
   text-transform: uppercase;
   text-align: center;
