@@ -89,22 +89,16 @@
   line-height: 1.2;
 }
 
-.rest-location-link {
+.rest-type-text {
   display: flex;
   align-items: center;
   gap: 4px;
   font-family: var(--font-inter);
   font-size: 12px;
   color: #cbd5e1;
-  text-decoration: none;
-  opacity: 0.8;
 }
 
-.rest-location-link:hover {
-  opacity: 1;
-}
-
-.rest-location-link span {
+.rest-type-text span {
   font-size: 14px;
   color: #ddbaf6;
 }

@@ -2,86 +2,28 @@ import React, { useState } from 'react';
 import './Restaurantes.css';
 
 const restaurantesData = [
-  {
-    id: 1,
-    name: 'Tora Cancún',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante1.png',
-    link: 'https://maps.app.goo.gl/gyxEAjbK1Eean4D79?g_st=ic',
-  },
-  {
-    id: 2,
-    name: 'RosaNegra Cancún',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante2.png',
-    link: 'https://maps.app.goo.gl/pqothSL35pHYS3TZ7?g_st=ic',
-  },
-  {
-    id: 3,
-    name: 'Puerto Santo Cancún',
-    category: 'Comida Mexicana',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante3.png',
-    link: 'https://maps.app.goo.gl/y6Gh6NF6tbjFnHFu7?g_st=ic',
-  },
-  {
-    id: 4,
-    name: 'Puerto Madero Cancún',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante4.png',
-    link: 'https://maps.app.goo.gl/Ti5q6tUQUXS1npnA6?g_st=ic',
-  },
-  {
-    id: 5,
-    name: 'Fred’s Seafood & Raw Bar',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante5.png',
-    link: 'https://maps.app.goo.gl/MF8jspukT5RnB4qs8?g_st=ic',
-  },
-  {
-    id: 6,
-    name: 'Ilios Cancún',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante6.png',
-    link: 'https://maps.app.goo.gl/sFYd8WAo3ryw2g93A?g_st=ic',
-  },
-  {
-    id: 7,
-    name: 'Fish Fritanga',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante7.png',
-    link: 'https://maps.app.goo.gl/1KapBSTe8SAxBb9n9?g_st=ic',
-  },
-  {
-    id: 8,
-    name: 'La Dolce Vita Cancún',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante8.png',
-    link: 'https://maps.app.goo.gl/MrGBRSBtVLMkeuBi9?g_st=ic',
-  },
-  {
-    id: 9,
-    name: 'Porfirio’s Cancún',
-    category: 'Comida Mexicana',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante9.png',
-    link: 'https://maps.app.goo.gl/MBLehw5r7ghSBRdX9?g_st=ic',
-  },
-  {
-    id: 10,
-    name: 'Mochomos',
-    category: 'Premium',
-    img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante10.png',
-    link: 'https://maps.app.goo.gl/a9pBSadVSbn7NoA7A?g_st=ic',
-  },
+  { id: 1, name: 'Gastro Hall', type: 'Buffet Internacional', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante1.png?v=2' },
+  { id: 2, name: 'Vibra', type: 'Cocina Internacional', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante2.png?v=2' },
+  { id: 3, name: 'Santé', type: 'Cocina Mediterránea', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante3.png?v=2' },
+  { id: 4, name: 'Sal Steak Cave', type: 'Steak house', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante4.png?v=2' },
+  { id: 5, name: 'Cappella', type: 'Cocina italiana', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante5.png?v=2' },
+  { id: 6, name: 'Blue Agave', type: 'Auténtica Taquería', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante6.png?v=2' },
+  { id: 7, name: 'Kao', type: 'Cocina fusión asiática', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante7.png?v=2' },
+  { id: 8, name: 'Agua Marina', type: 'Cocina de mariscos', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante8.png?v=2' },
+  { id: 9, name: 'Coffee Corner by Nespresso', type: 'Cafetería', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante9.png?v=2' },
+  { id: 10, name: 'Ginger Lounge Bar', type: 'Bar', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante10.png?v=2' },
+  { id: 11, name: 'Pool Bar', type: 'Bar', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante11.png?v=2' },
+  { id: 12, name: 'The Shack', type: 'Snacks', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante12.png?v=2' },
+  { id: 13, name: 'Zesty', type: 'Cocina con producto local', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante13.png?v=2' },
+  { id: 14, name: 'Twe12lvet', type: 'Heladería', img: 'https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante14.png?v=2' }
 ];
 
-const categories = ['Todos', 'Comida Mexicana', 'Premium'];
+const categories = ['Todos'];
 
 function Restaurantes({ onBack }) {
   const [activeFilter, setActiveFilter] = useState('Todos');
 
-  const filteredRestaurantes = restaurantesData.filter(r =>
-    activeFilter === 'Todos' ? true : r.category === activeFilter
-  );
+  const filteredRestaurantes = restaurantesData;
 
   return (
     <div className="restaurantes-container animate-fade-in">
@@ -121,10 +63,9 @@ function Restaurantes({ onBack }) {
             </div>
             <div className="rest-info">
               <h3>{rest.name}</h3>
-              <a href={rest.link} className="rest-location-link" target="_blank" rel="noopener noreferrer">
-                <span className="material-icons-round">location_on</span>
-                Ir a ubicación
-              </a>
+              <div className="rest-type-text">
+                {rest.type}
+              </div>
             </div>
           </div>
         ))}
