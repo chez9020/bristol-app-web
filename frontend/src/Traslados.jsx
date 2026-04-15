@@ -68,7 +68,6 @@ function FlightCard({ group }) {
   return (
     <div className="flight-card-enhanced">
       <div className="flight-badge-row">
-        <span className="flight-number-tag">{nosLabel}</span>
         <span className="flight-duration-tag">SALIDA • {group.sale}</span>
       </div>
 
