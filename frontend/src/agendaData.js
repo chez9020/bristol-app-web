@@ -11,7 +11,7 @@ export const agendaData = {
       {
         id: 'retos_diagnosticos',
         time: '18:10 - 19:10',
-        title: 'Retos Diagnosticos de MCHo:',
+        title: 'Retos Diagnósticos de MCHo:',
         description: 'Desde la clínica hasta la imagen',
         speakers: ['Dr. Enrique Berrios', 'Dra. Julieta Morales']
       },
@@ -20,7 +20,7 @@ export const agendaData = {
         time: '19:10 - 19:40',
         title: 'MCH Obstructiva:',
         description: 'Limitaciones del tratamiento convencional y retos en la práctica clínica',
-        speakers: ['Dr. Adrián Fernández']
+        speakers: ['Dr. Adrian Fernández']
       },
       {
         id: 'break_jueves',
@@ -56,13 +56,13 @@ export const agendaData = {
         id: 'evidencia_clinica',
         time: '10:00 - 10:45',
         title: 'De la evidencia clínica de largo plazo hacia datos del mundo real',
-        speakers: ['Dr. Adrián Fernández']
+        speakers: ['Dr. Adrian Fernández']
       },
       {
         id: 'panel_discusion',
         time: '10:45 - 11:15',
         title: 'Panel de discusión',
-        speakers: ['Dr. Roberto Barriales', 'Dr. Adrián Fernández', 'Dr. Guillermo Antonio Llamas']
+        speakers: ['Dr. Roberto Barriales', 'Dr. Adrian Fernández', 'Dr. Guillermo Antonio Llamas']
       },
       {
         id: 'break_viernes',

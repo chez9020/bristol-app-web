@@ -39,7 +39,7 @@ export const conferenciasData = [
   },
   {
     id: 3,
-    titulo: 'MCH Obstructiva: limitaciones del tratamiento convencional y retos en la práctica clínica',
+    titulo: 'MCH Obstructiva: Limitaciones del tratamiento convencional y retos en la práctica clínica',
     modulo: 'PRÁCTICA CLÍNICA',
     descripcion: 'Revisión técnica de las limitaciones de las terapias tradicionales.',
     fecha: '2026-04-16',
@@ -49,7 +49,7 @@ export const conferenciasData = [
     ponentes: [
       {
         id: 103,
-        nombre: 'Dr. Adrián Fernández',
+        nombre: 'Dr. Adrian Fernández',
         puesto: 'Argentina',
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/adrian_fernandez.png',
         biografia_larga: 'Médico cardiólogo, Coordinador del Grupo de Trabajo en Cardiopatías Familiares del Hospital Universitario Fundación Favaloro, Buenos Aires, Argentina. \nMiembro titular de la Sociedad Argentina de Cardiología y Fellow de la Sociedad Europea de Cardiología. \nMédico graduado con diploma de honor de la Universidad de Buenos Aires. \nFue Director del Consejo de Cardiología Clínica de la Sociedad Argentina de Cardiología y Presidente del Comité de Miocardiopatías de la Federación Argentina de Cardiología. \nSu actividad clínica y de investigación se ha centrado en las cardiopatías genéticas familiares, con especial interés en la Miocardiopatía Hipertrófica. \nHa participado en estudios de investigación en Miocardiopatía Hipertrófica, publicados en revistas internacionales con revisión por pares.'
@@ -108,7 +108,7 @@ export const conferenciasData = [
     ponentes: [
       {
         id: 103,
-        nombre: 'Dr. Adrián Fernández',
+        nombre: 'Dr. Adrian Fernández',
         puesto: 'Argentina',
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/adrian_fernandez.png',
         biografia_larga: 'Médico cardiólogo, Coordinador del Grupo de Trabajo en Cardiopatías Familiares del Hospital Universitario Fundación Favaloro, Buenos Aires, Argentina. \nMiembro titular de la Sociedad Argentina de Cardiología y Fellow de la Sociedad Europea de Cardiología. \nMédico graduado con diploma de honor de la Universidad de Buenos Aires. \nFue Director del Consejo de Cardiología Clínica de la Sociedad Argentina de Cardiología y Presidente del Comité de Miocardiopatías de la Federación Argentina de Cardiología. \nSu actividad clínica y de investigación se ha centrado en las cardiopatías genéticas familiares, con especial interés en la Miocardiopatía Hipertrófica. \nHa participado en estudios de investigación en Miocardiopatía Hipertrófica, publicados en revistas internacionales con revisión por pares.'
@@ -134,7 +134,7 @@ export const conferenciasData = [
       },
       {
         id: 103,
-        nombre: 'Dr. Adrián Fernández',
+        nombre: 'Dr. Adrian Fernández',
         puesto: 'Argentina',
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/adrian_fernandez.png',
         biografia_larga: 'Médico cardiólogo, Coordinador del Grupo de Trabajo en Cardiopatías Familiares del Hospital Universitario Fundación Favaloro, Buenos Aires, Argentina. \nMiembro titular de la Sociedad Argentina de Cardiología y Fellow de la Sociedad Europea de Cardiología. \nMédico graduado con diploma de honor de la Universidad de Buenos Aires. \nFue Director del Consejo de Cardiología Clínica de la Sociedad Argentina de Cardiología y Presidente del Comité de Miocardiopatías de la Federación Argentina de Cardiología. \nSu actividad clínica y de investigación se ha centrado en las cardiopatías genéticas familiares, con especial interés en la Miocardiopatía Hipertrófica. \nHa participado en estudios de investigación en Miocardiopatía Hipertrófica, publicados en revistas internacionales con revisión por pares.'
