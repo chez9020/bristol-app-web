@@ -4,7 +4,8 @@ import './Registro.css';
 function Registro({ onRegister }) {
   const [name, setName] = useState('');
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
-  const [showId, setShowId] = useState(false); // New state for visibility toggle
+  const [showId, setShowId] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false); // Modal state
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -106,7 +107,13 @@ function Registro({ onRegister }) {
               <span className="agreement-label" onClick={() => setAcceptedPolicy(!acceptedPolicy)}>
                 Acepto la <strong>Política de Privacidad</strong>
               </span>
-              <a href="#" className="policy-details-link">Ver Política</a>
+              <button
+                type="button"
+                className="policy-details-link-btn"
+                onClick={() => setShowPrivacyModal(true)}
+              >
+                Ver Política
+              </button>
             </div>
           </div>
 
@@ -133,6 +140,28 @@ function Registro({ onRegister }) {
       <div className="legal-reference-footer">
         3500-MX-2600044
       </div>
+
+      {/* Privacy Policy Modal */}
+      {showPrivacyModal && (
+        <div className="privacy-modal-overlay">
+          <div className="privacy-modal-content">
+            <div className="privacy-modal-header">
+              <h3>Aviso de Privacidad</h3>
+              <button className="privacy-close-btn" onClick={() => setShowPrivacyModal(false)}>
+                <span className="material-icons-round">close</span>
+              </button>
+            </div>
+            <div className="privacy-pdf-container">
+              {/* Replace with your actual bucket URL */}
+              <iframe
+                src="https://storage.googleapis.com/bristol-presentaciones-2026/Aviso%20de%20Privacidad/AVISO%20DE%20PRIVACIDAD%20(CAMZYOS).pdf"
+                title="Aviso de Privacidad"
+                frameBorder="0"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,77 +1,162 @@
 .traslados-container {
-  padding-bottom: 40px;
-  min-height: 100vh;
-}
-
-.traslados-tabs-container {
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-.traslados-tab-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  padding: 12px;
-  font-family: var(--font-gotham);
-  font-weight: 700;
-  font-size: 14px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.traslados-tab-btn.active {
-  background: linear-gradient(93deg, #002d72 0%, #8a51b0 100%);
-  border-color: transparent;
-  box-shadow: 0 4px 15px rgba(131, 71, 173, 0.3);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b061a;
+  overflow: hidden;
 }
 
 .traslados-list-wrapper {
-  padding: 0 24px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 32px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Reusing flight glass card styles but with slight adjustments */
+.traslados-list-wrapper::-webkit-scrollbar { width: 3px; }
+.traslados-list-wrapper::-webkit-scrollbar-track { background: transparent; }
+.traslados-list-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(131, 71, 173, 0.4);
+  border-radius: 4px;
+}
+
+/* ── Flight Card ────────────────────────────── */
 .flight-card-enhanced {
-  background: linear-gradient(180deg, rgba(80, 41, 137, 0.4) 0%, rgba(1, 44, 99, 0.4) 100%);
+  background: linear-gradient(145deg, rgba(131, 71, 173, 0.22) 0%, rgba(1, 44, 99, 0.22) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  position: relative;
+  border-radius: 20px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  backdrop-filter: blur(8px);
 }
 
+/* Badge row: nº pasajeros + "SALIDA HH:MM" */
 .flight-badge-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .flight-number-tag {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-family: var(--font-inter);
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 12px;
-  color: #ddbaf6;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 30px;
+  letter-spacing: 0.03em;
 }
 
 .flight-duration-tag {
-  font-family: var(--font-inter);
-  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 11px;
-  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* Route row */
+.flight-route-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.route-point {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.route-point-right {
+  align-items: flex-end;
+}
+
+.route-time {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.route-city {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+}
+
+/* Plane line */
+.flight-path {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.path-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.path-plane-icon {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px !important;
+  transform: rotate(90deg);
+}
+
+/* Pickup inner card */
+.transfer-inner-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.transfer-icon-box {
+  background: #8347ad;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.transfer-icon-box .material-icons-round {
+  font-size: 20px;
+}
+
+.transfer-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.transfer-label-small {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.transfer-time-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
 }

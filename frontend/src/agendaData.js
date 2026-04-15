@@ -29,7 +29,7 @@ export const agendaData = {
       },
       {
         id: 'mch_obstructiva_2',
-        time: '19:55 - 20:25',
+        time: '19:55 - 20:55',
         title: 'MCH Obstructiva:',
         description: 'Evolución del tratamiento farmacológico hasta terapias dirigidas. “CENA”',
         speakers: ['Dr. Enrique Berrios']

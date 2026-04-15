@@ -190,13 +190,18 @@
   color: #ffffff;
 }
 
-.policy-details-link {
+.policy-details-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
   font-family: var(--font-gotham);
   font-weight: 600;
   color: #ddbaf6;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: underline;
   line-height: 20px;
+  cursor: pointer;
+  text-align: left;
 }
 
 .registration-action-container {
@@ -259,4 +264,70 @@
   color: #ffffff;
   opacity: 0.8;
   z-index: 10;
+}
+
+/* Privacy Modal Styles */
+.privacy-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.privacy-modal-content {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  background: #1a1a1a;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-modal-header {
+  padding: 16px 20px;
+  background: #2a2a2a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.privacy-close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.privacy-pdf-container {
+  flex: 1;
+  width: 100%;
+  background: #ffffff;
+}
+
+.privacy-pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
