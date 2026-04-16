@@ -15,17 +15,17 @@ function Constancia({ onBack, agente }) {
   const userName = agente?.nombre || 'Invitado';
 
   const surveyQuestions = [
-    { id: 'q1', category: 'Contenido científico', text: 'Relevancia y calidad del contenido científico presentado.' },
-    { id: 'q2', category: 'Contenido científico', text: 'Utilidad del contenido para su práctica clínica en MCHo.' },
-    { id: 'q3', category: 'Contenido científico', text: 'Equilibrio entre evidencia clínica, experiencia práctica y discusión de casos.' },
-    { id: 'q4', category: 'Calidad de los speakers', text: 'Dominio del tema y claridad en la exposición por parte de los ponentes.' },
-    { id: 'q5', category: 'Calidad de los speakers', text: 'Claridad en el entendimiento de las diferentes opciones de tratamiento.' },
-    { id: 'q6', category: 'Experiencia y herramientas digitales', text: 'Valor educativo de la experiencia de Realidad Virtual (VR).' },
-    { id: 'q7', category: 'Experiencia y herramientas digitales', text: 'Utilidad de la IA como apoyo educativo y su aplicabilidad clínica.' },
-    { id: 'q8', category: 'Dinámica y tiempos', text: 'Adecuación de la duración de las sesiones y respeto a los tiempos.' },
-    { id: 'q9', category: 'Aspectos logísticos', text: 'Organización general del evento (registro, horarios, sedes, alimentos).' },
-    { id: 'q10', category: 'Aspectos logísticos', text: 'Calidad de la comunicación por la agencia previa al evento.' },
-    { id: 'q11', category: 'Aspectos logísticos', text: 'Atención y servicio de la agencia durante el evento.' },
+    { id: 'q1', category: 'Contenido científico', text: '1. Relevancia y calidad del contenido científico presentado a lo largo del evento.' },
+    { id: 'q2', category: 'Contenido científico', text: '2. Utilidad del contenido para su práctica clínica en Miocardiopatía Hipertrófica Obstructiva (MCHo).' },
+    { id: 'q3', category: 'Contenido científico', text: '3. Equilibrio entre evidencia clínica, experiencia práctica y discusión de casos.' },
+    { id: 'q4', category: 'Calidad de los speakers', text: '4. Dominio del tema y claridad en la exposición por parte de los ponentes.' },
+    { id: 'q5', category: 'Calidad de los speakers', text: '5. Claridad en el entendimiento de las diferentes opciones de tratamiento disponibles para los pacientes con MCHo.' },
+    { id: 'q6', category: 'Experiencia y herramientas digitales', text: '6. Valor educativo de la experiencia de Realidad Virtual (VR) para la comprensión del mecanismo de acción y casos clínicos.' },
+    { id: 'q7', category: 'Experiencia y herramientas digitales', text: '7. Utilidad del soporte de Inteligencia Artificial (IA) como herramienta de apoyo educativo y su aplicabilidad en la práctica clínica.' },
+    { id: 'q8', category: 'Dinámica y tiempos del evento', text: '8. Adecuación de la duración de las sesiones y respeto a los tiempos de la agenda.' },
+    { id: 'q9', category: 'Aspectos logísticos', text: '9. Organización general del evento (registro, horarios, sedes, alimentos).' },
+    { id: 'q10', category: 'Aspectos logísticos', text: '10. Calidad de la atención y comunicación por parte de la agencia logística previa al evento.' },
+    { id: 'q11', category: 'Aspectos logísticos', text: '11. Atención y servicio brindado por la agencia organizadora durante el evento.' },
   ];
 
   const categories = [...new Set(surveyQuestions.map(q => q.category)), 'Comentarios finales'];
@@ -125,6 +125,18 @@ function Constancia({ onBack, agente }) {
               </div>
               <h3>¡Ya casi terminamos!</h3>
               <p>Antes de obtener tu certificado, ayúdanos con una breve encuesta de satisfacción.</p>
+              
+              <div className="instructions-box">
+                <p><strong>Instrucciones:</strong> Por favor evalúe los aspectos del evento utilizando la escala del 1 al 5:</p>
+                <ul className="scale-list">
+                  <li><strong>1</strong> Muy deficiente</li>
+                  <li><strong>2</strong> Deficiente</li>
+                  <li><strong>3</strong> Aceptable</li>
+                  <li><strong>4</strong> Bueno</li>
+                  <li><strong>5</strong> Excelente</li>
+                </ul>
+              </div>
+
               <button className="btn-start-survey" onClick={handleNext}>
                 Comenzar Encuesta
                 <span className="material-icons-round">arrow_forward</span>
