@@ -2,21 +2,33 @@ import React, { useState, useEffect } from 'react';
 import './Conferencias.css';
 import { conferenciasData } from './conferenciasData';
 
+// Cancún usa EST (UTC-5) permanente todo el año, sin cambio de horario
 function checkIsLive(fecha, inicio, fin) {
   const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  const todayStr = `${yyyy}-${mm}-${dd}`;
-  const hh = String(now.getHours()).padStart(2, '0');
-  const mins = String(now.getMinutes()).padStart(2, '0');
-  const timeStr = `${hh}:${mins}`;
+
+  // Forzar la hora de Cancún usando Intl (America/Cancun = EST, UTC-5 permanente)
+  const cancunFormatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Cancun',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  const parts = cancunFormatter.formatToParts(now);
+  const get = (type) => parts.find(p => p.type === type)?.value ?? '00';
+
+  const todayStr = `${get('year')}-${get('month')}-${get('day')}`;
+  const timeStr  = `${get('hour')}:${get('minute')}`;
 
   if (todayStr === fecha) {
     if (timeStr >= inicio && timeStr <= fin) return true;
   }
   return false;
 }
+
 
 function Conferencias({ onBack, onDetalle }) {
   const [activeFilter, setActiveFilter] = useState('Todas las Sesiones');

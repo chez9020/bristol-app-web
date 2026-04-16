@@ -36,8 +36,7 @@ export const conferenciasData = [
         biografia_larga: 'Cardióloga con Alta Especialidad en Ecocardiografía de adultos. \nMaestría en Ecocardiografía Transesofágica y Maestría en Cardio-onco-hematología. \nProfesora Adjunta del Curso de Especialidad en Cardiología de la Universidad Nacional Autónoma de México. \nProfesor adjunto del Diplomado de Técnicas Avanzadas en Ecocardiografía (UNAM). \nEncargada de la Clínica de Falla Cardíaca en el Centro Médico Nacional 20 de Noviembre. \nEx vocal de Ecocardiografía del Consejo Mexicano de Cardiología y Vicepresidenta de la Sociedad Nacional de Ecocardiografía de México (SONECOM).'
       }
     ],
-    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2001-%20DR%20ENRIQUE%20BERRIOS%20-%20Retos%20diagno%CC%81sticos%20.pptx'
-
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/Sesion2.zip'
   },
   {
     id: 3,
