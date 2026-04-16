@@ -35,7 +35,9 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/julieta_morales.png',
         biografia_larga: 'Cardióloga con Alta Especialidad en Ecocardiografía de adultos. \nMaestría en Ecocardiografía Transesofágica y Maestría en Cardio-onco-hematología. \nProfesora Adjunta del Curso de Especialidad en Cardiología de la Universidad Nacional Autónoma de México. \nProfesor adjunto del Diplomado de Técnicas Avanzadas en Ecocardiografía (UNAM). \nEncargada de la Clínica de Falla Cardíaca en el Centro Médico Nacional 20 de Noviembre. \nEx vocal de Ecocardiografía del Consejo Mexicano de Cardiología y Vicepresidenta de la Sociedad Nacional de Ecocardiografía de México (SONECOM).'
       }
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2001-%20DR%20ENRIQUE%20BERRIOS%20-%20Retos%20diagno%CC%81sticos%20.pptx'
+
   },
   {
     id: 3,
@@ -54,7 +56,9 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/adrian_fernandez.png',
         biografia_larga: 'Médico cardiólogo, Coordinador del Grupo de Trabajo en Cardiopatías Familiares del Hospital Universitario Fundación Favaloro, Buenos Aires, Argentina. \nMiembro titular de la Sociedad Argentina de Cardiología y Fellow de la Sociedad Europea de Cardiología. \nMédico graduado con diploma de honor de la Universidad de Buenos Aires. \nFue Director del Consejo de Cardiología Clínica de la Sociedad Argentina de Cardiología y Presidente del Comité de Miocardiopatías de la Federación Argentina de Cardiología. \nSu actividad clínica y de investigación se ha centrado en las cardiopatías genéticas familiares, con especial interés en la Miocardiopatía Hipertrófica. \nHa participado en estudios de investigación en Miocardiopatía Hipertrófica, publicados en revistas internacionales con revisión por pares.'
       }
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2003%20-%20DR%20ADRIAN%20FERNANDEZ%20-%20Limitaciones%20del%20Tratamiento%20convencional.pptx'
+
   },
   {
     id: 4,
@@ -74,7 +78,7 @@ export const conferenciasData = [
         biografia_larga: 'Doctor en Medicina por la Universidad de El Salvador, Especialista en Medicina Interna y Cardiología, con alta especialidad en Imagen Cardíaca por el Instituto Nacional de Cardiología Ignacio Chávez. \nMaestría y Doctorado en Ciencias Médicas por la Universidad Nacional Autónoma de México y Máster en Cardiopatías Hereditarias. \nJefe del Departamento de Consulta Externa y Coordinador de las Clínicas de Miocardiopatías, Aorta y Amiloidosis, así como del equipo multidisciplinario de Miocardiopatía Hipertrófica obstructiva en el Instituto Nacional de Cardiología Ignacio Chávez.\nJefe de Investigación y coordinador de imagen cardiovascular en el Hospital Español de México.\nMiembro del Sistema Nacional de Investigadores (CONACYT), Fellow del American College of Cardiology y de la European Society of Cardiology.\nEditor y profesor de posgrado, pregrado y formación en enfermería.'
       }
     ],
-    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/MCH_Obstructiva_CENA.pdf'
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2004%20-%20DR%20ENRIQUE%20BERRIOS%20-%20Evolucio%CC%81n%20de%20tratamiento%20hacia%20terapias%20dirigidas%20.pptx'
   },
   // VIERNES 17 DE ABRIL
   {
