@@ -10,7 +10,7 @@ function Constancia({ onBack, agente }) {
   const [surveyCompleted, setSurveyCompleted] = useState(false);
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState('');
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(-1);
 
   const userName = agente?.nombre || 'Invitado';
 
@@ -38,12 +38,13 @@ function Constancia({ onBack, agente }) {
   const currentQuestions = surveyQuestions.filter(q => q.category === currentCategory);
 
   const isStepValid = () => {
-    if (currentStep === categories.length - 1) return true; // Comentarios es opcional
+    if (currentStep === -1) return true;
+    if (currentStep === categories.length - 1) return true;
     return currentQuestions.every(q => ratings[q.id]);
   };
 
   const handleNext = () => {
-    if (isStepValid()) {
+    if (currentStep === -1 || isStepValid()) {
       setCurrentStep(prev => prev + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -97,7 +98,7 @@ function Constancia({ onBack, agente }) {
     }
   };
 
-  const progress = ((currentStep + 1) / categories.length) * 100;
+  const progress = currentStep < 0 ? 0 : ((currentStep + 1) / categories.length) * 100;
 
   return (
     <div className="constancia-container animate-fade-in">
@@ -116,73 +117,92 @@ function Constancia({ onBack, agente }) {
 
       {!surveyCompleted ? (
         <div className="survey-section stepper-mode">
-          <div className="survey-progress-bar">
-            <div className="progress-fill" style={{ width: `${progress}%` }}></div>
-          </div>
           
-          <div className="survey-step-info">
-            <span className="step-counter">Paso {currentStep + 1} de {categories.length}</span>
-            <h3 className="step-category-name">{currentCategory}</h3>
-          </div>
+          {currentStep === -1 ? (
+            <div className="survey-intro-screen animate-fade-in">
+              <div className="intro-icon-wrap">
+                <span className="material-icons-round">edit_note</span>
+              </div>
+              <h3>¡Ya casi terminamos!</h3>
+              <p>Antes de obtener tu certificado, ayúdanos con una breve encuesta de satisfacción.</p>
+              <button className="btn-start-survey" onClick={handleNext}>
+                Comenzar Encuesta
+                <span className="material-icons-round">arrow_forward</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="survey-progress-bar">
+                <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+              </div>
+              
+              <div className="survey-step-info">
+                <span className="step-counter">Paso {currentStep + 1} de {categories.length}</span>
+                <h3 className="step-category-name">{currentCategory}</h3>
+              </div>
+            </>
+          )}
 
           <div className="survey-form-stepper">
-            {currentStep < categories.length - 1 ? (
-              <div className="step-content animate-fade-in" key={currentStep}>
-                {currentQuestions.map(q => (
-                  <div key={q.id} className="survey-q-item">
-                    <p className="survey-q-text">{q.text}</p>
-                    <div className="rating-selector">
-                      {[1, 2, 3, 4, 5].map(v => (
-                        <button 
-                          key={v}
-                          type="button"
-                          className={`rating-btn ${ratings[q.id] === v ? 'active' : ''}`}
-                          onClick={() => handleRatingChange(q.id, v)}
-                        >
-                          {v}
-                        </button>
-                      ))}
+            {currentStep !== -1 && (
+              currentStep < categories.length - 1 ? (
+                <div className="step-content animate-fade-in" key={currentStep}>
+                  {currentQuestions.map(q => (
+                    <div key={q.id} className="survey-q-item">
+                      <p className="survey-q-text">{q.text}</p>
+                      <div className="rating-selector">
+                        {[1, 2, 3, 4, 5].map(v => (
+                          <button 
+                            key={v}
+                            type="button"
+                            className={`rating-btn ${ratings[q.id] === v ? 'active' : ''}`}
+                            onClick={() => handleRatingChange(q.id, v)}
+                          >
+                            {v}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="step-content animate-fade-in">
-                <p className="survey-q-text">Comentarios adicionales, sugerencias de mejora o aspectos relevantes:</p>
-                <textarea 
-                  placeholder="Escribe aquí tu opinión..."
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
-                  className="survey-textarea"
-                />
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="step-content animate-fade-in">
+                  <p className="survey-q-text">Comentarios adicionales, sugerencias de mejora o aspectos relevantes:</p>
+                  <textarea 
+                    placeholder="Escribe aquí tu opinión..."
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
+                    className="survey-textarea"
+                  />
+                </div>
+              )
             )}
 
-            <div className="stepper-actions">
-              {currentStep > 0 && (
+            {currentStep !== -1 && (
+              <div className="stepper-actions">
                 <button className="btn-stepper-back" onClick={handleBack}>
                   Anterior
                 </button>
-              )}
-              
-              {currentStep < categories.length - 1 ? (
-                <button 
-                  className="btn-stepper-next" 
-                  onClick={handleNext}
-                  disabled={!isStepValid()}
-                >
-                  Siguiente
-                </button>
-              ) : (
-                <button 
-                  className="btn-submit-survey-full" 
-                  onClick={handleSubmitSurvey}
-                  disabled={isSubmitting}
-                >
-                   {isSubmitting ? 'Guardando...' : 'Finalizar Encuesta'}
-                </button>
-              )}
-            </div>
+                
+                {currentStep < categories.length - 1 ? (
+                  <button 
+                    className="btn-stepper-next" 
+                    onClick={handleNext}
+                    disabled={!isStepValid()}
+                  >
+                    Siguiente
+                  </button>
+                ) : (
+                  <button 
+                    className="btn-submit-survey-full" 
+                    onClick={handleSubmitSurvey}
+                    disabled={isSubmitting}
+                  >
+                     {isSubmitting ? 'Guardando...' : 'Finalizar Encuesta'}
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       ) : (

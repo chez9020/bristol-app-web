@@ -130,22 +130,27 @@
 }
 
 /* SURVEY STYLES UPDATED */
-.survey-section {
+.survey-section.stepper-mode {
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 0 20px 40px;
+}
+
+.survey-intro-screen {
+  width: 100%;
+  padding: 40px 24px;
   text-align: center;
-  animation: slideUp 0.5s ease-out;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.survey-section h3 {
-  font-family: var(--font-gotham);
-  font-size: 22px;
-  color: #ffffff;
-  margin-bottom: 8px;
+.survey-form-stepper {
+  width: 100%;
 }
 
 .survey-instr {
@@ -350,4 +355,72 @@
 
 .survey-success-container {
   padding-bottom: 40px;
+}
+
+/* INTRO SCREEN STYLES */
+.survey-intro-screen {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  margin-top: 20px;
+}
+
+.intro-icon-wrap {
+  width: 80px;
+  height: 80px;
+  background: rgba(221, 186, 246, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.intro-icon-wrap span {
+  font-size: 40px;
+  color: #ddbaf6;
+}
+
+.survey-intro-screen h3 {
+  font-family: var(--font-gotham);
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.survey-intro-screen p {
+  font-family: var(--font-inter);
+  font-size: 15px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.btn-start-survey {
+  width: 100%;
+  background: linear-gradient(93deg, #4b2a8e 0%, #8a51b0 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 18px;
+  color: white;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.btn-start-survey:hover {
+  transform: translateY(-3px);
+}
+
+.btn-start-survey span {
+  font-size: 20px;
 }
