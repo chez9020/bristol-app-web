@@ -60,6 +60,11 @@ function App() {
 
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
+  const [showLockedModal, setShowLockedModal] = useState(false);
+
+  // Cancún usa EST (UTC-5) permanente, sin cambio de horario
+  const CONSTANCIA_UNLOCK = new Date('2026-04-17T11:00:00-05:00');
+  const constanciaAvailable = new Date() >= CONSTANCIA_UNLOCK;
 
   const handleUpdateAgente = (newAgenteData) => {
     setAgente(newAgenteData);
@@ -124,10 +129,12 @@ function App() {
                 onClick={() => setActiveTab('Logistica')}
               />
               <GridCard
-                icon="verified"
+                icon={constanciaAvailable ? 'verified' : 'lock_clock'}
                 title="Constancia"
-                subtitle="CERTIFICADO"
-                onClick={() => setActiveTab('Constancia')}
+                subtitle={constanciaAvailable ? 'CERTIFICADO' : '17 ABR · 11:00 AM'}
+                onClick={() => constanciaAvailable
+                  ? setActiveTab('Constancia')
+                  : setShowLockedModal(true)}
               />
               <GridCard
                 icon="edit_note"
@@ -180,7 +187,25 @@ function App() {
             onUpdateAgente={handleUpdateAgente}
           />
         )}
-        {activeTab === 'Constancia' && <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />}
+        {activeTab === 'Constancia' && (
+          constanciaAvailable
+            ? <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />
+            : <div className="constancia-locked animate-fade-in">
+                <header className="agenda-header">
+                  <div className="agenda-header-text"><h1>Constancia</h1></div>
+                  <div className="back-btn-circle" onClick={() => setActiveTab('Inicio')}>
+                    <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
+                  </div>
+                </header>
+                <div className="locked-body">
+                  <span className="material-icons-round locked-icon">lock_clock</span>
+                  <h2>Próximamente</h2>
+                  <p>Tu constancia estará disponible a partir del</p>
+                  <div className="locked-date">17 de Abril · 11:00 AM</div>
+                  <p className="locked-sub">Cancún, México</p>
+                </div>
+              </div>
+        )}
         {activeTab === 'Interacciones' && <Interacciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}
       </div>
@@ -188,6 +213,22 @@ function App() {
       <div className="modern-legal-footer">
         {activeTab === 'Constancia' ? 'CV-MX-2600032' : '3500-MX-2600044'}
       </div>
+
+      {/* Modal: Constancia bloqueada */}
+      {showLockedModal && (
+        <div className="modal-overlay" onClick={() => setShowLockedModal(false)}>
+          <div className="modal-locked-card" onClick={e => e.stopPropagation()}>
+            <span className="material-icons-round modal-lock-icon">lock_clock</span>
+            <h3>Próximamente</h3>
+            <p>Tu constancia estará disponible a partir del:</p>
+            <div className="modal-locked-date">17 de Abril · 11:00 AM</div>
+            <p className="modal-locked-tz">Hora Cancún, México (EST)</p>
+            <button className="modal-close-btn" onClick={() => setShowLockedModal(false)}>
+              Entendido
+            </button>
+          </div>
+        </div>
+      )}
 
       <nav className="modern-bottom-nav">
         <NavItem
