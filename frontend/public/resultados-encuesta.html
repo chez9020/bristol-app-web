@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultados Encuesta · Camzyos 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple: #8a51b0;
+      --lilac: #ddbaf6;
+      --dark: #0d0b1a;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    /* HEADER */
+    .dash-header {
+      background: rgba(139, 81, 176, 0.15);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .dash-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .dash-header p { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+    .badge-cv {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--lilac);
+      background: rgba(221,186,246,0.1);
+      border: 1px solid rgba(221,186,246,0.25);
+      border-radius: 20px;
+      padding: 5px 14px;
+      letter-spacing: 1px;
+    }
+
+    /* LOADING */
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: #94a3b8;
+      font-size: 15px;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--lilac);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      padding: 32px 32px 0;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--lilac);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 32px 32px 16px;
+    }
+
+    /* CATEGORY CARDS */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 0 32px;
+    }
+    .cat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .cat-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lilac);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-row { margin-bottom: 18px; }
+    .q-row:last-child { margin-bottom: 0; }
+    .q-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .q-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .q-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .q-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #4b2a8e, #ddbaf6);
+      transition: width 0.8s ease;
+    }
+    .q-score {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      min-width: 30px;
+      text-align: right;
+    }
+
+    /* COMMENTS */
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 32px;
+    }
+    .comment-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .comment-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--lilac);
+      margin-bottom: 6px;
+    }
+    .comment-text {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* INDIVIDUAL TABLE */
+    .table-wrap {
+      padding: 0 32px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      background: rgba(221,186,246,0.08);
+      color: var(--lilac);
+      font-weight: 600;
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td {
+      padding: 11px 14px;
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+    .score-chip {
+      display: inline-block;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      line-height: 28px;
+    }
+    .score-5 { background: rgba(134,239,172,0.2); color: #86efac; }
+    .score-4 { background: rgba(147,197,253,0.2); color: #93c5fd; }
+    .score-3 { background: rgba(253,224,71,0.2); color: #fde047; }
+    .score-2 { background: rgba(253,186,116,0.2); color: #fdba74; }
+    .score-1 { background: rgba(248,113,113,0.2); color: #f87171; }
+
+    /* EXPORT BTN */
+    .btn-export {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(93deg, #4b2a8e, #8a51b0);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-export:hover { opacity: 0.85; }
+
+    /* EMPTY */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #4a5568;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid, .categories-grid, .comments-list, .table-wrap { padding: 0 16px; }
+      .section-title { padding-left: 16px; padding-right: 16px; }
+      .dash-header { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dash-header">
+    <div>
+      <h1>📊 Resultados de Encuesta</h1>
+      <p>Camzyos 2026 · Cancún, México</p>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <button class="btn-export" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <span class="badge-cv">CV-MX-2600032</span>
+    </div>
+  </div>
+
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    Cargando resultados...
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <!-- Stats -->
+    <div class="section-title">Resumen General</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="total-resp">—</div>
+        <div class="stat-label">Respuestas totales</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="promedio-global">—</div>
+        <div class="stat-label">Promedio global</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="total-comments">—</div>
+        <div class="stat-label">Con comentarios</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="score-top">—</div>
+        <div class="stat-label">Mejor categoría</div>
+      </div>
+    </div>
+
+    <!-- Promedios por categoría -->
+    <div class="section-title">Promedios por Pregunta</div>
+    <div class="categories-grid" id="categories-grid"></div>
+
+    <!-- Comentarios -->
+    <div class="section-title">Comentarios Abiertos</div>
+    <div class="comments-list" id="comments-list">
+      <div class="empty">Sin comentarios aún.</div>
+    </div>
+
+    <!-- Respuestas individuales -->
+    <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; padding-right:32px;">
+      <span>Respuestas Individuales</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr id="table-head"></tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Firebase CDN -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-1fl9GwYuNCs73BIL45iIZTu5V5k5Y6E",
+      authDomain: "shaq-brand-bot.firebaseapp.com",
+      projectId: "shaq-brand-bot",
+      storageBucket: "shaq-brand-bot.firebasestorage.app",
+      messagingSenderId: "612926027116",
+      appId: "1:612926027116:web:1cee7d950033c3f7faaf49"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const questions = [
+      { id: 'q1',  cat: 'Contenido científico',             label: '1. Relevancia y calidad del contenido científico.' },
+      { id: 'q2',  cat: 'Contenido científico',             label: '2. Utilidad para práctica clínica en MCHo.' },
+      { id: 'q3',  cat: 'Contenido científico',             label: '3. Equilibrio evidencia clínica, práctica y casos.' },
+      { id: 'q4',  cat: 'Calidad de los speakers',          label: '4. Dominio y claridad de los ponentes.' },
+      { id: 'q5',  cat: 'Calidad de los speakers',          label: '5. Claridad en opciones de tratamiento MCHo.' },
+      { id: 'q6',  cat: 'Herramientas digitales',           label: '6. Valor educativo de la experiencia VR.' },
+      { id: 'q7',  cat: 'Herramientas digitales',           label: '7. Utilidad de la IA como apoyo educativo.' },
+      { id: 'q8',  cat: 'Dinámica y tiempos',               label: '8. Duración de sesiones y tiempos de agenda.' },
+      { id: 'q9',  cat: 'Aspectos logísticos',              label: '9. Organización general del evento.' },
+      { id: 'q10', cat: 'Aspectos logísticos',              label: '10. Comunicación de la agencia previa al evento.' },
+      { id: 'q11', cat: 'Aspectos logísticos',              label: '11. Atención de la agencia durante el evento.' },
+    ];
+
+    let allDocs = [];
+
+    async function load() {
+      try {
+        const snap = await getDocs(collection(db, 'encuestas_resultados'));
+        allDocs = [];
+        snap.forEach(d => allDocs.push({ id: d.id, ...d.data() }));
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+
+        renderStats();
+        renderCategories();
+        renderComments();
+        renderTable();
+      } catch (e) {
+        document.getElementById('loading').innerHTML = `<p style="color:#f87171">Error: ${e.message}</p>`;
+      }
+    }
+
+    function avg(vals) {
+      const nums = vals.filter(v => v != null && !isNaN(v));
+      if (!nums.length) return null;
+      return (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(2);
+    }
+
+    function renderStats() {
+      const total = allDocs.length;
+      document.getElementById('total-resp').textContent = total;
+      document.getElementById('total-comments').textContent = allDocs.filter(d => d.comentarios?.trim()).length;
+
+      if (!total) return;
+
+      // Global avg across all questions
+      let allScores = [];
+      allDocs.forEach(d => {
+        questions.forEach(q => {
+          const v = d.respuestas?.[q.id];
+          if (v) allScores.push(Number(v));
+        });
+      });
+      document.getElementById('promedio-global').textContent = avg(allScores) ?? '—';
+
+      // Best category
+      const cats = [...new Set(questions.map(q => q.cat))];
+      let bestCat = '', bestAvg = 0;
+      cats.forEach(cat => {
+        const qs = questions.filter(q => q.cat === cat);
+        let scores = [];
+        allDocs.forEach(d => qs.forEach(q => { const v = d.respuestas?.[q.id]; if(v) scores.push(Number(v)); }));
+        const a = parseFloat(avg(scores) ?? 0);
+        if (a > bestAvg) { bestAvg = a; bestCat = cat; }
+      });
+      document.getElementById('score-top').textContent = bestAvg.toFixed(1);
+      document.getElementById('score-top').title = bestCat;
+    }
+
+    function renderCategories() {
+      const cats = [...new Set(questions.map(q => q.cat))];
+      const grid = document.getElementById('categories-grid');
+      grid.innerHTML = '';
+
+      cats.forEach(cat => {
+        const qs = questions.filter(q => q.cat === cat);
+        const card = document.createElement('div');
+        card.className = 'cat-card';
+        card.innerHTML = `<h3>${cat}</h3>` + qs.map(q => {
+          const scores = allDocs.map(d => d.respuestas?.[q.id]).filter(Boolean).map(Number);
+          const a = avg(scores);
+          const pct = a ? (parseFloat(a) / 5) * 100 : 0;
+          return `<div class="q-row">
+            <div class="q-label">${q.label}</div>
+            <div class="q-bar-wrap">
+              <div class="q-bar"><div class="q-bar-fill" style="width:${pct}%"></div></div>
+              <span class="q-score">${a ?? '—'}</span>
+            </div>
+          </div>`;
+        }).join('');
+        grid.appendChild(card);
+      });
+    }
+
+    function renderComments() {
+      const list = document.getElementById('comments-list');
+      const withComments = allDocs.filter(d => d.comentarios?.trim());
+      if (!withComments.length) {
+        list.innerHTML = '<div class="empty">Sin comentarios aún.</div>';
+        return;
+      }
+      list.innerHTML = withComments.map(d => `
+        <div class="comment-item">
+          <div class="comment-name">👤 ${d.nombre || 'Anónimo'}</div>
+          <div class="comment-text">${d.comentarios}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderTable() {
+      const head = document.getElementById('table-head');
+      const body = document.getElementById('table-body');
+
+      head.innerHTML = `<th>Nombre</th>` + questions.map(q => `<th>P${q.id.replace('q','')}</th>`).join('') + `<th>Promedio</th><th>Fecha</th>`;
+
+      body.innerHTML = allDocs.map(d => {
+        const scores = questions.map(q => d.respuestas?.[q.id]);
+        const a = avg(scores.filter(Boolean).map(Number));
+        const fecha = d.fecha?.toDate ? d.fecha.toDate().toLocaleDateString('es-MX') : '—';
+        return `<tr>
+          <td>${d.nombre || '—'}</td>
+          ${scores.map(v => `<td><span class="score-chip score-${v || ''}">${v || '—'}</span></td>`).join('')}
+          <td><strong>${a ?? '—'}</strong></td>
+          <td>${fecha}</td>
+        </tr>`;
+      }).join('') || `<tr><td colspan="${questions.length + 3}" style="text-align:center; color:#4a5568; padding:40px">Sin respuestas aún.</td></tr>`;
+    }
+
+    // Export CSV
+    window.exportCSV = function() {
+      const headers = ['Nombre', ...questions.map(q => q.id.toUpperCase()), 'Promedio', 'Comentarios', 'Fecha'];
+      const rows = allDocs.map(d => {
+        const scores = questions.map(q => d.respuestas?.[q.id] ?? '');
+        const a = avg(scores.filter(Boolean).map(Number));
+        const fecha = d.fecha?.toDate ? d.fecha.toDate().toLocaleDateString('es-MX') : '';
+        return [d.nombre || '', ...scores, a ?? '', (d.comentarios || '').replace(/,/g, ';'), fecha];
+      });
+      const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'encuesta_camzyos_2026.csv';
+      a.click();
+    };
+
+    load();
+  </script>
+</body>
+</html>

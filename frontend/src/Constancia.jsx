@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Constancia.css';
 import constanciaImg from './assets/constancia-base.png';
 import { db } from './firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 
 function Constancia({ onBack, agente }) {
   const [isDownloading, setIsDownloading] = useState(false);
@@ -11,8 +11,31 @@ function Constancia({ onBack, agente }) {
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState('');
   const [currentStep, setCurrentStep] = useState(-1);
+  const [checkingPrev, setCheckingPrev] = useState(true);
 
   const userName = agente?.nombre || 'Invitado';
+
+  // Al cargar, verifica si el usuario ya contestó la encuesta
+  useEffect(() => {
+    const checkPreviousSubmission = async () => {
+      if (!agente?.id) { setCheckingPrev(false); return; }
+      try {
+        const q = query(
+          collection(db, 'encuestas_resultados'),
+          where('agente_id', '==', agente.id)
+        );
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setSurveyCompleted(true); // Ya contestó, ir directo al certificado
+        }
+      } catch (e) {
+        console.warn('No se pudo verificar encuesta previa:', e.message);
+      } finally {
+        setCheckingPrev(false);
+      }
+    };
+    checkPreviousSubmission();
+  }, [agente?.id]);
 
   const surveyQuestions = [
     { id: 'q1', category: 'Contenido científico', text: '1. Relevancia y calidad del contenido científico presentado a lo largo del evento.' },
@@ -99,6 +122,26 @@ function Constancia({ onBack, agente }) {
   };
 
   const progress = currentStep < 0 ? 0 : ((currentStep + 1) / categories.length) * 100;
+
+  // Pantalla de carga mientras verifica
+  if (checkingPrev) {
+    return (
+      <div className="constancia-container animate-fade-in">
+        <header className="agenda-header">
+          <div className="agenda-header-text">
+            <h1>Constancia</h1>
+          </div>
+          <div className="back-btn-circle" onClick={onBack}>
+            <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
+          </div>
+        </header>
+        <div className="checking-screen">
+          <div className="checking-spinner"></div>
+          <p>Verificando tu constancia...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="constancia-container animate-fade-in">

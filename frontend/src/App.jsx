@@ -186,7 +186,7 @@ function App() {
       </div>
 
       <div className="modern-legal-footer">
-        3500-MX-2600044
+        {activeTab === 'Constancia' ? 'CV-MX-2600032' : '3500-MX-2600044'}
       </div>
 
       <nav className="modern-bottom-nav">
