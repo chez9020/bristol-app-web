@@ -128,3 +128,226 @@
 .c-btn-download-pdf:active {
   transform: scale(0.98);
 }
+
+/* SURVEY STYLES UPDATED */
+.survey-section {
+  padding: 0 20px 40px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.survey-section h3 {
+  font-family: var(--font-gotham);
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.survey-instr {
+  font-family: var(--font-inter);
+  font-size: 11px;
+  color: #ddbaf6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+.survey-form-full {
+  text-align: left;
+}
+
+.survey-cat-group {
+  margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.survey-cat-title {
+  font-family: var(--font-gotham);
+  font-size: 14px;
+  color: #ddbaf6;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(221, 186, 246, 0.2);
+}
+
+.survey-q-item {
+  margin-bottom: 24px;
+}
+
+.survey-q-item:last-child {
+  margin-bottom: 0;
+}
+
+.survey-q-text {
+  font-family: var(--font-inter);
+  font-size: 13px;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.rating-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rating-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.rating-btn.active {
+  background: #ddbaf6;
+  border-color: #ddbaf6;
+  color: #4b2a8e;
+  box-shadow: 0 0 15px rgba(221, 186, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.survey-textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  min-height: 100px;
+  resize: none;
+  outline: none;
+}
+
+.survey-textarea:focus {
+  border-color: #ddbaf6;
+}
+
+.btn-submit-survey-full {
+  width: 100%;
+  background: linear-gradient(93deg, #4b2a8e 0%, #8a51b0 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 18px;
+  color: white;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+
+.btn-submit-survey-full:disabled {
+  opacity: 0.4;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+/* STEPPER SPECIFIC STYLES */
+.survey-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ddbaf6 0%, #8a51b0 100%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.survey-step-info {
+  margin-bottom: 32px;
+}
+
+.step-counter {
+  font-family: var(--font-inter);
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.step-category-name {
+  font-family: var(--font-gotham);
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.stepper-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.btn-stepper-back {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  color: #94a3b8;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-stepper-next {
+  flex: 2;
+  background: #ddbaf6;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  color: #4b2a8e;
+  font-family: var(--font-gotham);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(221, 186, 246, 0.2);
+}
+
+.btn-stepper-next:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.animate-pop-in {
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.survey-success-container {
+  padding-bottom: 40px;
+}
