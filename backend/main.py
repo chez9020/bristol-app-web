@@ -390,6 +390,14 @@ async def get_apunte(id_unico: str, session_id: str):
         print(f"Error leyendo apunte: {e}")
         raise HTTPException(status_code=500, detail="Error leyendo apunte: " + str(e))
 
+@app.get("/api/debug/{id_unico}")
+async def debug_agente(id_unico: str):
+    db = get_db()
+    doc = db.collection('acceso_agentes').document(id_unico).get()
+    if doc.exists:
+        return {"id": id_unico, "data": doc.to_dict()}
+    return {"error": "no encontrado"}
+    
 @app.get("/api/constancia/{id_unico}")
 async def generar_constancia(id_unico: str):
     """
