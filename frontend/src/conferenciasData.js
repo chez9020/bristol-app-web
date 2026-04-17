@@ -185,7 +185,8 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/julieta_morales.png',
         biografia_larga: 'Cardióloga con Alta Especialidad en Ecocardiografía de adultos. \nMaestría en Ecocardiografía Transesofágica y Maestría en Cardio-onco-hematología. \nProfesora Adjunta del Curso de Especialidad en Cardiología de la Universidad Nacional Autónoma de México. \nProfesor adjunto del Diplomado de Técnicas Avanzadas en Ecocardiografía (UNAM). \nEncargada de la Clínica de Falla Cardíaca en el Centro Médico Nacional 20 de Noviembre. \nEx vocal de Ecocardiografía del Consejo Mexicano de Cardiología y Vicepresidenta de la Sociedad Nacional de Ecocardiografía de México (SONECOM).'
       }
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%20RUTA%20DEL%20DIAGNOSTICO.pptx'
   },
   {
     id: 9,
