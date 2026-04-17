@@ -97,7 +97,8 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/roberto_barriales.png',
         biografia_larga: 'Licenciado y Doctor en Medicina y Cirugía por la Universidad de Oviedo. \nEspecialista en Cardiología vía MIR realizado en el Hospital Universitario Central de Asturias. \nFellow de la European Society of Cardiology (FESC). \nExcoordinador del Grupo de trabajo de Cardiopatías Familiares y Genética Cardiovascular de la Sociedad Española de Cardiología. \nMiembro actual del Council on Cardiovascular Genomics of the European Society of Cardiology (2024–2026). \nCoordinador de la Unidad de Cardiopatías Familiares del Complexo Hospitalario Universitario A Coruña (CSUR reacreditado en 2024).'
       }
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2005%20-%20DR%20ROBERTO%20BARRIALES%20-%20Inhibicion%20de%20la%20miosina%20cardiaca.pptx'
   },
   {
     id: 6,
@@ -116,7 +117,8 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/adrian_fernandez.png',
         biografia_larga: 'Médico cardiólogo, Coordinador del Grupo de Trabajo en Cardiopatías Familiares del Hospital Universitario Fundación Favaloro, Buenos Aires, Argentina. \nMiembro titular de la Sociedad Argentina de Cardiología y Fellow de la Sociedad Europea de Cardiología. \nMédico graduado con diploma de honor de la Universidad de Buenos Aires. \nFue Director del Consejo de Cardiología Clínica de la Sociedad Argentina de Cardiología y Presidente del Comité de Miocardiopatías de la Federación Argentina de Cardiología. \nSu actividad clínica y de investigación se ha centrado en las cardiopatías genéticas familiares, con especial interés en la Miocardiopatía Hipertrófica. \nHa participado en estudios de investigación en Miocardiopatía Hipertrófica, publicados en revistas internacionales con revisión por pares.'
       }
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2006%20-%20DR%20ADRIAN%20FERNANDEZ%20-%20Datos%20del%20mundo%20real.pptx'
   },
   {
     id: 7,
@@ -202,8 +204,8 @@ export const conferenciasData = [
         foto: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentadores/guillermo_antonio.png',
         biografia_larga: 'Médico Internista, Cardiólogo Clínico y Cardiólogo Intervencionista. \nExjefe de Residentes del Instituto Nacional de Cardiología Ignacio Chávez y Profesor Titular del Curso de Posgrado de Cardiología Clínica de adultos del Hospital Cardiológica Aguascalientes, Universidad Autónoma de Aguascalientes. \nRector del Centro Universitario de Estudios de la Salud de Aguascalientes (CUESA) y Director Fundador del Hospital Cardiológica Aguascalientes. \nExpresidente Fundador de la Asociación de Médicos Internistas de Aguascalientes, Expresidente de la Sociedad Aguascalentense de Cardiología Ignacio Chávez y Expresidente del Colegio de Médicos Cirujanos de Aguascalientes. \nMiembro honorario titular de la Sociedad Mexicana de Cardiología, Miembro de la Sociedad Latinoamericana de Cardiología Intervencionista (SOLACI), del American College of Cardiology (FACC), de la Society for Cardiovascular Angiography and Interventions (FSCAI) y de la Academia Nacional de Medicina de México. \nAutor y coautor de libros, artículos científicos, cursos y congresos, e Investigador Principal en protocolos de investigación clínica.'
       }
-
-    ]
+    ],
+    presentation_link: 'https://storage.googleapis.com/bristol-presentaciones-2026/Presentaciones/FINAL%2010%20-%20DR%20GUILLERMO%20ANTONIO%20LLAMAS%20-%20Remarks.pptx'
   },
   {
     id: 10,
