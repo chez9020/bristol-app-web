@@ -5,7 +5,7 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: #0b061a;
+  background-color: #ffffff;
 }
 
 .inicio-background {
@@ -21,20 +21,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%; /* Positioning the heart in the upper middle area */
+  object-position: center top;
   pointer-events: none;
-}
-
-.white-logo {
-  filter: brightness(0) invert(1);
 }
 
 .bms-logo-top {
   position: absolute;
-  top: 50px;
+  top: 36px;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
+  width: 204px;
   z-index: 10;
 }
 
@@ -44,87 +40,88 @@
   object-fit: contain;
 }
 
-/* Bottom elements holder - ensuring it stays at the bottom and doesn't push up */
+/* Bottom elements holder - ensuring stays bottom doesn't push up */
 .bottom-interactive-area {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50%; /* Strictly bottom half */
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  padding-bottom: 24px;
-  /* Dark fade to ensure text readability over background */
-  background: linear-gradient(180deg, rgba(11, 6, 26, 0) 0%, rgba(11, 6, 26, 0.8) 40%, rgba(11, 6, 26, 1) 100%);
+  padding: 0 32px 24px;
 }
 
-.branding-container {
-  margin-bottom: 8px;
-}
-
-.camzyos-main-logo {
-  height: 65px;
-  width: auto;
-  object-fit: contain;
-  margin-bottom: 4px;
+.main-event-title {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 60px;
+  text-align: center;
+  text-transform: capitalize;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .main-welcome-title {
-  font-family: var(--font-gotham);
-  font-weight: 700;
-  font-size: 40px;
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 33px;
+  line-height: 38px;
   text-align: center;
-  color: #ffffff;
-  margin: 0 0 12px 0;
+  text-transform: capitalize;
+  color: var(--color-text-heading);
 }
 
 .main-welcome-subtitle {
-  font-family: var(--font-gotham);
-  font-weight: 400;
+  margin: 20px 0 0;
+  font-family: var(--font-inter);
+  font-weight: 300;
   font-size: 20px;
-  line-height: 26px;
+  line-height: 21px;
   text-align: center;
-  color: #ffffff;
-  margin: 0 0 40px 0;
-  opacity: 0.9;
+  color: #3a3534;
 }
 
 .camzyos-primary-button {
-  width: calc(100% - 64px);
-  max-width: 340px;
-  height: 64px;
-  background: linear-gradient(90deg, #002D72 0%, #8A51B0 100%);
+  margin-top: 40px;
+  width: 100%;
+  max-width: 298px;
+  padding: 16px 24px;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 60px;
 }
 
 .camzyos-primary-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .camzyos-primary-button span {
-  font-family: var(--font-gotham);
-  font-weight: 700;
+  font-family: var(--font-inter);
+  font-weight: 500;
   font-size: 20px;
   color: #ffffff;
 }
 
 .legal-reference-bottom {
-  font-family: var(--font-gotham);
-  font-weight: 400;
+  margin-top: 16px;
+  font-family: var(--font-inter);
+  font-weight: 500;
   font-size: 10px;
-  color: #ffffff;
+  color: #3a3534;
   opacity: 0.7;
   text-align: center;
   padding-bottom: constant(safe-area-inset-bottom);

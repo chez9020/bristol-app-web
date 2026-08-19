@@ -13,20 +13,24 @@ import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
 
 // NavItem and GridCard
-function NavItem({ icon, label, isActive, onClick }) {
+function NavItem({ icon, iconSrc, label, isActive, onClick }) {
   return (
     <div className={`modern-nav-item ${isActive ? 'active' : ''}`} onClick={onClick}>
-      <span className="material-icons-round nav-icon-modern">{icon}</span>
+      {iconSrc
+        ? <img src={iconSrc} alt="" className="nav-icon-img" />
+        : <span className="material-icons-round nav-icon-modern">{icon}</span>}
       <span className="nav-label-modern">{label}</span>
     </div>
   );
 }
 
-function GridCard({ icon, title, subtitle, onClick }) {
+function GridCard({ icon, iconSrc, title, subtitle, onClick }) {
   return (
     <div className="dashboard-card" onClick={onClick}>
       <div className="card-icon-container">
-        <span className="material-icons-round card-icon-gradient">{icon}</span>
+        {iconSrc
+          ? <img src={iconSrc} alt="" className="card-icon-img" />
+          : <span className="material-icons-round card-icon-gradient">{icon}</span>}
       </div>
       <div className="card-info">
         <h3 className="card-title-main">{title}</h3>
@@ -61,6 +65,7 @@ function App() {
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
   const [showLockedModal, setShowLockedModal] = useState(false);
+  const [comingSoonLabel, setComingSoonLabel] = useState(null);
 
   // Cancún usa EST (UTC-5) permanente, sin cambio de horario
   const CONSTANCIA_UNLOCK = new Date('2026-04-17T11:00:00-05:00');
@@ -94,13 +99,15 @@ function App() {
         {activeTab === 'Inicio' && (
           <div className="tab-content animate-fade-in">
             <header className="dashboard-header">
-              <h1>CAMZYOS<span>®</span> 2026</h1>
-              <p>Cambiando paradigmas</p>
+              <div className="dashboard-header-text">
+                <h1>BLOOD 2026</h1>
+                <p>Innovation of Hematological Diseases</p>
+              </div>
+              <img src="/assets/icon_notification_bell.png" alt="" className="dashboard-header-bell" />
             </header>
 
             <div className="welcome-status-bar">
-              <div className="status-dot-lilac"></div>
-              <span>Hola, {agente?.nombre || 'Bienvenido'}</span>
+              <span>Bienvenido, {agente?.nombre || 'Agente'}</span>
             </div>
 
             <main className="dashboard-grid">
@@ -119,13 +126,13 @@ function App() {
               <GridCard
                 icon="forum"
                 title="Interacción"
-                subtitle="PREGUNTAS"
+                subtitle="PREGUNTAS Y RESPUESTAS"
                 onClick={() => setActiveTab('Interacciones')}
               />
               <GridCard
                 icon="map"
                 title="Logística"
-                subtitle="UBICACIÓN"
+                subtitle="TRASLADOS, HOTEL Y RESTAURANTES"
                 onClick={() => setActiveTab('Logistica')}
               />
               <GridCard
@@ -137,10 +144,40 @@ function App() {
                   : setShowLockedModal(true)}
               />
               <GridCard
+                iconSrc="/assets/icon_digital_pass.png"
+                title="Digital Pass"
+                subtitle="GAFETE"
+                onClick={() => setComingSoonLabel('Digital Pass')}
+              />
+              <GridCard
+                iconSrc="/assets/icon_ponentes.png"
+                title="Ponentes"
+                subtitle="EXPERTOS"
+                onClick={() => setComingSoonLabel('Ponentes')}
+              />
+              <GridCard
+                iconSrc="/assets/icon_mi_agenda.png"
+                title="Mi agenda"
+                subtitle="PERSONALIZADA"
+                onClick={() => setComingSoonLabel('Mi agenda')}
+              />
+              <GridCard
+                iconSrc="/assets/icon_encuesta.png"
+                title="Encuesta"
+                subtitle="QUEREMOS CONOCER TU OPINIÓN"
+                onClick={() => setComingSoonLabel('Encuesta')}
+              />
+              <GridCard
                 icon="edit_note"
-                title="Apuntes"
-                subtitle="NOTAS"
+                title="Notas"
+                subtitle="APUNTES"
                 onClick={() => setActiveTab('Apuntes')}
+              />
+              <GridCard
+                iconSrc="/assets/icon_bibliotecas.png"
+                title="Bibliotecas"
+                subtitle="PRESENTACIONES Y RECURSOS"
+                onClick={() => setComingSoonLabel('Bibliotecas')}
               />
             </main>
           </div>
@@ -211,7 +248,7 @@ function App() {
       </div>
 
       <div className="modern-legal-footer">
-        {activeTab === 'Constancia' ? 'CV-MX-2600032' : '3500-MX-2600044'}
+        {activeTab === 'Constancia' ? 'CV-MX-2600032' : 'HE-MX-2600018'}
       </div>
 
       {/* Modal: Constancia bloqueada */}
@@ -224,6 +261,20 @@ function App() {
             <div className="modal-locked-date">17 de Abril · 11:00 AM</div>
             <p className="modal-locked-tz">Hora Cancún, México (EST)</p>
             <button className="modal-close-btn" onClick={() => setShowLockedModal(false)}>
+              Entendido
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal genérico: features aún no disponibles */}
+      {comingSoonLabel && (
+        <div className="modal-overlay" onClick={() => setComingSoonLabel(null)}>
+          <div className="modal-locked-card" onClick={e => e.stopPropagation()}>
+            <span className="material-icons-round modal-lock-icon">hourglass_top</span>
+            <h3>Próximamente</h3>
+            <p>{comingSoonLabel} estará disponible muy pronto.</p>
+            <button className="modal-close-btn" onClick={() => setComingSoonLabel(null)}>
               Entendido
             </button>
           </div>
@@ -250,7 +301,7 @@ function App() {
           onClick={() => setActiveTab('Interacciones')}
         />
         <NavItem
-          icon="person"
+          iconSrc="/assets/icon_nav_perfil.svg"
           label="Perfil"
           isActive={activeTab === 'Perfil'}
           onClick={() => setActiveTab('Perfil')}

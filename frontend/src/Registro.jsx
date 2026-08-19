@@ -4,8 +4,7 @@ import './Registro.css';
 function Registro({ onRegister }) {
   const [name, setName] = useState('');
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
-  const [showId, setShowId] = useState(false);
-  const [showPrivacyModal, setShowPrivacyModal] = useState(false); // Modal state
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -19,9 +18,6 @@ function Registro({ onRegister }) {
     if (isFormValid) {
       setIsLoading(true);
       try {
-        // Mantenemos la llamada a /api/login con id_unico. 
-        // Si el usuario ingresa su nombre aquí, el backend podría necesitar ajustes.
-        // Pero el diseño pide "Nombre completo". 
         const response = await fetch('/api/login', {
           method: 'POST',
           headers: {
@@ -58,12 +54,12 @@ function Registro({ onRegister }) {
     <div className="registro-container">
       {/* Background Image */}
       <div className="registro-background">
-        <img src="/assets/camzyos_registro_bg.png" alt="Camzyos Background" />
+        <img src="/assets/blood2026_registro_bg.png" alt="Blood 2026 Background" />
       </div>
 
       {/* Top Logo */}
       <div className="registro-logo-top">
-        <img src="/assets/bms_logo.png" alt="Bristol Myers Squibb" className="white-logo" />
+        <img src="/assets/bms_logo_color.svg" alt="Bristol Myers Squibb" />
       </div>
 
       {/* Main Container Overlay */}
@@ -76,8 +72,9 @@ function Registro({ onRegister }) {
         <form className="registro-form-modern" onSubmit={handleContinue}>
           <div className="input-field-group">
             <input
-              type={showId ? 'text' : 'password'}
-              placeholder="ID unico (6 dígitos)"
+              type="text"
+              inputMode="numeric"
+              placeholder="ID Unico (6 digitos)"
               value={name}
               onChange={(e) => {
                 const val = e.target.value.replace(/\D/g, '').slice(0, 6);
@@ -85,15 +82,6 @@ function Registro({ onRegister }) {
               }}
               className="registro-input-modern"
             />
-            <button
-              type="button"
-              className="password-toggle-btn"
-              onClick={() => setShowId(!showId)}
-            >
-              <span className="material-icons-round">
-                {showId ? 'visibility_off' : 'visibility'}
-              </span>
-            </button>
           </div>
 
           <div className="checkbox-agreement-group">
@@ -105,7 +93,7 @@ function Registro({ onRegister }) {
             </div>
             <div className="agreement-text-container">
               <span className="agreement-label" onClick={() => setAcceptedPolicy(!acceptedPolicy)}>
-                Acepto la <strong>Política de Privacidad</strong>
+                Acepto la Política de Privacidad
               </span>
               <button
                 type="button"
@@ -138,7 +126,7 @@ function Registro({ onRegister }) {
 
       {/* Bottom Code Indicator */}
       <div className="legal-reference-footer">
-        3500-MX-2600044
+        HE-MX-2600018
       </div>
 
       {/* Privacy Policy Modal */}
@@ -152,7 +140,6 @@ function Registro({ onRegister }) {
               </button>
             </div>
             <div className="privacy-pdf-container">
-              {/* Replace with your actual bucket URL */}
               <iframe
                 src="https://storage.googleapis.com/bristol-presentaciones-2026/Aviso%20de%20Privacidad/AVISO%20DE%20PRIVACIDAD%20(CAMZYOS).pdf"
                 title="Aviso de Privacidad"

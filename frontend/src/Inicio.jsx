@@ -1,30 +1,28 @@
-import { useState } from 'react';
-import './Inicio.css'; // We'll create this specific CSS file next
+import './Inicio.css';
 
 function Inicio({ onEnterMission }) {
   return (
     <div className="inicio-container">
       {/* Background Image completely covering the screen */}
       <div className="inicio-background">
-        <img src="/assets/camzyos_home_bg.png" alt="Camzyos Background" />
+        <img src="/assets/blood2026_home_bg.png" alt="Blood 2026 Background" />
       </div>
 
       {/* Top Logo (BMS) - Fixed at the top */}
       <div className="bms-logo-top">
-        <img src="/assets/bms_logo.png" alt="Bristol Myers Squibb" className="white-logo" />
+        <img src="/assets/bms_logo_color.svg" alt="Bristol Myers Squibb" />
       </div>
 
-      {/* Bottom Content Area - Fixed at the bottom 45% of screen */}
+      {/* Bottom Content Area - Fixed at the bottom of screen */}
       <div className="bottom-interactive-area">
-        {/* Logo Camzyos */}
-        <div className="branding-container">
-          <img src="/logo_camyoz.png" alt="Camzyos Logo" className="camzyos-main-logo" />
-        </div>
-
         {/* Title */}
-        <h1 className="main-welcome-title">
-          Bienvenidos
+        <h1 className="main-event-title">
+          bLOOD 2026
         </h1>
+
+        <h2 className="main-welcome-title">
+          Bienvenidos
+        </h2>
 
         {/* Subtitle */}
         <p className="main-welcome-subtitle">
@@ -38,7 +36,7 @@ function Inicio({ onEnterMission }) {
 
         {/* Bottom Code Indicator */}
         <div className="legal-reference-bottom">
-          3500-MX-2600044
+          HE-MX-2600018
         </div>
       </div>
     </div>

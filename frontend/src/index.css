@@ -11,7 +11,11 @@
   --color-text-white: #ffffff;
   --color-nav-bg: #130e35;
   --color-nav-border: rgba(255, 255, 255, 0.2);
-  
+
+  /* Nuevo diseño Figma "blood 2026" — reskin en curso, pantalla por pantalla */
+  --color-text-heading: #460169;
+  --gradient-brand: linear-gradient(90deg, #450169 0%, #6c047a 30.288%, #ac0b7d 68.269%, #ff0068 100%);
+
   --font-inter: 'Inter', sans-serif;
   --font-mono: 'Liberation Mono', monospace;
   --font-gotham: 'Montserrat', sans-serif; /* fallback for gotham */

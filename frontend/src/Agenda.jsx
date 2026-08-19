@@ -12,30 +12,31 @@ function Agenda({ onBack }) {
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Agenda</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>location_on</span>
-            <span>Salón del Prado • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
       <div className="agenda-day-tabs">
-        <div 
+        <div
           className={`agenda-day-tab ${activeDay === 'Jueves' ? 'active' : ''}`}
           onClick={() => setActiveDay('Jueves')}
         >
           <span className="tab-day-name">Jueves</span>
-          <span className="tab-day-date">16 Abril</span>
+          <span className="tab-day-date">16 de Abril</span>
         </div>
-        <div 
+        <div
           className={`agenda-day-tab ${activeDay === 'Viernes' ? 'active' : ''}`}
           onClick={() => setActiveDay('Viernes')}
         >
           <span className="tab-day-name">Viernes</span>
-          <span className="tab-day-date">17 Abril</span>
+          <span className="tab-day-date">17 de Abril</span>
         </div>
       </div>
 

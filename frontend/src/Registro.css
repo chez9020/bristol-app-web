@@ -5,7 +5,7 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: #0b061a;
+  background-color: #ffffff;
 }
 
 .registro-background {
@@ -26,10 +26,10 @@
 
 .registro-logo-top {
   position: absolute;
-  top: 140px; /* Slight adjustment to match reference */
+  top: 156px;
   left: 50%;
   transform: translateX(-50%);
-  width: 193px;
+  width: 204px;
   z-index: 10;
 }
 
@@ -39,10 +39,6 @@
   object-fit: contain;
 }
 
-.white-logo {
-  filter: brightness(0) invert(1);
-}
-
 /* Card Overlay style from Figma */
 .registro-overlay-card {
   position: absolute;
@@ -50,12 +46,10 @@
   left: 25px;
   right: 25px;
   z-index: 10;
-  background: linear-gradient(180deg, rgba(131, 71, 173, 0.45) 0%, rgba(1, 44, 99, 0.45) 100%);
-  backdrop-filter: blur(10px); /* Increased blur slightly */
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Much more subtle border */
+  background: #fbfdff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 32px;
-  padding: 40px 33px 50px; /* More top padding */
+  padding: 33px 33px 49px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -63,19 +57,19 @@
 }
 
 .registro-header-modern h1 {
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
   font-weight: 700;
-  color: #ffffff;
-  font-size: 36px;
+  color: #3a3534;
+  font-size: 33px;
   line-height: 40px;
   margin: 0 0 8px 0;
 }
 
 .registro-header-modern p {
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
   font-weight: 400;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  color: rgba(58, 53, 52, 0.6);
   line-height: 20px;
   margin: 0;
 }
@@ -93,48 +87,24 @@
 
 .registro-input-modern {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05); /* Slight tint for the input area */
+  background: rgba(128, 128, 128, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 19px 55px 19px 25px; /* Added right padding for icon */
-  color: #ffffff;
-  font-family: var(--font-gotham);
-  font-weight: 400; /* Ensuring it's not bold */
+  padding: 19px 25px;
+  color: #3a3534;
+  font-family: var(--font-inter);
+  font-weight: 300;
   font-size: 18px;
   outline: none;
   transition: all 0.2s ease;
 }
 
-.password-toggle-btn {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: rgba(221, 186, 246, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  transition: color 0.2s ease;
-}
-
-.password-toggle-btn:hover {
-  color: rgba(221, 186, 246, 1);
-}
-
-.password-toggle-btn .material-icons-round {
-  font-size: 22px;
-}
-
 .registro-input-modern:focus {
-  border-color: rgba(221, 186, 246, 0.5);
+  border-color: rgba(79, 1, 128, 0.4);
 }
 
 .registro-input-modern::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(58, 53, 52, 0.6);
 }
 
 .checkbox-agreement-group {
@@ -145,10 +115,10 @@
 }
 
 .modern-checkbox {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid #3a3534;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -159,14 +129,13 @@
 }
 
 .modern-checkbox.active {
-  background-color: #8347ad;
-  border-color: #8347ad;
-  box-shadow: 0 0 10px rgba(131, 71, 173, 0.4);
+  background: var(--gradient-brand, linear-gradient(90deg, #4f0180 0%, #c601b6 100%));
+  border-color: transparent;
 }
 
 .check-icon-modern {
   color: #ffffff;
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 900;
 }
 
@@ -177,28 +146,22 @@
 }
 
 .agreement-label {
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(58, 53, 52, 0.7);
   line-height: 20px;
   cursor: pointer;
-}
-
-.agreement-label strong {
-  font-weight: 600;
-  color: #ffffff;
 }
 
 .policy-details-link-btn {
   background: none;
   border: none;
   padding: 0;
-  font-family: var(--font-gotham);
-  font-weight: 600;
-  color: #ddbaf6;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  color: rgba(79, 1, 128, 0.9);
   font-size: 14px;
-  text-decoration: underline;
   line-height: 20px;
   cursor: pointer;
   text-align: left;
@@ -206,28 +169,27 @@
 
 .registration-action-container {
   position: absolute;
-  top: 645px; /* Slight adjustment to match design gap */
-  left: 30px;
-  right: 30px;
+  top: 637.5px;
+  left: 25px;
+  right: 25px;
   z-index: 20;
 }
 
 .registro-continue-button {
   width: 100%;
-  height: 64px;
-  background: linear-gradient(90deg, #012c63 0%, #8347ad 100%);
+  padding: 20px 40px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
   border: none;
-  border-radius: 15px;
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 20px;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .registro-continue-button:hover:not(.disabled) {
@@ -236,22 +198,17 @@
 }
 
 .registro-continue-button.disabled {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.3);
+  background: rgba(58, 53, 52, 0.15);
+  color: rgba(58, 53, 52, 0.4);
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .registro-error-text {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
-  color: #ff6b6b;
+  color: #d1004b;
   text-align: center;
   font-size: 12px;
   font-weight: 500;
-  opacity: 0.9;
+  margin: 0;
 }
 
 .legal-reference-footer {
@@ -259,10 +216,11 @@
   bottom: 30px;
   width: 100%;
   text-align: center;
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
+  font-weight: 500;
   font-size: 10px;
-  color: #ffffff;
-  opacity: 0.8;
+  color: #3a3534;
+  opacity: 0.7;
   z-index: 10;
 }
 
