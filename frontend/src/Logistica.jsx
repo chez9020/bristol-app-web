@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import './Agenda.css';
 import './Logistica.css';
 import Traslados from './Traslados.jsx';
 import Restaurantes from './Restaurantes.jsx';
 import MapaEvento from './MapaEvento.jsx';
 
-const imgHotel = "https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/Background.png";
-const imgMapa = "https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png";
-const imgRestaurantes = "https://storage.googleapis.com/bristol-presentaciones-2026/Restaurantes/restaurante3.png";
+const imgHotel = "/assets/hotel_marriott_cancun.png";
+const imgMapa = "/assets/mapa_salones_bloodl2026.png";
+const imgRestaurantes = "/assets/restaurante_ceviche.png";
 
 function Logistica({ onBack }) {
   const [showTraslados, setShowTraslados] = useState(false);
@@ -30,11 +31,12 @@ function Logistica({ onBack }) {
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Logística</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>place</span>
-            <span>CAMZYOS® • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
           <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
@@ -49,28 +51,26 @@ function Logistica({ onBack }) {
             <span className="section-subtitle-link">Próximo vuelo</span>
           </div>
           <div className="flight-glass-card">
-            <div className="flight-route-info">
-              <div className="route-point">
-                <span className="route-time">08:59</span>
-                <span className="route-city">MID</span>
+            <div className="logi-route-info">
+              <div className="logi-route-point">
+                <span className="logi-route-time">08:59</span>
+                <span className="logi-route-city">MID</span>
               </div>
-              <div className="flight-path">
-                <div className="path-line"></div>
-                <span className="material-icons-round path-plane-icon">flight</span>
+              <div className="logi-flight-path">
+                <div className="logi-path-line"></div>
+                <img src="/assets/icon_flight_small.svg" alt="" className="logi-path-plane-icon" />
               </div>
-              <div className="route-point">
-                <span className="route-time">11:10</span>
-                <span className="route-city">CDMX</span>
+              <div className="logi-route-point">
+                <span className="logi-route-time">11:10</span>
+                <span className="logi-route-city">CDMX</span>
               </div>
             </div>
 
-            <div className="transfer-inner-card">
-              <div className="transfer-icon-box">
-                <span className="material-icons-round" style={{ color: 'white' }}>directions_bus</span>
-              </div>
-              <div className="transfer-text-block">
-                <span className="transfer-label-small">RECOGIDA EN HOTEL</span>
-                <span className="transfer-time-val">07:00 AM</span>
+            <div className="logi-transfer-inner-card">
+              <img src="/assets/icon_transfer_bus.svg" alt="" className="logi-transfer-icon-box" />
+              <div className="logi-transfer-text-block">
+                <span className="logi-transfer-label-small">RECOGIDA EN HOTEL</span>
+                <span className="logi-transfer-time-val">07:00 AM</span>
               </div>
             </div>
 
@@ -89,9 +89,9 @@ function Logistica({ onBack }) {
           <h2>Hotel y Sede</h2>
           <div className="hotel-glass-card">
             <div className="hotel-image-header">
-              <img src={imgHotel} alt="Hotel Paradisus" />
+              <img src={imgHotel} alt="Hotel Marriot, Cancún" />
               <div className="hotel-name-overlay">
-                <h3>Hotel Paradisus, Cancún</h3>
+                <h3>Hotel Marriot, Cancún</h3>
               </div>
             </div>
 
@@ -109,26 +109,26 @@ function Logistica({ onBack }) {
 
             <div className="hotel-address-info">
               <div className="address-line">
-                <span className="material-icons-round">location_on</span>
-                <p>Blvd. Kukulcan, Zona Hotelera, 77500 Cancún, Q.R.</p>
+                <img src="/assets/icon_location_pin.svg" alt="" />
+                <p>Boulevard Kukulcan Km 14.5, Chac L-41, Zona Hotelera, 77500 Cancún, Q.R.</p>
               </div>
               <div className="hotel-button-group">
-                <a 
-                  href="https://bit.ly/4sslXrT" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://bit.ly/4sslXrT"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-premium-outline"
                   style={{ textDecoration: 'none' }}
                 >
-                  <span className="material-icons-round">directions</span>
+                  <img src="/assets/icon_directions.svg" alt="" />
                   Cómo llegar
                 </a>
-                <a 
-                  href="tel:+529988811100" 
+                <a
+                  href="tel:+529988811100"
                   className="btn-premium-outline"
                   style={{ textDecoration: 'none' }}
                 >
-                  <span className="material-icons-round">phone</span>
+                  <img src="/assets/icon_phone.svg" alt="" />
                   Llamar
                 </a>
               </div>
@@ -140,8 +140,8 @@ function Logistica({ onBack }) {
         <section className="logistica-section">
           <h2>Mapa del evento</h2>
           <div className="media-glass-card">
-            <div className="media-container" style={{ backgroundColor: 'white' }}>
-              <img src={imgMapa} alt="Mapa evento" style={{ objectFit: 'contain', padding: '10px' }} />
+            <div className="media-container">
+              <img src={imgMapa} alt="Mapa evento" />
             </div>
             <button
               className="btn-premium-gradient"
