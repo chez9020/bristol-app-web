@@ -1,0 +1,99 @@
+.ponentes-container {
+  padding-bottom: 40px;
+  min-height: 100vh;
+}
+
+.ponentes-intro {
+  padding: 8px 24px 20px;
+}
+
+.ponentes-intro h2 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 18px;
+  color: #45006a;
+  margin: 0 0 8px;
+}
+
+.ponentes-intro p {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #3a3534;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ponentes-grid {
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ponente-card {
+  background: #fbfdff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 12px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ponente-photo-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.ponente-photo {
+  width: 100%;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+.ponente-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: #4b0082;
+  color: #ffffff;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 9999px;
+}
+
+.ponente-name {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 13px;
+  color: #3a3534;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+.btn-conoce-mas {
+  width: 100%;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  color: #ffffff;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-conoce-mas:hover {
+  opacity: 0.9;
+}

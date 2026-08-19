@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Inicio from './Inicio.jsx';
 import Registro from './Registro.jsx';
@@ -8,6 +8,7 @@ import Perfil from './Perfil.jsx';
 import Conferencias from './Conferencias.jsx';
 import DetalleConferencias from './DetalleConferencias.jsx';
 import BiografiaSpeaker from './BiografiaSpeaker.jsx';
+import Ponentes from './Ponentes.jsx';
 import Constancia from './Constancia.jsx';
 import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
@@ -52,7 +53,7 @@ function App() {
         } else {
           localStorage.removeItem('agenteSession');
         }
-      } catch (e) { }
+      } catch { /* sesión corrupta, ir a splash */ }
     }
     return { screen: 'splash', agente: null };
   };
@@ -65,6 +66,7 @@ function App() {
 
   const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
+  const [biografiaOrigin, setBiografiaOrigin] = useState('Detalle');
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [comingSoonLabel, setComingSoonLabel] = useState(null);
 
@@ -154,7 +156,7 @@ function App() {
                 iconSrc="/assets/icon_ponentes.png"
                 title="Ponentes"
                 subtitle="EXPERTOS"
-                onClick={() => setComingSoonLabel('Ponentes')}
+                onClick={() => setActiveTab('Ponentes')}
               />
               <GridCard
                 iconSrc="/assets/icon_mi_agenda.png"
@@ -201,6 +203,17 @@ function App() {
             onBack={() => setActiveTab('Conferencias')}
             onBiografia={(ponente) => {
               setSelectedPonente(ponente);
+              setBiografiaOrigin('Detalle');
+              setActiveTab('Biografia');
+            }}
+          />
+        )}
+        {activeTab === 'Ponentes' && (
+          <Ponentes
+            onBack={() => setActiveTab('Inicio')}
+            onBiografia={(ponente) => {
+              setSelectedPonente(ponente);
+              setBiografiaOrigin('Ponentes');
               setActiveTab('Biografia');
             }}
           />
@@ -208,7 +221,7 @@ function App() {
         {activeTab === 'Biografia' && (
           <BiografiaSpeaker
             ponente={selectedPonente}
-            onBack={() => setActiveTab('Detalle')}
+            onBack={() => setActiveTab(biografiaOrigin)}
           />
         )}
         {activeTab === 'Apuntes' && <Apuntes onBack={() => setActiveTab('Inicio')} agente={agente} />}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './Agenda.css';
 import './Apuntes.css';
 import { agendaEvents } from './agendaData.js';
 
@@ -55,7 +56,7 @@ function Apuntes({ onBack, agente }) {
         });
         if (response.ok) setIsSaving('Guardado');
         setTimeout(() => setIsSaving(''), 2000);
-      } catch (error) {
+      } catch {
         setIsSaving('Error al guardar');
       }
     }, 1500);
@@ -73,14 +74,15 @@ function Apuntes({ onBack, agente }) {
     <div className="apuntes-container animate-fade-in">
       <header className="agenda-header">
         <div className="agenda-header-text">
-          <h1>Apuntes</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>event_note</span>
-            <span>CAMZYOS® • Cancún</span>
+          <h1>Notas</h1>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
