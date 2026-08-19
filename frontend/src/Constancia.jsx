@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './Agenda.css';
 import './Constancia.css';
-import constanciaImg from './assets/constancia-base.png';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 
@@ -123,18 +123,27 @@ function Constancia({ onBack, agente }) {
 
   const progress = currentStep < 0 ? 0 : ((currentStep + 1) / categories.length) * 100;
 
+  const header = (
+    <header className="agenda-header">
+      <div className="agenda-header-text">
+        <h1>Constancia</h1>
+        <div className="agenda-subtitle">
+          <span className="material-icons-round">event</span>
+          <span>BLOOD 2026</span>
+        </div>
+      </div>
+      <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
+      <div className="back-btn-circle" onClick={onBack}>
+        <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
+      </div>
+    </header>
+  );
+
   // Pantalla de carga mientras verifica
   if (checkingPrev) {
     return (
       <div className="constancia-container animate-fade-in">
-        <header className="agenda-header">
-          <div className="agenda-header-text">
-            <h1>Constancia</h1>
-          </div>
-          <div className="back-btn-circle" onClick={onBack}>
-            <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
-          </div>
-        </header>
+        {header}
         <div className="checking-screen">
           <div className="checking-spinner"></div>
           <p>Verificando tu constancia...</p>
@@ -145,22 +154,11 @@ function Constancia({ onBack, agente }) {
 
   return (
     <div className="constancia-container animate-fade-in">
-      <header className="agenda-header">
-        <div className="agenda-header-text">
-          <h1>Constancia</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>place</span>
-            <span>CAMZYOS® • Cancún</span>
-          </div>
-        </div>
-        <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
-        </div>
-      </header>
+      {header}
 
       {!surveyCompleted ? (
         <div className="survey-section stepper-mode">
-          
+
           {currentStep === -1 ? (
             <div className="survey-intro-screen animate-fade-in">
               <div className="intro-icon-wrap">
@@ -168,7 +166,7 @@ function Constancia({ onBack, agente }) {
               </div>
               <h3>¡Ya casi terminamos!</h3>
               <p>Antes de obtener tu certificado, ayúdanos con una breve encuesta de satisfacción.</p>
-              
+
               <div className="instructions-box">
                 <p><strong>Instrucciones:</strong> Por favor evalúe los aspectos del evento utilizando la escala del 1 al 5:</p>
                 <ul className="scale-list">
@@ -190,7 +188,7 @@ function Constancia({ onBack, agente }) {
               <div className="survey-progress-bar">
                 <div className="progress-fill" style={{ width: `${progress}%` }}></div>
               </div>
-              
+
               <div className="survey-step-info">
                 <span className="step-counter">Paso {currentStep + 1} de {categories.length}</span>
                 <h3 className="step-category-name">{currentCategory}</h3>
@@ -207,7 +205,7 @@ function Constancia({ onBack, agente }) {
                       <p className="survey-q-text">{q.text}</p>
                       <div className="rating-selector">
                         {[1, 2, 3, 4, 5].map(v => (
-                          <button 
+                          <button
                             key={v}
                             type="button"
                             className={`rating-btn ${ratings[q.id] === v ? 'active' : ''}`}
@@ -223,7 +221,7 @@ function Constancia({ onBack, agente }) {
               ) : (
                 <div className="step-content animate-fade-in">
                   <p className="survey-q-text">Comentarios adicionales, sugerencias de mejora o aspectos relevantes:</p>
-                  <textarea 
+                  <textarea
                     placeholder="Escribe aquí tu opinión..."
                     value={comments}
                     onChange={(e) => setComments(e.target.value)}
@@ -238,22 +236,22 @@ function Constancia({ onBack, agente }) {
                 <button className="btn-stepper-back" onClick={handleBack}>
                   Anterior
                 </button>
-                
+
                 {currentStep < categories.length - 1 ? (
-                  <button 
-                    className="btn-stepper-next" 
+                  <button
+                    className="btn-stepper-next"
                     onClick={handleNext}
                     disabled={!isStepValid()}
                   >
                     Siguiente
                   </button>
                 ) : (
-                  <button 
-                    className="btn-submit-survey-full" 
+                  <button
+                    className="btn-submit-survey-full"
                     onClick={handleSubmitSurvey}
                     disabled={isSubmitting}
                   >
-                     {isSubmitting ? 'Guardando...' : 'Finalizar Encuesta'}
+                    {isSubmitting ? 'Guardando...' : 'Finalizar Encuesta'}
                   </button>
                 )}
               </div>
@@ -262,57 +260,44 @@ function Constancia({ onBack, agente }) {
         </div>
       ) : (
         <div className="survey-success-container">
-          <div className="constancia-badge-wrap animate-pop-in">
-            <div className="constancia-badge">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L14.47 4.54L17.9 4.1L18.75 7.45L22 8.7L21.15 12L22 15.3L18.75 16.55L17.9 19.9L14.47 19.46L12 22L9.53 19.46L6.1 19.9L5.25 16.55L2 15.3L2.85 12L2 8.7L5.25 7.45L6.1 4.1L9.53 4.54L12 2Z" fill="#ddbaf6" />
-                <path d="M9 12L11 14L15 10" stroke="#4b2a8e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>Certificación Camzyos 2026</span>
-            </div>
+          <div className="constancia-verified-badge animate-pop-in">
+            <span className="material-icons-round">verified</span>
+            <span>Constancia Oficial de Finalización</span>
           </div>
-          <div className="cert-preview-wrapper animate-pop-in">
-            <div className="cert-preview-card">
-              <img
-                src={constanciaImg}
-                alt="Constancia de Participación"
-                className="cert-preview-img"
-              />
-              <div className="cert-preview-name-overlay">
-                {userName}
+
+          <div className="cert-card animate-pop-in">
+            {agente?.id && (
+              <div className="cert-card-id">ID: {String(agente.id).slice(0, 8).toUpperCase()}</div>
+            )}
+            <p className="cert-label">Certificado de Asistencia</p>
+            <h2 className="cert-name">{userName}</h2>
+            <div className="cert-divider"></div>
+            <p className="cert-description">
+              Por su participación en Blood 2026, evento de actualización médica en hematología organizado por Bristol Myers Squibb.
+            </p>
+            <div className="cert-card-footer">
+              <div className="cert-signature">
+                <img src="/assets/icon_signature_squiggle.svg" alt="" className="cert-signature-mark" />
+                <p className="cert-signature-name">Comité Organizador</p>
+                <p className="cert-signature-role">Blood 2026</p>
               </div>
-            </div>
-            <div className="cert-full-screen-link">
-              <span className="material-icons-round">workspace_premium</span>
-              Emitida por Bristol Myers Squibb
+              <span className="material-icons-round cert-seal">workspace_premium</span>
             </div>
           </div>
 
-          <div className="constancia-info animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <h2>¡Felicidades, {userName.split(' ')[0]}!</h2>
-            <p>Tu constancia de participación está lista.</p>
-          </div>
+          <h3 className="constancia-event-title">Blood 2026</h3>
+          <p className="constancia-issue-date">Emitido el 28 de Agosto, 2026</p>
 
-          <div className="constancia-actions animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <div className="constancia-actions animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <button
               className="c-btn-download-pdf"
               onClick={handleDownloadPDF}
               disabled={isDownloading}
             >
-              <span className="material-icons-round">{isDownloading ? 'sync' : 'file_download'}</span>
-              {isDownloading ? 'Generando PDF...' : 'Descargar Constancia'}
+              <span className="material-icons-round">{isDownloading ? 'sync' : 'download'}</span>
+              {isDownloading ? 'Generando PDF...' : 'Descargar PDF'}
             </button>
           </div>
-
-          <p style={{ 
-            textAlign: 'center', 
-            fontSize: '11px', 
-            color: '#555', 
-            marginTop: '20px', 
-            fontFamily: 'var(--font-inter)' 
-          }}>
-            Lanzamiento Camzyos México 2026
-          </p>
         </div>
       )}
     </div>

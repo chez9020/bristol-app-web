@@ -1,0 +1,145 @@
+.biblioteca-container {
+  padding-bottom: 0px;
+  min-height: 100vh;
+}
+
+.biblioteca-content {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Search & filter bar, floats up over header bottom edge */
+.search-filter-bar {
+  margin-top: -16px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  color: #3a3534;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #7f7383;
+}
+
+.filter-btn {
+  background: #e7eefe;
+  border: none;
+  border-radius: 8px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.filter-btn img {
+  width: 18px;
+  height: 12px;
+}
+
+/* Section */
+.biblioteca-section h2 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 18px;
+  color: #45006a;
+  margin: 0;
+}
+
+.biblioteca-section-subtitle {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #4e4352;
+  margin: 4px 0 0;
+}
+
+.biblioteca-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.biblioteca-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.biblioteca-card-icon-area {
+  position: relative;
+  height: 96px;
+  background: rgba(102, 0, 153, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.biblioteca-card-icon-area img {
+  width: 30px;
+  height: 30px;
+}
+
+.biblioteca-card-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #6d11a0;
+  color: #ffffff;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.biblioteca-card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.biblioteca-card-body h3 {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 14px;
+  color: #151c27;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.biblioteca-card-author {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 10px;
+  color: #808080;
+  margin: 0 0 8px;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import './Agenda.css';
 import './Perfil.css';
 
 function Perfil({ onBack, agente, onLogout, onUpdateAgente }) {
@@ -7,7 +8,7 @@ function Perfil({ onBack, agente, onLogout, onUpdateAgente }) {
   const [apellido, setApellido] = useState(nameParts.slice(1).join(' ') || '');
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
-  
+
   const [currentFoto, setCurrentFoto] = useState(agente?.foto_url || null);
 
   const handleUpdate = async () => {
@@ -55,82 +56,58 @@ function Perfil({ onBack, agente, onLogout, onUpdateAgente }) {
     }
   };
 
-  const avatarUrl = currentFoto || `https://ui-avatars.com/api/?name=${nombre}+${apellido}&background=3e2c20&color=008fb4&size=256&bold=true`;
+  const avatarUrl = currentFoto || `https://ui-avatars.com/api/?name=${nombre}+${apellido}&background=4f0180&color=ffffff&size=256&bold=true`;
 
   return (
     <div className="perfil-container animate-fade-in">
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Perfil</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>event</span>
-            <span>CAMZYOS® • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
       <div className="perfil-picture-section">
         <div className="perfil-picture-wrapper">
-          <img src={avatarUrl} alt="Profile" className="perfil-picture" />
+          <img src={avatarUrl} alt="Perfil" className="perfil-picture" />
           <div className="perfil-edit-badge" onClick={() => fileInputRef.current.click()}>
-            <span className="material-icons-round edit-icon">edit</span>
+            <span className="material-icons-round">{isLoading ? 'hourglass_top' : 'edit'}</span>
             <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleUploadFoto} />
           </div>
         </div>
       </div>
 
       <div className="perfil-form-section">
-        <div className="perfil-input-group">
-          <label className="perfil-input-label">NOMBRE</label>
-          <div className="perfil-glass-input">
-            <input 
-              type="text" 
-              className="perfil-input-field" 
-              placeholder="Nombre"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-            />
-            <span className="material-icons-round perfil-field-icon">edit</span>
-          </div>
-        </div>
-
-        <div className="perfil-input-group">
-          <label className="perfil-input-label">APELLIDO</label>
-          <div className="perfil-glass-input">
-            <input 
-              type="text" 
-              className="perfil-input-field" 
-              placeholder="Apellido"
-              value={apellido}
-              onChange={(e) => setApellido(e.target.value)}
-            />
-            <span className="material-icons-round perfil-field-icon">edit</span>
-          </div>
-        </div>
-
-        <button 
-          className="btn-premium-gradient-qa" 
-          onClick={handleUpdate}
-          disabled={isLoading}
-          style={{ marginTop: '10px' }}
-        >
-          <span className="material-icons-round">save</span>
-          <span>{isLoading ? 'Guardando...' : 'Guardar cambios'}</span>
-        </button>
+        <input
+          type="text"
+          className="perfil-input-field"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          onBlur={handleUpdate}
+        />
+        <input
+          type="text"
+          className="perfil-input-field"
+          placeholder="Apellido"
+          value={apellido}
+          onChange={(e) => setApellido(e.target.value)}
+          onBlur={handleUpdate}
+        />
       </div>
 
       <div className="perfil-actions">
-        <button className="btn-logout" onClick={onLogout}>
+        <button className="perfil-logout-btn" onClick={onLogout}>
           Cerrar sesión
         </button>
-        <div className="perfil-footer-id">
-          ID DE MISIÓN: {agente?.id}
-        </div>
       </div>
-
     </div>
   );
 }

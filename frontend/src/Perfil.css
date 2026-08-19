@@ -6,14 +6,14 @@
 .perfil-picture-section {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 33px;
   margin-bottom: 40px;
 }
 
 .perfil-picture-wrapper {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 142px;
+  height: 142px;
 }
 
 .perfil-picture {
@@ -21,112 +21,77 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid rgba(131, 71, 173, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ffffff;
+  box-shadow: 0 10px 25px rgba(79, 1, 128, 0.2);
 }
 
 .perfil-edit-badge {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: linear-gradient(135deg, #8a51b0 0%, #002d72 100%);
-  width: 32px;
-  height: 32px;
+  bottom: 2px;
+  right: 2px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #ffffff;
 }
 
-.perfil-edit-badge .edit-icon {
+.perfil-edit-badge .material-icons-round {
   font-size: 16px;
-  color: white;
+  color: #ffffff;
 }
 
 .perfil-form-section {
-  padding: 0 24px;
+  padding: 0 29px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 40px;
-}
-
-.perfil-glass-input {
-  background: rgba(80, 41, 137, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-}
-
-.perfil-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.perfil-input-label {
-  color: #ddbaf6;
-  font-family: 'Proxima_Nova', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  padding-left: 4px;
-}
-
-.perfil-field-icon {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 18px !important;
+  margin-bottom: 32px;
 }
 
 .perfil-input-field {
   width: 100%;
-  background: transparent;
-  border: none;
+  height: 57px;
+  background: #fcfbfd;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+  padding: 0 20px;
   font-family: var(--font-inter);
-  font-weight: 500;
+  font-weight: 400;
   font-size: 15px;
-  color: #ffffff;
+  color: #3a3534;
   outline: none;
+  box-sizing: border-box;
 }
 
 .perfil-input-field::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(58, 53, 52, 0.4);
 }
 
 .perfil-actions {
-  padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 0 29px;
 }
 
-/* Reusing btn-premium-gradient style here */
-.btn-logout {
-  background: linear-gradient(93deg, #012c63 0%, #8a51b0 100%);
+.perfil-logout-btn {
+  width: 100%;
+  height: 56px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
   border: none;
   border-radius: 12px;
-  padding: 16px;
-  font-family: var(--font-gotham);
+  color: #ffffff;
+  font-family: var(--font-inter);
   font-weight: 700;
   font-size: 15px;
-  color: #ffffff;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(79, 1, 128, 0.2);
+  transition: opacity 0.2s ease;
 }
 
-.perfil-footer-id {
-  text-align: center;
-  margin-top: auto;
-  padding: 40px 0;
-  font-family: var(--font-inter);
-  font-size: 11px;
-  color: #4b5563;
-  letter-spacing: 1px;
+.perfil-logout-btn:hover {
+  opacity: 0.9;
 }

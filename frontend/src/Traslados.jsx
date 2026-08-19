@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Agenda.css';
+import './Logistica.css';
 import './Traslados.css';
 
 // City code mapping for display
@@ -58,7 +60,6 @@ const groupedFlights = allEntries.reduce((acc, entry) => {
 const flightGroups = Object.values(groupedFlights);
 
 function FlightCard({ group }) {
-  const origin = 'CUN';
   const destination = cityCode(group.ruta);
   const destFull = group.ruta.split(' - ')[1];
   const nosLabel = group.nos.length === 1
@@ -66,33 +67,32 @@ function FlightCard({ group }) {
     : `Nos. ${group.nos[0]}–${group.nos[group.nos.length - 1]}`;
 
   return (
-    <div className="flight-card-enhanced">
-      <div className="flight-badge-row">
-        <span className="flight-duration-tag">SALIDA • {group.sale}</span>
+    <div className="flight-glass-card">
+      <div className="traslado-badge-row">
+        <span className="traslado-nos-badge">{nosLabel}</span>
+        <span className="traslado-salida-tag">SALIDA • {group.sale}</span>
       </div>
 
-      <div className="flight-route-info">
-        <div className="route-point">
-          <span className="route-time">{group.sale}</span>
-          <span className="route-city">CUN</span>
+      <div className="logi-route-info">
+        <div className="logi-route-point">
+          <span className="logi-route-time">{group.sale}</span>
+          <span className="logi-route-city">CUN</span>
         </div>
-        <div className="flight-path">
-          <div className="path-line"></div>
-          <span className="material-icons-round path-plane-icon">flight</span>
+        <div className="logi-flight-path">
+          <div className="logi-path-line"></div>
+          <img src="/assets/icon_flight_small.svg" alt="" className="logi-path-plane-icon" />
         </div>
-        <div className="route-point route-point-right">
-          <span className="route-time">{destination}</span>
-          <span className="route-city">{destFull}</span>
+        <div className="logi-route-point">
+          <span className="logi-route-time">{destination}</span>
+          <span className="logi-route-city">{destFull}</span>
         </div>
       </div>
 
-      <div className="transfer-inner-card">
-        <div className="transfer-icon-box">
-          <span className="material-icons-round" style={{ color: 'white' }}>directions_bus</span>
-        </div>
-        <div className="transfer-text-block">
-          <span className="transfer-label-small">RECOGIDA EN HOTEL</span>
-          <span className="transfer-time-val">{group.pickup}</span>
+      <div className="logi-transfer-inner-card">
+        <img src="/assets/icon_transfer_bus.svg" alt="" className="logi-transfer-icon-box" />
+        <div className="logi-transfer-text-block">
+          <span className="logi-transfer-label-small">RECOGIDA EN HOTEL</span>
+          <span className="logi-transfer-time-val">{group.pickup}</span>
         </div>
       </div>
     </div>
@@ -100,20 +100,38 @@ function FlightCard({ group }) {
 }
 
 function Traslados({ onBack }) {
+  const [selectedDay, setSelectedDay] = useState('28');
+
   return (
     <div className="traslados-container animate-fade-in">
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Vuelos y Traslados</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>place</span>
-            <span>CAMZYOS® • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
           <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
+
+      <div className="traslados-day-tabs">
+        <button
+          className={`day-tab ${selectedDay === '28' ? 'active' : ''}`}
+          onClick={() => setSelectedDay('28')}
+        >
+          28 Agosto
+        </button>
+        <button
+          className={`day-tab ${selectedDay === '29' ? 'active' : ''}`}
+          onClick={() => setSelectedDay('29')}
+        >
+          29 Agosto
+        </button>
+      </div>
 
       <div className="traslados-list-wrapper">
         {flightGroups.map((group, idx) => (

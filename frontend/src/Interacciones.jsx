@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './Agenda.css';
 import './Interacciones.css';
-import { db } from './firebase';
-import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { conferenciasData } from './conferenciasData';
 
 function Interacciones({ onBack, agente }) {
@@ -9,7 +8,7 @@ function Interacciones({ onBack, agente }) {
   const [questionText, setQuestionText] = useState('');
   const [questions, setQuestions] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // Modal State
   const [modal, setModal] = useState({
     show: false,
@@ -58,14 +57,15 @@ function Interacciones({ onBack, agente }) {
       setQuestions([]);
       return;
     }
-    
+
     fetchQuestions();
-    
+
     const interval = setInterval(() => {
       fetchQuestions();
     }, 5000);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConfId, userId]);
 
   const handleSendQuestion = async () => {
@@ -103,9 +103,9 @@ function Interacciones({ onBack, agente }) {
 
   const handleEditQuestion = (qId, currentText) => {
     showModal(
-      "Editar Pregunta", 
-      "Corrige tu pregunta a continuación:", 
-      'edit', 
+      "Editar Pregunta",
+      "Corrige tu pregunta a continuación:",
+      'edit',
       async (newText) => {
         try {
           const response = await fetch(`/api/pregunta/${selectedConfId}/${qId}`, {
@@ -129,9 +129,9 @@ function Interacciones({ onBack, agente }) {
 
   const handleDeleteQuestion = (qId) => {
     showModal(
-      "¿Eliminar pregunta?", 
-      "Esta acción no se puede deshacer.", 
-      'confirm', 
+      "¿Eliminar pregunta?",
+      "Esta acción no se puede deshacer.",
+      'confirm',
       async () => {
         try {
           const response = await fetch(`/api/pregunta/${selectedConfId}/${qId}`, {
@@ -153,37 +153,38 @@ function Interacciones({ onBack, agente }) {
   // ─── STATE 1: List Conferences ───
   if (!selectedConfId) {
     return (
-      <div className="votaciones-container animate-fade-in">
-        <div className="qa-header-area">
-          <div className="qa-header-text">
+      <div className="interacciones-container animate-fade-in">
+        <header className="agenda-header">
+          <div className="agenda-header-text">
             <h1>Preguntas</h1>
-            <div className="qa-header-subtitle">
+            <div className="agenda-subtitle">
               <span className="material-icons-round">event</span>
-              <span>CAMZYOS® • Cancún</span>
+              <span>BLOOD 2026</span>
             </div>
           </div>
-          <div className="qa-back-btn" onClick={onBack}>
-            <span className="material-icons-round">chevron_left</span>
+          <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
+          <div className="back-btn-circle" onClick={onBack}>
+            <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
           </div>
-        </div>
+        </header>
 
-        <div className="v-section-container">
-          <h2 className="v-list-title">Selecciona una conferencia</h2>
-          <p className="v-list-desc">Elige la sesión a la que deseas enviar una pregunta al ponente.</p>
-          
-          <div className="v-conf-list">
+        <div className="ia-content">
+          <h2 className="ia-list-title">Selecciona una conferencia</h2>
+          <p className="ia-list-desc">Elige la sesión a la que deseas enviar una pregunta al ponente.</p>
+
+          <div className="ia-conf-list">
             {conferenciasData.filter(c => c.ponentes && c.ponentes.length > 0).map(conf => (
-              <div key={conf.id} className="v-conf-item" onClick={() => setSelectedConfId(conf.id)}>
-                <div className="v-conf-icon" style={{ background: 'rgba(131, 71, 173, 0.15)', color: '#8347ad' }}>
+              <div key={conf.id} className="ia-conf-item" onClick={() => setSelectedConfId(conf.id)}>
+                <div className="ia-conf-icon">
                   <span className="material-icons-round">record_voice_over</span>
                 </div>
-                <div className="v-conf-info">
+                <div className="ia-conf-info">
                   <h3>{conf.titulo}</h3>
-                  <span style={{color: 'rgba(255,255,255,0.6)'}}>
+                  <span>
                     {conf.ponentes.length > 1 ? 'Múltiples Ponentes' : conf.ponentes[0]?.nombre}
                   </span>
                 </div>
-                <span className="material-icons-round" style={{ color: 'rgba(255,255,255,0.3)' }}>chevron_right</span>
+                <span className="material-icons-round chevron">chevron_right</span>
               </div>
             ))}
           </div>
@@ -193,83 +194,81 @@ function Interacciones({ onBack, agente }) {
   }
 
   // ─── STATE 2: Q&A Interface ───
-  const conf = conferenciasData.find(c => c.id === selectedConfId);
-
   return (
-    <div className="votaciones-container animate-fade-in">
-      <div className="qa-header-area">
-        <div className="qa-header-text">
-           <h1>Preguntas</h1>
-           <div className="qa-header-subtitle">
-             <span className="material-icons-round">event</span>
-             <span>CAMZYOS® • Cancún</span>
-           </div>
+    <div className="interacciones-container animate-fade-in">
+      <header className="agenda-header">
+        <div className="agenda-header-text">
+          <h1>Preguntas</h1>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
+          </div>
         </div>
-        <div className="qa-back-btn" onClick={() => setSelectedConfId(null)}>
-           <span className="material-icons-round">chevron_left</span>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
+        <div className="back-btn-circle" onClick={() => setSelectedConfId(null)}>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
-      </div>
+      </header>
 
-      <div className="qa-main-wrapper">
-        
+      <div className="ia-content">
+
         {/* Tus Preguntas Section */}
-        <div className="qa-section-header">
-          <span className="qa-section-title">TUS PREGUNTAS</span>
-          <div className="qa-section-line"></div>
+        <div className="ia-section-header">
+          <span className="ia-section-title">Tus preguntas</span>
+          <div className="ia-section-line"></div>
         </div>
 
-        <div className="qa-list-container">
+        <div className="ia-list-container">
           {questions.length === 0 ? (
-            <div className="qa-empty-state">
-              <span className="material-icons-round" style={{ fontSize: '32px', color: 'rgba(255,255,255,0.2)'}}>chat_bubble_outline</span>
+            <div className="ia-empty-state">
+              <span className="material-icons-round" style={{ fontSize: '32px', color: 'rgba(58,53,52,0.2)' }}>chat_bubble_outline</span>
               <p>Aún no has enviado preguntas para esta sesión.</p>
             </div>
           ) : (
             questions.map(q => (
-              <div key={q.id} className={`qa-card-glass ${q.respondida ? 'is-resolved' : ''}`}>
-                <div className="qa-card-header">
-                  <div className={`qa-status-badge ${q.respondida ? 'status-green' : ''}`}>
-                    <span className="material-icons-round" style={{ fontSize: '12px' }}>
+              <div key={q.id} className={`ia-card ${q.respondida ? 'is-resolved' : ''}`}>
+                <div className="ia-card-header">
+                  <div className={`ia-status-badge ${q.respondida ? 'status-green' : ''}`}>
+                    <span className="material-icons-round">
                       {q.respondida ? 'check_circle' : 'hourglass_top'}
                     </span>
                     {q.respondida ? 'RESUELTA' : 'ENVIADA'}
                   </div>
                   {!q.respondida && (
-                    <div className="qa-card-actions">
-                      <span 
-                        className="material-icons-round" 
+                    <div className="ia-card-actions">
+                      <span
+                        className="material-icons-round"
                         onClick={() => handleEditQuestion(q.id, q.pregunta)}
                       >edit</span>
-                      <span 
-                        className="material-icons-round" 
+                      <span
+                        className="material-icons-round"
                         onClick={() => handleDeleteQuestion(q.id)}
                       >delete_outline</span>
                     </div>
                   )}
                 </div>
-                <div className="qa-card-body">
+                <div className="ia-card-body">
                   <p>{q.pregunta}</p>
                 </div>
               </div>
             ))
-
           )}
         </div>
 
         {/* Input area */}
-        <div className="qa-input-area">
-          <div className="qa-input-glass">
-            <textarea 
-              placeholder="Escribe Tu Pregunta Aquí"
+        <div className="ia-input-area">
+          <div className="ia-input-glass">
+            <textarea
+              placeholder="Escribe tu pregunta aquí"
               value={questionText}
               onChange={(e) => setQuestionText(e.target.value)}
-              className="qa-textarea"
+              className="ia-textarea"
               maxLength={300}
             ></textarea>
           </div>
 
-          <button 
-            className="btn-premium-gradient-qa" 
+          <button
+            className="ia-send-btn"
             onClick={handleSendQuestion}
             disabled={isSubmitting || !questionText.trim()}
           >
@@ -277,7 +276,7 @@ function Interacciones({ onBack, agente }) {
             <span>{isSubmitting ? 'Enviando...' : 'Enviar pregunta'}</span>
           </button>
 
-          <div className="qa-disclaimer">
+          <div className="ia-disclaimer">
             <p>Tus preguntas podrán ser revisadas por el ponente durante o después del evento.</p>
           </div>
         </div>
@@ -286,35 +285,35 @@ function Interacciones({ onBack, agente }) {
 
       {/* --- CUSTOM PREMIUM MODAL --- */}
       {modal.show && (
-        <div className="qa-modal-overlay">
-          <div className="qa-modal-content">
-            <div className="qa-modal-icon-box">
+        <div className="ia-modal-overlay">
+          <div className="ia-modal-content">
+            <div className="ia-modal-icon-box">
               <span className="material-icons-round">
                 {modal.type === 'confirm' ? 'help_outline' : modal.type === 'edit' ? 'edit' : 'info_outline'}
               </span>
             </div>
-            
-            <h3 className="qa-modal-title">{modal.title}</h3>
-            <p className="qa-modal-text">{modal.text}</p>
-            
+
+            <h3 className="ia-modal-title">{modal.title}</h3>
+            <p className="ia-modal-text">{modal.text}</p>
+
             {modal.type === 'edit' && (
-              <div className="qa-modal-input-container">
-                <textarea 
-                  className="qa-modal-input"
+              <div className="ia-modal-input-container">
+                <textarea
+                  className="ia-modal-input"
                   value={modal.inputValue}
                   onChange={(e) => setModal(prev => ({ ...prev, inputValue: e.target.value }))}
                 />
               </div>
             )}
-            
-            <div className="qa-modal-footer">
+
+            <div className="ia-modal-footer">
               {modal.type !== 'alert' && (
-                <button className="qa-btn-modal-secondary" onClick={closeModal}>
+                <button className="ia-btn-modal-secondary" onClick={closeModal}>
                   Cancelar
                 </button>
               )}
-              <button 
-                className="qa-btn-modal-primary" 
+              <button
+                className="ia-btn-modal-primary"
                 onClick={() => {
                   if (modal.type === 'edit') {
                     modal.onConfirm(modal.inputValue);
@@ -336,4 +335,3 @@ function Interacciones({ onBack, agente }) {
 }
 
 export default Interacciones;
-

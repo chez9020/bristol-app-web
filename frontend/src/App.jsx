@@ -11,6 +11,7 @@ import BiografiaSpeaker from './BiografiaSpeaker.jsx';
 import Constancia from './Constancia.jsx';
 import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
+import Biblioteca from './Biblioteca.jsx';
 
 // NavItem and GridCard
 function NavItem({ icon, iconSrc, label, isActive, onClick }) {
@@ -177,7 +178,7 @@ function App() {
                 iconSrc="/assets/icon_bibliotecas.png"
                 title="Bibliotecas"
                 subtitle="PRESENTACIONES Y RECURSOS"
-                onClick={() => setComingSoonLabel('Bibliotecas')}
+                onClick={() => setActiveTab('Biblioteca')}
               />
             </main>
           </div>
@@ -245,6 +246,7 @@ function App() {
         )}
         {activeTab === 'Interacciones' && <Interacciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}
+        {activeTab === 'Biblioteca' && <Biblioteca onBack={() => setActiveTab('Inicio')} />}
       </div>
 
       <div className="modern-legal-footer">
