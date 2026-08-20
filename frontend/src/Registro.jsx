@@ -141,7 +141,7 @@ function Registro({ onRegister }) {
             </div>
             <div className="privacy-pdf-container">
               <iframe
-                src="https://storage.googleapis.com/bristol-presentaciones-2026/Aviso%20de%20Privacidad/AVISO%20DE%20PRIVACIDAD%20(CAMZYOS).pdf"
+                src="https://storage.googleapis.com/bristol-presentaciones-2026/Aviso%20de%20Privacidad/AVISO%20DE%20PRIVACIDAD.pdf"
                 title="Aviso de Privacidad"
                 frameBorder="0"
               ></iframe>
