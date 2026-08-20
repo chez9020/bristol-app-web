@@ -1,4 +1,5 @@
 import React from 'react';
+import './Agenda.css';
 import './MapaEvento.css';
 
 const salonesData = [
@@ -7,7 +8,7 @@ const salonesData = [
 
 function MapaEvento({ onBack }) {
   const [isZoomed, setIsZoomed] = React.useState(false);
-  const mapUrl = "https://storage.googleapis.com/bristol-presentaciones-2026/Mapas/mapa_salones.png";
+  const mapUrl = "/assets/mapa_salones_bloodl2026.png";
 
   const toggleZoom = () => {
     setIsZoomed(!isZoomed);
@@ -18,11 +19,12 @@ function MapaEvento({ onBack }) {
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Mapa del evento</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>place</span>
-            <span>CAMZYOS® • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
           <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>

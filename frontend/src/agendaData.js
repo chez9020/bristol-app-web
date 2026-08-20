@@ -1,101 +1,136 @@
 export const agendaData = {
-  Jueves: {
-    date: '16 Abril',
-    title: 'Jueves 16 de Abril',
+  Viernes: {
+    date: '28 Agosto',
+    title: 'Viernes 28 de Agosto',
     items: [
       {
-        id: 'bienvenida_jueves',
-        time: '18:00 - 18:10',
+        id: 'bienvenida_viernes',
+        time: '19:00 - 19:30',
         title: 'Bienvenida'
       },
       {
-        id: 'retos_diagnosticos',
-        time: '18:10 - 19:10',
-        title: 'Retos Diagnósticos de MCHo:',
-        description: 'Desde la clínica hasta la imagen',
-        speakers: ['Dr. Enrique Berrios', 'Dra. Julieta Morales']
+        id: 'panel_1',
+        time: '19:30 - 20:10',
+        title: 'Panel 1:',
+        description: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
+        speakers: ['Dr. Gabriel Barragán']
       },
       {
-        id: 'mch_obstructiva_1',
-        time: '19:10 - 19:40',
-        title: 'MCH Obstructiva:',
-        description: 'Limitaciones del tratamiento convencional y retos en la práctica clínica',
-        speakers: ['Dr. Adrian Fernández']
+        id: 'panel_2',
+        time: '20:10 - 20:30',
+        title: 'Panel 2:',
+        description: 'Q&A',
+        speakers: ['Dr. Gabriel Barragán']
       },
       {
-        id: 'break_jueves',
-        time: '19:40 - 19:55',
-        title: 'Break'
-      },
-      {
-        id: 'mch_obstructiva_2',
-        time: '19:55 - 20:55',
-        title: 'MCH Obstructiva:',
-        description: 'Evolución del tratamiento farmacológico hasta terapias dirigidas. “CENA”',
-        speakers: ['Dr. Enrique Berrios']
+        id: 'panel_3',
+        time: '20:30 - 21:00',
+        title: 'Panel 3:',
+        description: 'Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
+        speakers: ['Carla Da Passano']
       }
     ]
   },
-  Viernes: {
-    date: '17 Abril',
-    title: 'Viernes 17 de Abril',
+  Sabado: {
+    date: '29 Agosto',
+    title: 'Sábado 29 de Agosto',
     items: [
       {
-        id: 'desayuno_viernes',
-        time: '8:00 - 09:00',
-        title: 'Desayuno'
+        id: 'desayuno_sabado',
+        time: '08:00 - 09:00',
+        description: 'Desayuno / Entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)'
       },
       {
-        id: 'inhibicion_miosina',
-        time: '9:00 - 10:00',
-        title: 'La Inhibición de la miosina cardíaca:',
-        description: 'Rompiendo paradigmas en el tratamiento de MCHo',
-        speakers: ['Dr. Roberto Barriales']
+        id: 'biologia_mm',
+        time: '09:00 - 09:30',
+        description: 'Biología del Mieloma Múltiple',
+        speakers: ['Dra. Aline Ramírez']
       },
       {
-        id: 'evidencia_clinica',
-        time: '10:00 - 10:45',
-        title: 'De la evidencia clínica de largo plazo hacia datos del mundo real',
-        speakers: ['Dr. Adrian Fernández']
+        id: 'inmunomodulacion',
+        time: '09:30 - 10:00',
+        description: 'Inmunomodulación y resistencia a IMiDs: implicaciones en el tratamiento del mieloma múltiple.',
+        speakers: ['Dr. Ramos Peñafiel']
       },
       {
-        id: 'panel_discusion',
-        time: '10:45 - 11:15',
-        title: 'Panel de discusión',
-        speakers: ['Dr. Roberto Barriales', 'Dr. Adrian Fernández', 'Dr. Guillermo Antonio Llamas']
+        id: 'panel_1_sabado',
+        time: '10:00 - 10:40',
+        title: 'Panel 1:',
+        description: 'Retos actuales en el diagnóstico y estratificación de riesgo en Mieloma Múltiple',
+        speakers: ['Coordinador: Dr. Ramos Peñafiel', 'Panelistas: Dra. Aline Ramírez y Dr. Joaquín Martínez']
       },
       {
-        id: 'break_viernes',
-        time: '11:15 - 11:30',
-        title: 'Break'
+        id: 'qa_1_sabado',
+        time: '10:40 - 11:00',
+        description: 'Q&A',
+        speakers: ['Coordinador: Dr. Ramos Peñafiel', 'Panelistas: Dra. Aline Ramírez y Dr. Joaquín Martínez']
       },
       {
-        id: 'ruta_diagnostico',
-        time: '11:30 - 12:45',
-        title: 'La Ruta del diagnóstico:',
-        description: 'Resolución Casos Clínicos',
-        speakers: ['Dra. Zuilma Vázquez', 'Dra. Jennifer Armenta', 'Dra. Julieta Morales']
+        id: 'pausa_sabado',
+        time: '11:00 - 11:20',
+        description: 'Pausa académica y entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)'
       },
       {
-        id: 'closing_remarks',
-        time: '12:45 - 13:00',
-        title: 'Closing Remarks',
-        speakers: ['Dr. Guillermo Antonio Llamas']
+        id: 'panel_6_sabado',
+        time: '11:20 - 11:50',
+        title: 'Panel 6:',
+        description: 'Estrategias actuales para el tratamiento del mieloma múltiple de nuevo diagnóstico',
+        speakers: ['Dr. Joaquín Martínez']
       },
       {
-        id: 'cierre_evento',
-        time: '13:00 - 13:15',
-        title: 'Cierre evento'
+        id: 'enfermedad_minima',
+        time: '11:50 - 12:20',
+        description: 'Enfermedad mínima residual: impacto en decisiones terapéuticas e innovación en mieloma múltiple',
+        speakers: ['Dr. Kenny Gálvez']
       },
       {
-        id: 'encuesta_salida',
-        time: '13:00 - 13:15',
-        title: 'Encuesta Salida'
+        id: 'panel_2_sabado',
+        time: '12:20 - 13:00',
+        title: 'Panel 2:',
+        description: 'Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
+        speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán y Dra. Carolina García']
       },
       {
-        id: 'comida_viernes',
-        time: '13:15 - 14:15',
-        title: 'Comida'
+        id: 'qa_2_sabado',
+        time: '13:00 - 13:20',
+        description: 'Q&A',
+        speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán y Dra. Carolina García']
+      },
+      {
+        id: 'comida_sabado',
+        time: '13:20 - 14:30',
+        description: 'Comida en restaurante casa madre / Entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)'
+      },
+      {
+        id: 'tratamiento_recaida',
+        time: '14:30 - 15:00',
+        description: 'Tratamiento actual del mieloma múltiple en recaída o refractario',
+        speakers: ['Dr. Joaquín Martínez']
+      },
+      {
+        id: 'panel_3_sabado',
+        time: '15:00 - 15:40',
+        title: 'Panel 3:',
+        description: 'Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
+        speakers: ['Coordinador: Dr. Gabriel Barragán', 'Panelistas: Dr. Kenny Gálvez, Dr. Joaquín Martínez y Dra. Carolina García']
+      },
+      {
+        id: 'futuro_tratamiento',
+        time: '15:40 - 16:10',
+        description: 'Futuro del tratamiento del mieloma múltiple en recaída o refractario: pipeline y próximos pasos',
+        speakers: ['Dra. Gabriela Hernández']
+      },
+      {
+        id: 'panel_4_sabado',
+        time: '16:10 - 16:30',
+        title: '...',
+        speakers: ['Coordinador: Dr. Gabriel Barragán', 'Panelistas: Dr. Kenny Gálvez, Dr. Joaquín Martínez, Dra. Carolina García y Dra. Gabriela Hernández']
+      },
+      {
+        id: 'aprendizajes_sabado',
+        time: '16:30 - 17:00',
+        description: 'Aprendizajes clave para la práctica clínica en mieloma múltiple',
+        speakers: ['Dra. Aline Ramírez']
       }
     ]
   }
@@ -103,6 +138,6 @@ export const agendaData = {
 
 // Flatten version for compatibility with components expecting an array
 export const agendaEvents = [
-  ...agendaData.Jueves.items,
-  ...agendaData.Viernes.items
+  ...agendaData.Viernes.items,
+  ...agendaData.Sabado.items
 ];

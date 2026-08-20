@@ -7,7 +7,7 @@ import MapaEvento from './MapaEvento.jsx';
 
 const imgHotel = "/assets/hotel_marriott_cancun.png";
 const imgMapa = "/assets/mapa_salones_bloodl2026.png";
-const imgRestaurantes = "/assets/restaurante_ceviche.png";
+const imgRestaurantes = "/assets/logistica_restaurante_dolce_vita.png";
 
 function Logistica({ onBack }) {
   const [showTraslados, setShowTraslados] = useState(false);

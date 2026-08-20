@@ -3,102 +3,53 @@
   min-height: 100vh;
 }
 
-.restaurantes-filters-wrapper {
-  padding: 0 24px;
-  margin-bottom: 32px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.restaurantes-filters {
-  display: flex;
-  gap: 12px;
-  width: max-content;
-}
-
-.filter-chip {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-inter);
-  font-weight: 500;
-  font-size: 14px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.filter-chip.active {
-  background: linear-gradient(93deg, #002d72 0%, #8a51b0 100%);
-  border-color: transparent;
-  box-shadow: 0 4px 15px rgba(131, 71, 173, 0.3);
-}
-
-.filter-icon {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
 .restaurantes-grid {
-  padding: 0 16px;
+  padding: 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
 .restaurante-card {
-  background: rgba(80, 41, 137, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: #fbfdff;
+  border-radius: 12px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 
 .rest-hero {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
 }
 
 .rest-hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .rest-info {
-  padding: 16px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
 }
 
 .rest-info h3 {
-  font-family: var(--font-gotham);
+  font-family: var(--font-inter);
   font-weight: 700;
-  font-size: 15px;
-  color: #ffffff;
+  font-size: 13px;
+  color: var(--color-text-heading);
+  line-height: 1.35;
   margin: 0;
-  line-height: 1.2;
 }
 
 .rest-type-text {
-  display: flex;
-  align-items: center;
-  gap: 4px;
   font-family: var(--font-inter);
-  font-size: 12px;
-  color: #cbd5e1;
-}
-
-.rest-type-text span {
-  font-size: 14px;
-  color: #ddbaf6;
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--color-text-heading);
 }

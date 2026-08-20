@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Agenda.css';
 import './Conferencias.css';
 import { conferenciasData } from './conferenciasData';
 
@@ -29,6 +30,15 @@ function checkIsLive(fecha, inicio, fin) {
   return false;
 }
 
+const FECHA_LABELS = {
+  '2026-08-28': 'Viernes 28 de Agosto',
+  '2026-08-29': 'Sábado 29 de Agosto',
+};
+
+function fechaLabel(fecha) {
+  return FECHA_LABELS[fecha] ?? fecha;
+}
+
 
 function Conferencias({ onBack, onDetalle }) {
   const [activeFilter, setActiveFilter] = useState('Todas las Sesiones');
@@ -42,7 +52,7 @@ function Conferencias({ onBack, onDetalle }) {
 
   const filteredData = conferenciasData.filter(conf => {
     const matchesFilter = activeFilter === 'Todas las Sesiones' ? true : conf.modulo.toLowerCase().includes('break');
-    const matchesSearch = conf.titulo.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = conf.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          conf.ponentes.some(p => p.nombre.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesFilter && matchesSearch;
   });
@@ -55,31 +65,32 @@ function Conferencias({ onBack, onDetalle }) {
       <header className="agenda-header">
         <div className="agenda-header-text">
           <h1>Conferencias</h1>
-          <div className="agenda-location">
-            <span className="material-icons-round card-icon-gradient" style={{ fontSize: '18px', verticalAlign: 'middle' }}>event</span>
-            <span>CAMZYOS® • Cancún</span>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">event</span>
+            <span>BLOOD 2026</span>
           </div>
         </div>
+        <img src="/assets/icon_notification_bell.png" alt="" className="agenda-header-bell" />
         <div className="back-btn-circle" onClick={onBack}>
-          <span className="material-icons-round" style={{color: 'white'}}>chevron_left</span>
+          <span className="material-icons-round" style={{ color: 'white' }}>chevron_left</span>
         </div>
       </header>
 
       <div className="conferencias-controls">
         <div className="c-search-wrapper">
           <span className="material-icons-round c-search-icon">search</span>
-          <input 
-            type="text" 
-            className="c-search-input" 
+          <input
+            type="text"
+            className="c-search-input"
             placeholder="Filtrar por ponente o tema..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        
+
         <div className="c-pills-row">
           {['Todas las Sesiones', 'Breaks Outs'].map(pill => (
-            <div 
+            <div
               key={pill}
               className={`c-pill ${activeFilter === pill ? 'active' : ''}`}
               onClick={() => setActiveFilter(pill)}
@@ -99,7 +110,7 @@ function Conferencias({ onBack, onDetalle }) {
             </div>
             <span className="c-ver-todo">Ver todo</span>
           </div>
-          
+
           {liveConferencias.map(conf => (
             <div key={conf.id} className="c-live-card">
               <div className="c-live-card-top">
@@ -135,10 +146,10 @@ function Conferencias({ onBack, onDetalle }) {
           <div className="c-section-header">
             <h2 className="c-section-title">Próximas</h2>
             <span className="c-section-subtitle">
-              {fecha === '2026-04-16' ? 'Jueves 16 de Abril' : 'Viernes 17 de Abril'}
+              {fechaLabel(fecha)}
             </span>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="c-upcoming-list">
             {conferenciasDelDia.map(conf => (
               <div key={conf.id} className="c-upcoming-card" onClick={() => onDetalle(conf)}>
                 <div className="c-upcoming-time">{conf.horario_inicio}</div>

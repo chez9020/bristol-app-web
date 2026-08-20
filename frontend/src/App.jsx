@@ -13,6 +13,8 @@ import Constancia from './Constancia.jsx';
 import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
 import Biblioteca from './Biblioteca.jsx';
+import Encuestas from './Encuestas.jsx';
+import DigitalPass from './DigitalPass.jsx';
 
 // NavItem and GridCard
 function NavItem({ icon, iconSrc, label, isActive, onClick }) {
@@ -150,7 +152,7 @@ function App() {
                 iconSrc="/assets/icon_digital_pass.png"
                 title="Digital Pass"
                 subtitle="GAFETE"
-                onClick={() => setComingSoonLabel('Digital Pass')}
+                onClick={() => setActiveTab('DigitalPass')}
               />
               <GridCard
                 iconSrc="/assets/icon_ponentes.png"
@@ -168,7 +170,7 @@ function App() {
                 iconSrc="/assets/icon_encuesta.png"
                 title="Encuesta"
                 subtitle="QUEREMOS CONOCER TU OPINIÓN"
-                onClick={() => setComingSoonLabel('Encuesta')}
+                onClick={() => setActiveTab('Encuestas')}
               />
               <GridCard
                 icon="edit_note"
@@ -256,6 +258,15 @@ function App() {
                   <p className="locked-sub">Cancún, México</p>
                 </div>
               </div>
+        )}
+        {activeTab === 'Encuestas' && (
+          <Encuestas
+            onBack={() => setActiveTab('Inicio')}
+            onFinish={() => setActiveTab('Inicio')}
+          />
+        )}
+        {activeTab === 'DigitalPass' && (
+          <DigitalPass onBack={() => setActiveTab('Inicio')} agente={agente} />
         )}
         {activeTab === 'Interacciones' && <Interacciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}

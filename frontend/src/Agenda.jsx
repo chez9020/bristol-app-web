@@ -3,7 +3,7 @@ import './Agenda.css';
 import { agendaData } from './agendaData';
 
 function Agenda({ onBack }) {
-  const [activeDay, setActiveDay] = useState('Jueves');
+  const [activeDay, setActiveDay] = useState('Viernes');
 
   const currentData = agendaData[activeDay];
 
@@ -25,18 +25,18 @@ function Agenda({ onBack }) {
 
       <div className="agenda-day-tabs">
         <div
-          className={`agenda-day-tab ${activeDay === 'Jueves' ? 'active' : ''}`}
-          onClick={() => setActiveDay('Jueves')}
-        >
-          <span className="tab-day-name">Jueves</span>
-          <span className="tab-day-date">16 de Abril</span>
-        </div>
-        <div
           className={`agenda-day-tab ${activeDay === 'Viernes' ? 'active' : ''}`}
           onClick={() => setActiveDay('Viernes')}
         >
           <span className="tab-day-name">Viernes</span>
-          <span className="tab-day-date">17 de Abril</span>
+          <span className="tab-day-date">28 de Agosto</span>
+        </div>
+        <div
+          className={`agenda-day-tab ${activeDay === 'Sabado' ? 'active' : ''}`}
+          onClick={() => setActiveDay('Sabado')}
+        >
+          <span className="tab-day-name">Sábado</span>
+          <span className="tab-day-date">29 de Agosto</span>
         </div>
       </div>
 
@@ -45,10 +45,15 @@ function Agenda({ onBack }) {
       </div>
 
       <div className="agenda-list-wrapper">
+        {currentData.items.length === 0 && (
+          <div className="agenda-entry">
+            <span className="entry-description">Próximamente disponible</span>
+          </div>
+        )}
         {currentData.items.map((item, index) => (
           <div className="agenda-entry" key={index}>
             <span className="entry-time">{item.time}</span>
-            <span className="entry-title">{item.title}</span>
+            {item.title && <span className="entry-title">{item.title}</span>}
             {item.description && <span className="entry-description">{item.description}</span>}
             {item.speakers && (
               <div className="entry-speakers">
