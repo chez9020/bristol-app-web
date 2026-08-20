@@ -114,7 +114,7 @@ function Logistica({ onBack }) {
               </div>
               <div className="hotel-button-group">
                 <a
-                  href="https://bit.ly/4sslXrT"
+                  href="https://www.google.com/maps?hl=es-419&gl=MX&um=1&ie=UTF-8&fb=1&sa=X&geocode=Kduj3OtHKEyPMS-lYPg8try0&daddr=Marriott+Cancun,+An+All-Inclusive+Resort,+Boulevard+Kukulcan+Km+14.5,+Chac+L-41,+Zona+Hotelera,+77500+Canc%C3%BAn,+Q.R."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-premium-outline"
@@ -124,7 +124,7 @@ function Logistica({ onBack }) {
                   Cómo llegar
                 </a>
                 <a
-                  href="tel:+529988811100"
+                  href="tel:+529988812000"
                   className="btn-premium-outline"
                   style={{ textDecoration: 'none' }}
                 >

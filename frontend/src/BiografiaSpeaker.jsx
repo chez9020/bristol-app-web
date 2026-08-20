@@ -32,7 +32,6 @@ function BiografiaSpeaker({ onBack, ponente }) {
           <p className="bs-speaker-role">{data.puesto}</p>
         </div>
         <div className="bs-divider"></div>
-        <h3 className="bs-section-title">BIOGRAFÍA</h3>
         <ul className="bs-bio-list">
           {bioLines.map((line, index) => (
             <li key={index} className="bs-bio-item">{line.trim()}</li>

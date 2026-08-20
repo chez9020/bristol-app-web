@@ -4,11 +4,6 @@ export const agendaData = {
     title: 'Viernes 28 de Agosto',
     items: [
       {
-        id: 'bienvenida_viernes',
-        time: '19:00 - 19:30',
-        title: 'Bienvenida'
-      },
-      {
         id: 'panel_1',
         time: '19:30 - 20:10',
         title: 'Panel 1:',
@@ -38,7 +33,8 @@ export const agendaData = {
       {
         id: 'desayuno_sabado',
         time: '08:00 - 09:00',
-        description: 'Desayuno / Entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)'
+        description: 'Desayuno / Entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
+        speakers: ['(Disponible desde 8:30 am)']
       },
       {
         id: 'biologia_mm',
@@ -73,7 +69,6 @@ export const agendaData = {
       {
         id: 'panel_6_sabado',
         time: '11:20 - 11:50',
-        title: 'Panel 6:',
         description: 'Estrategias actuales para el tratamiento del mieloma múltiple de nuevo diagnóstico',
         speakers: ['Dr. Joaquín Martínez']
       },
@@ -86,7 +81,7 @@ export const agendaData = {
       {
         id: 'panel_2_sabado',
         time: '12:20 - 13:00',
-        title: 'Panel 2:',
+        title: 'Panel:',
         description: 'Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
         speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán y Dra. Carolina García']
       },
@@ -94,7 +89,7 @@ export const agendaData = {
         id: 'qa_2_sabado',
         time: '13:00 - 13:20',
         description: 'Q&A',
-        speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán y Dra. Carolina García']
+        speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán, Dra. Carolina García, Dr. Kenny Gálvez y Dr. Joaquín Martínez']
       },
       {
         id: 'comida_sabado',
@@ -110,7 +105,7 @@ export const agendaData = {
       {
         id: 'panel_3_sabado',
         time: '15:00 - 15:40',
-        title: 'Panel 3:',
+        title: 'Panel:',
         description: 'Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
         speakers: ['Coordinador: Dr. Gabriel Barragán', 'Panelistas: Dr. Kenny Gálvez, Dr. Joaquín Martínez y Dra. Carolina García']
       },
@@ -129,7 +124,7 @@ export const agendaData = {
       {
         id: 'aprendizajes_sabado',
         time: '16:30 - 17:00',
-        description: 'Aprendizajes clave para la práctica clínica en mieloma múltiple',
+        description: 'Mensajes finales: Aprendizajes clave para la práctica clínica en mieloma múltiple',
         speakers: ['Dra. Aline Ramírez']
       }
     ]

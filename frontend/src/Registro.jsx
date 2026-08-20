@@ -66,7 +66,7 @@ function Registro({ onRegister }) {
       <div className="registro-overlay-card">
         <div className="registro-header-modern">
           <h1>Regístrate</h1>
-          <p>Ingresa el ID unico que llego a tu correo.</p>
+          <p>Ingresa el ID único asociado con tu nombre.</p>
         </div>
 
         <form className="registro-form-modern" onSubmit={handleContinue}>
