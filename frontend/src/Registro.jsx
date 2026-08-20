@@ -7,6 +7,7 @@ function Registro({ onRegister }) {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showId, setShowId] = useState(false);
 
   // Validar que sean exactamente 6 números para el acceso
   const isFormValid = /^\d{6}$/.test(name) && acceptedPolicy && !isLoading;
@@ -72,7 +73,7 @@ function Registro({ onRegister }) {
         <form className="registro-form-modern" onSubmit={handleContinue}>
           <div className="input-field-group">
             <input
-              type="text"
+              type={showId ? 'text' : 'password'}
               inputMode="numeric"
               placeholder="ID Unico (6 digitos)"
               value={name}
@@ -82,6 +83,14 @@ function Registro({ onRegister }) {
               }}
               className="registro-input-modern"
             />
+            <button
+              type="button"
+              className="input-eye-toggle"
+              onClick={() => setShowId(!showId)}
+              tabIndex={-1}
+            >
+              <span className="material-icons-round">{showId ? 'visibility_off' : 'visibility'}</span>
+            </button>
           </div>
 
           <div className="checkbox-agreement-group">

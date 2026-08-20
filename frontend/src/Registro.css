@@ -85,18 +85,42 @@
   width: 100%;
 }
 
+.input-field-group {
+  position: relative;
+}
+
 .registro-input-modern {
   width: 100%;
   background: rgba(128, 128, 128, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 19px 25px;
+  padding: 19px 52px 19px 25px;
   color: #3a3534;
   font-family: var(--font-inter);
   font-weight: 300;
   font-size: 18px;
+  letter-spacing: 4px;
   outline: none;
   transition: all 0.2s ease;
+}
+
+.input-eye-toggle {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(58, 53, 52, 0.5);
+}
+
+.input-eye-toggle .material-icons-round {
+  font-size: 20px;
 }
 
 .registro-input-modern:focus {
