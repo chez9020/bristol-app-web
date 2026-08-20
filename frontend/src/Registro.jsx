@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './Registro.css';
 
 function Registro({ onRegister }) {
@@ -8,6 +8,29 @@ function Registro({ onRegister }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showId, setShowId] = useState(false);
+  const [revealLast, setRevealLast] = useState(false);
+  const revealTimer = useRef(null);
+
+  const handleIdChange = (e) => {
+    const val = e.target.value;
+    let newName = name;
+    if (val.length > name.length) {
+      const added = val.slice(name.length).replace(/\D/g, '');
+      newName = (name + added).slice(0, 6);
+      if (added) {
+        setRevealLast(true);
+        clearTimeout(revealTimer.current);
+        revealTimer.current = setTimeout(() => setRevealLast(false), 500);
+      }
+    } else {
+      newName = name.slice(0, val.length);
+    }
+    setName(newName);
+  };
+
+  const displayValue = showId
+    ? name
+    : name.split('').map((c, i) => (i === name.length - 1 && revealLast ? c : '•')).join('');
 
   // Validar que sean exactamente 6 números para el acceso
   const isFormValid = /^\d{6}$/.test(name) && acceptedPolicy && !isLoading;
@@ -73,14 +96,11 @@ function Registro({ onRegister }) {
         <form className="registro-form-modern" onSubmit={handleContinue}>
           <div className="input-field-group">
             <input
-              type={showId ? 'text' : 'password'}
+              type="text"
               inputMode="numeric"
               placeholder="ID Unico (6 digitos)"
-              value={name}
-              onChange={(e) => {
-                const val = e.target.value.replace(/\D/g, '').slice(0, 6);
-                setName(val);
-              }}
+              value={displayValue}
+              onChange={handleIdChange}
               className="registro-input-modern"
             />
             <button
