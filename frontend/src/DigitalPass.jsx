@@ -22,21 +22,13 @@ function DigitalPass({ onBack, agente }) {
       </header>
 
       <div className="gafete-card">
-        <div className="gafete-card-top">
-          <img src="/assets/blood2026_home_bg.png" alt="" className="gafete-illustration" />
-          <img src="/assets/bms_logo_color.svg" alt="Bristol Myers Squibb" className="gafete-logo" />
-          <div className="gafete-wordmark">
-            <span className="gafete-wordmark-title">BLOOD 2026</span>
-            <span className="gafete-wordmark-sub">BMS LATIN AMERICA</span>
-            <span className="gafete-wordmark-sub">INNOVATION OF HEMATOLOGICAL DISEASES</span>
-          </div>
-        </div>
-
-        <div className="gafete-name-banner">
-          <span className="gafete-doctor-name">{nombre}</span>
-          <span className="gafete-code">HE-MX-2600017</span>
-        </div>
+        <img src="/assets/blood2026_gafete_card.png" alt="" className="gafete-card-bg" />
+        <div className="gafete-code-cover" />
+        <img src="/assets/blood2026_gafete_qr_placeholder.png" alt="Código QR" className="gafete-qr" />
+        <span className="gafete-doctor-name">{nombre}</span>
       </div>
+
+      <div className="gafete-legal-code">HE-MX-2600018</div>
     </div>
   );
 }
