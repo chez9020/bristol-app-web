@@ -34,6 +34,7 @@ const PONENTES = [
   ].join('\n') },
   { id: 6, nombre: 'Dr. Kenny Mauricio Gálvez Cárdenas', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_placeholder.png', biografia_larga: BIO_CARDIOLOGIA },
   { id: 7, nombre: 'Dra. Enriqueta Gabriela Hernandez Rivera', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_placeholder.png', biografia_larga: BIO_CARDIOLOGIA },
+  { id: 8, nombre: 'Carla Iliana Da Passano', puesto: 'Omnichannel Specialist para BMS Mexico', foto: '/assets/ponente_carla_da_passano.jpeg', biografia_larga: '' },
 ];
 
 function Ponentes({ onBack, onBiografia }) {

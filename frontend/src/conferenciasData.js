@@ -1,4 +1,44 @@
 export const conferenciasData = [
+  // VIERNES 28 DE AGOSTO
+  {
+    id: 27,
+    titulo: 'Panel 1: Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
+    modulo: 'PANEL',
+    descripcion: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
+    fecha: '2026-08-28',
+    horario_inicio: '19:30',
+    horario_fin: '20:10',
+    sala: 'Salón Principal',
+    ponentes: [
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/icon_ponentes.png' }
+    ]
+  },
+  {
+    id: 28,
+    titulo: 'Panel 2: Q&A',
+    modulo: 'PANEL',
+    descripcion: 'Q&A',
+    fecha: '2026-08-28',
+    horario_inicio: '20:10',
+    horario_fin: '20:30',
+    sala: 'Salón Principal',
+    ponentes: [
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/icon_ponentes.png' }
+    ]
+  },
+  {
+    id: 29,
+    titulo: 'Panel 3: Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
+    modulo: 'GENERAL',
+    descripcion: 'Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
+    fecha: '2026-08-28',
+    horario_inicio: '20:30',
+    horario_fin: '21:00',
+    sala: 'Salón Principal',
+    ponentes: [
+      { id: 208, nombre: 'Carla Da Passano', puesto: '', foto: '/assets/icon_ponentes.png' }
+    ]
+  },
   // SÁBADO 29 DE AGOSTO
   {
     id: 11,

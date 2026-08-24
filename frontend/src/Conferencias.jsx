@@ -50,8 +50,13 @@ function Conferencias({ onBack, onDetalle }) {
     return () => clearInterval(intervalId);
   }, []);
 
+  const FILTER_FECHAS = {
+    'Viernes': '2026-08-28',
+    'Sábado': '2026-08-29',
+  };
+
   const filteredData = conferenciasData.filter(conf => {
-    const matchesFilter = activeFilter === 'Todas las Sesiones' ? true : conf.modulo.toLowerCase().includes('break');
+    const matchesFilter = activeFilter === 'Todas las Sesiones' ? true : conf.fecha === FILTER_FECHAS[activeFilter];
     const matchesSearch = conf.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          conf.ponentes.some(p => p.nombre.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesFilter && matchesSearch;
@@ -89,7 +94,7 @@ function Conferencias({ onBack, onDetalle }) {
         </div>
 
         <div className="c-pills-row">
-          {['Todas las Sesiones', 'Breaks Outs'].map(pill => (
+          {['Todas las Sesiones', 'Viernes', 'Sábado'].map(pill => (
             <div
               key={pill}
               className={`c-pill ${activeFilter === pill ? 'active' : ''}`}
