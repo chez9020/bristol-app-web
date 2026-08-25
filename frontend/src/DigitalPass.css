@@ -17,15 +17,6 @@
   height: auto;
 }
 
-.gafete-code-cover {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 24px;
-  background: #4f0180;
-}
-
 .gafete-qr {
   position: absolute;
   top: 19.81%;

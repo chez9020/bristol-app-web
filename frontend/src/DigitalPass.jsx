@@ -23,7 +23,6 @@ function DigitalPass({ onBack, agente }) {
 
       <div className="gafete-card">
         <img src="/assets/blood2026_gafete_card.png" alt="" className="gafete-card-bg" />
-        <div className="gafete-code-cover" />
         <img src="/assets/blood2026_gafete_qr_placeholder.png" alt="Código QR" className="gafete-qr" />
         <span className="gafete-doctor-name">{nombre}</span>
       </div>
