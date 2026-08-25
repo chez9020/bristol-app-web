@@ -96,7 +96,7 @@ function Apuntes({ onBack, agente }) {
             >
               {agendaEvents.map(event => (
                 <option key={event.id} value={event.id}>
-                  {event.title.toUpperCase()}
+                  {(event.title || event.description || '').toUpperCase()}
                 </option>
               ))}
             </select>

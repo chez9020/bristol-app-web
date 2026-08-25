@@ -87,7 +87,7 @@ function Constancia({ onBack, agente }) {
     setIsDownloading(true);
     try {
       const canvas = await html2canvas(certCardRef.current, {
-        scale: 4,
+        scale: 2,
         useCORS: true,
       });
       const imgData = canvas.toDataURL('image/png');

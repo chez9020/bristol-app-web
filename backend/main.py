@@ -324,11 +324,11 @@ async def generar_pdf(id_unico: str):
             </style>
         </head>
         <body style="background-color: #2f2016;">
-            <h1>CAMZYOS 2026</h1>
+            <h1>Apuntes</h1>
             <div class="subtitle">Libreta de Apuntes Oficiales</div>
             
             <div class="agent-info">
-                <b>Agente CAMZYOS:</b> {nombre_agente}<br/>
+                <b>Agente:</b> {nombre_agente}<br/>
                 <b>ID de Misión:</b> {id_unico}
             </div>
         """
@@ -365,7 +365,7 @@ async def generar_pdf(id_unico: str):
         pdf_buffer.seek(0)
         
         headers = {
-            'Content-Disposition': f'attachment; filename="CAMZYOS_Apuntes_{id_unico}.pdf"'
+            'Content-Disposition': f'attachment; filename="Apuntes_{id_unico}.pdf"'
         }
         
         return StreamingResponse(pdf_buffer, media_type="application/pdf", headers=headers)
