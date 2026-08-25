@@ -231,9 +231,9 @@ export const conferenciasData = [
   },
   {
     id: 25,
-    titulo: '...',
+    titulo: 'Q&A',
     modulo: 'PANEL',
-    descripcion: '...',
+    descripcion: 'Q&A',
     fecha: '2026-08-29',
     horario_inicio: '16:10',
     horario_fin: '16:30',
