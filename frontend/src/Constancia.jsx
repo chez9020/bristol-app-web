@@ -266,6 +266,11 @@ function Constancia({ onBack, agente }) {
         </div>
       ) : (
         <div className="survey-success-container">
+          <div className="constancia-verified-badge animate-fade-in">
+            <span className="material-icons-round">verified</span>
+            <span>Constancia Oficial de Finalización</span>
+          </div>
+
           <div className="cert-figma-card animate-pop-in" ref={certCardRef}>
             <img src="/assets/blood2026_constancia_bg.png" alt="" className="cert-figma-bg" crossOrigin="anonymous" />
             <img src="/assets/blood2026_constancia_logo_bms.png" alt="" className="cert-figma-logo-bms" />
@@ -289,6 +294,9 @@ function Constancia({ onBack, agente }) {
             <img src="/assets/blood2026_constancia_logo.png" alt="" className="cert-figma-logo" />
             <span className="cert-figma-codigo">HE-MX-2600035</span>
           </div>
+
+          <h3 className="constancia-event-title">Blood 2026</h3>
+          <p className="constancia-issue-date">Emitido el 28 de Agosto, 2026</p>
 
           <div className="constancia-actions animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <button
