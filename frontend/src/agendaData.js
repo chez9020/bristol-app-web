@@ -118,7 +118,7 @@ export const agendaData = {
       {
         id: 'panel_4_sabado',
         time: '16:10 - 16:30',
-        title: '...',
+        title: 'Q&A',
         speakers: ['Coordinador: Dr. Gabriel Barragán', 'Panelistas: Dr. Kenny Gálvez, Dr. Joaquín Martínez, Dra. Carolina García y Dra. Gabriela Hernández']
       },
       {
