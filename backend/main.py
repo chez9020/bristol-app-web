@@ -49,7 +49,7 @@ async def login(request: LoginRequest):
         
     try:
         db = get_db()
-        doc_ref = db.collection('acceso_agentes').document(id_unico)
+        doc_ref = db.collection('usuarios_registro_blood').document(id_unico)
         doc = doc_ref.get()
         
         if not doc.exists:
@@ -73,7 +73,7 @@ class UpdateRequest(BaseModel):
 async def update_agente(request: UpdateRequest):
     try:
         db = get_db()
-        doc_ref = db.collection('acceso_agentes').document(request.id_unico)
+        doc_ref = db.collection('usuarios_registro_blood').document(request.id_unico)
         
         # Combine name and lastname
         full_name = f"{request.nombre.strip()} {request.apellido.strip()}".strip()
@@ -117,7 +117,7 @@ async def upload_agente_foto(id_unico: str = Form(...), file: UploadFile = File(
 
         # Store URL in Firestore
         db = get_db()
-        doc_ref = db.collection('acceso_agentes').document(id_unico)
+        doc_ref = db.collection('usuarios_registro_blood').document(id_unico)
         doc_ref.set({"foto_url": public_url}, merge=True)
         
         return {"success": True, "message": "Foto de perfil actualizada", "foto_url": public_url}
@@ -135,7 +135,7 @@ class ApunteRequest(BaseModel):
 async def save_apunte(request: ApunteRequest):
     try:
         db = get_db()
-        doc_ref = db.collection('acceso_agentes').document(request.id_unico).collection('apuntes').document(request.session_id)
+        doc_ref = db.collection('usuarios_registro_blood').document(request.id_unico).collection('apuntes').document(request.session_id)
         doc_ref.set({
             "contenido": request.contenido,
             "actualizado_en": firestore.SERVER_TIMESTAMP
@@ -194,7 +194,7 @@ async def get_preguntas(session_id: str, id_unico: str = None):
                 if uid in nombres_cache:
                     nombre = nombres_cache[uid]
                 else:
-                    agente_doc = db.collection('acceso_agentes').document(uid).get()
+                    agente_doc = db.collection('usuarios_registro_blood').document(uid).get()
                     if agente_doc.exists:
                         # Fallback for old records or different naming conventions
                         agente_data = agente_doc.to_dict()
@@ -264,12 +264,12 @@ async def generar_pdf(id_unico: str):
     try:
         db = get_db()
         # Opcional: Traer nombre del agente
-        agente_doc = db.collection('acceso_agentes').document(id_unico).get()
+        agente_doc = db.collection('usuarios_registro_blood').document(id_unico).get()
         if not agente_doc.exists:
             raise HTTPException(status_code=404, detail="Agente no encontrado")
         nombre_agente = agente_doc.to_dict().get("nombre", "Agente CAMZYOS")
 
-        apuntes_ref = db.collection('acceso_agentes').document(id_unico).collection('apuntes')
+        apuntes_ref = db.collection('usuarios_registro_blood').document(id_unico).collection('apuntes')
         apuntes_docs = apuntes_ref.stream()
 
         # Armar el HTML (Estilizado oscuro que empate con tu diseño para mantener congruencia)
@@ -380,7 +380,7 @@ async def generar_pdf(id_unico: str):
 async def get_apunte(id_unico: str, session_id: str):
     try:
         db = get_db()
-        doc_ref = db.collection('acceso_agentes').document(id_unico).collection('apuntes').document(session_id)
+        doc_ref = db.collection('usuarios_registro_blood').document(id_unico).collection('apuntes').document(session_id)
         doc = doc_ref.get()
         
         if doc.exists:
@@ -393,7 +393,7 @@ async def get_apunte(id_unico: str, session_id: str):
 @app.get("/api/debug/{id_unico}")
 async def debug_agente(id_unico: str):
     db = get_db()
-    doc = db.collection('acceso_agentes').document(id_unico).get()
+    doc = db.collection('usuarios_registro_blood').document(id_unico).get()
     if doc.exists:
         return {"id": id_unico, "data": doc.to_dict()}
     return {"error": "no encontrado"}
@@ -408,7 +408,7 @@ async def generar_constancia(id_unico: str):
     try:
         # 1. Obtener nombre del agente desde Firestore
         db = get_db()
-        agente_doc = db.collection('acceso_agentes').document(id_unico).get()
+        agente_doc = db.collection('usuarios_registro_blood').document(id_unico).get()
         if not agente_doc.exists:
             raise HTTPException(status_code=404, detail="Agente no encontrado")
         
