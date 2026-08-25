@@ -322,142 +322,161 @@
   animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.constancia-verified-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 9999px;
-  padding: 10px 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  margin-bottom: 24px;
-}
-
-.constancia-verified-badge .material-icons-round {
-  font-size: 18px;
-  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.constancia-verified-badge span:last-child {
-  font-family: var(--font-inter);
-  font-weight: 700;
-  font-size: 13px;
-  color: #3a3534;
-}
-
-.cert-card {
-  width: 100%;
-  max-width: 340px;
-  background: #faf9f6;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  padding: 28px 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+.cert-figma-card {
   position: relative;
+  width: 100%;
+  container-type: inline-size;
+  aspect-ratio: 3300 / 2550;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   margin-bottom: 20px;
 }
 
-.cert-card-id {
+.cert-figma-bg {
   position: absolute;
-  top: 16px;
-  right: 20px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cert-figma-logo-bms {
+  position: absolute;
+  left: 50%;
+  top: 6.75%;
+  transform: translateX(-50%);
+  width: 29.64%;
+}
+
+.cert-figma-otorga,
+.cert-figma-titulo,
+.cert-figma-a,
+.cert-figma-nombre,
+.cert-figma-parrafo,
+.cert-figma-firmante,
+.cert-figma-codigo {
+  position: absolute;
   font-family: var(--font-inter);
+  font-style: normal;
+  margin: 0;
+}
+
+.cert-figma-parrafo p {
+  margin: 0;
+}
+
+.cert-figma-parrafo-strong {
   font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: rgba(58, 53, 52, 0.4);
 }
 
-.cert-label {
-  font-family: var(--font-inter);
+.cert-figma-otorga {
+  left: 50%;
+  top: 22.94%;
+  transform: translateX(-50%);
+  width: 26.48%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 2.727cqw;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.cert-figma-titulo {
+  left: 50%;
+  top: 27.96%;
+  transform: translateX(-50%);
+  width: 44.18%;
+  text-align: center;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #4f0180;
-  margin: 0 0 10px;
+  font-size: 5.455cqw;
+  color: #450169;
 }
 
-.cert-name {
-  font-family: var(--font-inter);
+.cert-figma-a {
+  left: 12.67%;
+  top: 43.92%;
   font-weight: 700;
-  font-size: 24px;
-  color: #3a3534;
-  margin: 0 0 16px;
+  font-size: 4.848cqw;
+  color: #000000;
 }
 
-.cert-divider {
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
-  border-radius: 3px;
-  margin: 0 auto 16px;
+.cert-figma-linea-nombre {
+  position: absolute;
+  left: 17.24%;
+  top: 47.37%;
+  width: 70.09%;
 }
 
-.cert-description {
-  font-family: var(--font-inter);
-  font-size: 13px;
-  line-height: 1.6;
-  color: #7f7383;
-  margin: 0 0 24px;
+.cert-figma-nombre {
+  left: calc(50% + 1.545cqw);
+  top: 43.06%;
+  transform: translateX(-50%);
+  width: 61.45%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 4.394cqw;
+  color: #450169;
 }
 
-.cert-card-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
+.cert-figma-parrafo {
+  left: calc(50% + 0.106cqw);
+  top: 53.41%;
+  transform: translateX(-50%);
+  width: 67.24%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 2.909cqw;
+  line-height: 1.3;
+  color: #000000;
 }
 
-.cert-signature {
-  text-align: left;
+.cert-figma-linea-firma {
+  position: absolute;
+  left: 50%;
+  top: 89.37%;
+  transform: translateX(-50%);
+  width: 24.24%;
 }
 
-.cert-signature-mark {
+.cert-figma-firma {
+  position: absolute;
+  left: 43.64%;
+  top: 79.53%;
+  width: 12.73%;
+}
+
+.cert-figma-firmante {
+  left: 50%;
+  top: 89.8%;
+  transform: translateX(-50%);
+  width: 27.06%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.576cqw;
+  color: #000000;
+}
+
+.cert-figma-firmante span {
   display: block;
-  width: 88px;
-  height: 18px;
-  margin-bottom: 6px;
+  font-weight: 400;
+  font-size: 1.667cqw;
 }
 
-.cert-signature-name {
-  font-family: var(--font-inter);
-  font-weight: 700;
-  font-size: 12px;
-  color: #3a3534;
-  margin: 0;
+.cert-figma-logo {
+  position: absolute;
+  left: 76.61%;
+  top: 93.69%;
+  width: 20.15%;
 }
 
-.cert-signature-role {
-  font-family: var(--font-inter);
-  font-size: 11px;
-  color: #7f7383;
-  margin: 0;
-}
-
-.cert-seal {
-  font-size: 40px;
-  color: #4f0180;
-  opacity: 0.15;
-}
-
-.constancia-event-title {
-  font-family: var(--font-inter);
-  font-weight: 700;
-  font-size: 18px;
-  color: #3a3534;
-  margin: 0 0 4px;
-}
-
-.constancia-issue-date {
-  font-family: var(--font-inter);
-  font-size: 13px;
-  color: #7f7383;
-  margin: 0 0 28px;
+.cert-figma-codigo {
+  left: 2.88%;
+  top: 95.57%;
+  width: 14.61%;
+  font-weight: 400;
+  font-size: 1.212cqw;
+  color: #000000;
 }
 
 .constancia-actions {

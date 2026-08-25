@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Agenda.css';
 import './Constancia.css';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 function Constancia({ onBack, agente }) {
+  const certCardRef = useRef(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [surveyCompleted, setSurveyCompleted] = useState(false);
@@ -80,20 +83,23 @@ function Constancia({ onBack, agente }) {
   };
 
   const handleDownloadPDF = async () => {
-    if (!agente?.id) return;
+    if (!certCardRef.current) return;
     setIsDownloading(true);
     try {
-      const response = await fetch(`/api/constancia/${agente.id}`);
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `Constancia_Camzyos_${userName.replace(/\s+/g, '_')}.pdf`;
-        link.click();
-      }
+      const canvas = await html2canvas(certCardRef.current, {
+        scale: 4,
+        useCORS: true,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: [canvas.width, canvas.height],
+      });
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.save(`Constancia_${userName.replace(/\s+/g, '_')}.pdf`);
     } catch (error) {
-      console.error('Error al descargar la constancia:', error);
+      console.error('Error al generar la constancia:', error);
     } finally {
       setIsDownloading(false);
     }
@@ -260,33 +266,29 @@ function Constancia({ onBack, agente }) {
         </div>
       ) : (
         <div className="survey-success-container">
-          <div className="constancia-verified-badge animate-pop-in">
-            <span className="material-icons-round">verified</span>
-            <span>Constancia Oficial de Finalización</span>
-          </div>
-
-          <div className="cert-card animate-pop-in">
-            {agente?.id && (
-              <div className="cert-card-id">ID: {String(agente.id).slice(0, 8).toUpperCase()}</div>
-            )}
-            <p className="cert-label">Certificado de Asistencia</p>
-            <h2 className="cert-name">{userName}</h2>
-            <div className="cert-divider"></div>
-            <p className="cert-description">
-              Por su participación en Blood 2026, evento de actualización médica en hematología organizado por Bristol Myers Squibb.
-            </p>
-            <div className="cert-card-footer">
-              <div className="cert-signature">
-                <img src="/assets/icon_signature_squiggle.svg" alt="" className="cert-signature-mark" />
-                <p className="cert-signature-name">Comité Organizador</p>
-                <p className="cert-signature-role">Blood 2026</p>
-              </div>
-              <span className="material-icons-round cert-seal">workspace_premium</span>
+          <div className="cert-figma-card animate-pop-in" ref={certCardRef}>
+            <img src="/assets/blood2026_constancia_bg.png" alt="" className="cert-figma-bg" crossOrigin="anonymous" />
+            <img src="/assets/blood2026_constancia_logo_bms.png" alt="" className="cert-figma-logo-bms" />
+            <p className="cert-figma-otorga">Otorga la siguiente</p>
+            <p className="cert-figma-titulo">CONSTANCIA</p>
+            <span className="cert-figma-a">a:</span>
+            <img src="/assets/blood2026_constancia_linea_nombre.png" alt="" className="cert-figma-linea-nombre" />
+            <h2 className="cert-figma-nombre">{userName}</h2>
+            <div className="cert-figma-parrafo">
+              <p>por su participación en el evento:</p>
+              <p className="cert-figma-parrafo-strong">&ldquo;BLOOD 2026&rdquo;.</p>
+              <p>Llevado a cabo el 28 y 29 de agosto del 2026</p>
+              <p>en el Hotel Marriot, Cancun, Q.R, México.</p>
             </div>
+            <img src="/assets/blood2026_constancia_linea_firma.svg" alt="" className="cert-figma-linea-firma" />
+            <img src="/assets/blood2026_constancia_firma.png" alt="" className="cert-figma-firma" />
+            <p className="cert-figma-firmante">
+              Miguel Sierra
+              <span>Associate Director, Onco-Hemato</span>
+            </p>
+            <img src="/assets/blood2026_constancia_logo.png" alt="" className="cert-figma-logo" />
+            <span className="cert-figma-codigo">HE-MX-2600035</span>
           </div>
-
-          <h3 className="constancia-event-title">Blood 2026</h3>
-          <p className="constancia-issue-date">Emitido el 28 de Agosto, 2026</p>
 
           <div className="constancia-actions animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <button
