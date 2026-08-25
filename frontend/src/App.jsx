@@ -3,6 +3,7 @@ import './App.css';
 import Inicio from './Inicio.jsx';
 import Registro from './Registro.jsx';
 import Agenda from './Agenda.jsx';
+import MiAgenda from './MiAgenda.jsx';
 import Apuntes from './Apuntes.jsx';
 import Perfil from './Perfil.jsx';
 import Conferencias from './Conferencias.jsx';
@@ -164,7 +165,7 @@ function App() {
                 iconSrc="/assets/icon_mi_agenda.png"
                 title="Mi agenda"
                 subtitle="PERSONALIZADA"
-                onClick={() => setComingSoonLabel('Mi agenda')}
+                onClick={() => setActiveTab('MiAgenda')}
               />
               <GridCard
                 iconSrc="/assets/icon_encuesta.png"
@@ -189,7 +190,8 @@ function App() {
         )}
 
         {/* Existing Tab Components (Keeping logic intact) */}
-        {activeTab === 'Agenda' && <Agenda onBack={() => setActiveTab('Inicio')} />}
+        {activeTab === 'Agenda' && <Agenda onBack={() => setActiveTab('Inicio')} agente={agente} />}
+        {activeTab === 'MiAgenda' && <MiAgenda onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Conferencias' && (
           <Conferencias
             onBack={() => setActiveTab('Inicio')}

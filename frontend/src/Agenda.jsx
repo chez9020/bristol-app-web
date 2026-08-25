@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import './Agenda.css';
 import { agendaData } from './agendaData';
+import { getFavoritos, toggleFavorito } from './favoritos';
 
-function Agenda({ onBack }) {
+function Agenda({ onBack, agente }) {
   const [activeDay, setActiveDay] = useState('Viernes');
-
+  const [favoritos, setFavoritos] = useState(() => getFavoritos(agente?.id));
   const currentData = agendaData[activeDay];
+
+  const handleToggleFavorito = (itemId) => {
+    setFavoritos(toggleFavorito(agente?.id, itemId));
+  };
 
   return (
     <div className="agenda-container animate-fade-in">
@@ -52,7 +57,18 @@ function Agenda({ onBack }) {
         )}
         {currentData.items.map((item, index) => (
           <div className="agenda-entry" key={index}>
-            <span className="entry-time">{item.time}</span>
+            <div className="entry-top-row">
+              <span className="entry-time">{item.time}</span>
+              <button
+                className={`entry-heart-btn ${favoritos.includes(item.id) ? 'active' : ''}`}
+                onClick={() => handleToggleFavorito(item.id)}
+                aria-label="Agregar a Mi agenda"
+              >
+                <span className="material-icons-round">
+                  {favoritos.includes(item.id) ? 'favorite' : 'favorite_border'}
+                </span>
+              </button>
+            </div>
             {item.title && <span className="entry-title">{item.title}</span>}
             {item.description && <span className="entry-description">{item.description}</span>}
             {item.speakers && (

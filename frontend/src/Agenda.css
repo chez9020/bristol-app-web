@@ -179,3 +179,129 @@
   font-size: 11px;
   color: #3a3534;
 }
+
+.entry-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-heart-btn {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  margin: -4px -4px -4px 8px;
+  cursor: pointer;
+  color: #7f7383;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.entry-heart-btn .material-icons-round {
+  font-size: 20px;
+}
+
+.entry-heart-btn.active {
+  color: #c601b6;
+}
+
+/* Mi Agenda day group pill */
+.miagenda-day-pill {
+  display: inline-block;
+  margin: 16px 17px 8px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.miagenda-empty {
+  margin: 40px 24px;
+  text-align: center;
+  font-family: var(--font-inter);
+  color: #7f7383;
+  font-size: 14px;
+}
+
+.miagenda-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(69, 0, 106, 0.06);
+  padding: 20px 20px 16px 24px;
+  margin: 0 17px 16px;
+  overflow: hidden;
+}
+
+.miagenda-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #4f0180 0%, #c601b6 100%);
+}
+
+.miagenda-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.miagenda-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #45006a;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.miagenda-time .material-icons-round {
+  font-size: 15px;
+}
+
+.miagenda-heart-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: rgba(244, 217, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: #4f0180;
+  flex-shrink: 0;
+}
+
+.miagenda-title {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 16px;
+  color: #151c27;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+.miagenda-speaker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #4e4352;
+  font-family: var(--font-inter);
+  font-size: 14px;
+}
+
+.miagenda-speaker .material-icons-round {
+  font-size: 14px;
+}

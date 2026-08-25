@@ -21,13 +21,21 @@ function DigitalPass({ onBack, agente }) {
         </div>
       </header>
 
+      <div className="gafete-eco-banner">
+        <p className="gafete-eco-title">Un pequeño cambio puede generar un gran impacto.</p>
+        <p className="gafete-eco-text">
+          Te recordamos que tu gafete físico es sustentable. Está elaborado con papel semilla de chía,
+          una alternativa que busca reducir los residuos generados durante el evento.{' '}
+          <strong>Al finalizar, no lo deseches: plántalo, riégalo y dale la oportunidad de convertirse en una nueva planta.</strong>
+        </p>
+      </div>
+
       <div className="gafete-card">
         <img src="/assets/blood2026_gafete_card.png" alt="" className="gafete-card-bg" />
         <img src="/assets/blood2026_gafete_qr_placeholder.png" alt="Código QR" className="gafete-qr" />
         <span className="gafete-doctor-name">{nombre}</span>
       </div>
 
-      <div className="gafete-legal-code">HE-MX-2600018</div>
     </div>
   );
 }

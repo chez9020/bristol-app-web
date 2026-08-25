@@ -1,11 +1,34 @@
 .digital-pass-container {
-  padding-bottom: 40px;
+  padding-bottom: 0;
   min-height: 100vh;
+}
+
+.gafete-eco-banner {
+  background: #4ca515;
+  padding: 10px 22px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.gafete-eco-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 11px;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.gafete-eco-text {
+  font-family: var(--font-inter);
+  font-size: 8px;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0;
 }
 
 .gafete-card {
   position: relative;
-  margin: 0 22px 24px;
+  margin: 16px 22px 8px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 4px 20px rgba(98, 0, 238, 0.06);
@@ -45,11 +68,3 @@
   text-transform: uppercase;
 }
 
-.gafete-legal-code {
-  text-align: center;
-  font-family: var(--font-inter);
-  font-weight: 500;
-  font-size: 10px;
-  color: #3a3534;
-  opacity: 0.7;
-}
