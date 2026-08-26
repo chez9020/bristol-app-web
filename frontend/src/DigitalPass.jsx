@@ -2,8 +2,11 @@ import React from 'react';
 import './Agenda.css';
 import './DigitalPass.css';
 
+const QR_BUCKET_URL = 'https://storage.googleapis.com/shaq-invitaciones-bucket/qrs';
+
 function DigitalPass({ onBack, agente }) {
   const nombre = agente?.nombre || 'Agente';
+  const qrUrl = agente?.id ? `${QR_BUCKET_URL}/${agente.id}.png` : '/assets/blood2026_gafete_qr_placeholder.png';
 
   return (
     <div className="digital-pass-container animate-fade-in">
@@ -32,7 +35,7 @@ function DigitalPass({ onBack, agente }) {
 
       <div className="gafete-card">
         <img src="/assets/blood2026_gafete_card.png" alt="" className="gafete-card-bg" />
-        <img src="/assets/blood2026_gafete_qr_placeholder.png" alt="Código QR" className="gafete-qr" />
+        <img src={qrUrl} alt="Código QR" className="gafete-qr" />
         <span className="gafete-doctor-name">{nombre}</span>
       </div>
 

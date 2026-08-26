@@ -3,6 +3,10 @@
   min-height: 100vh;
 }
 
+.digital-pass-container .agenda-header {
+  margin-bottom: 0;
+}
+
 .gafete-eco-banner {
   background: #4ca515;
   padding: 10px 22px;

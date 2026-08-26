@@ -244,7 +244,7 @@ function App() {
         )}
         {activeTab === 'Constancia' && (
           constanciaAvailable
-            ? <Constancia onBack={() => setActiveTab('Inicio')} agente={agente} />
+            ? <Constancia onBack={() => setActiveTab('Inicio')} onGoToEncuesta={() => setActiveTab('Encuestas')} agente={agente} />
             : <div className="constancia-locked animate-fade-in">
                 <header className="agenda-header">
                   <div className="agenda-header-text"><h1>Constancia</h1></div>
@@ -264,7 +264,7 @@ function App() {
         {activeTab === 'Encuestas' && (
           <Encuestas
             onBack={() => setActiveTab('Inicio')}
-            onFinish={() => setActiveTab('Inicio')}
+            agente={agente}
           />
         )}
         {activeTab === 'DigitalPass' && (
