@@ -16,6 +16,9 @@ import Logistica from './Logistica.jsx';
 import Biblioteca from './Biblioteca.jsx';
 import Encuestas from './Encuestas.jsx';
 import DigitalPass from './DigitalPass.jsx';
+import Panel from './Panel.jsx';
+import PanelDisplay from './PanelDisplay.jsx';
+import PanelAdmin from './PanelAdmin.jsx';
 
 // NavItem and GridCard
 function NavItem({ icon, iconSrc, label, isActive, onClick }) {
@@ -87,6 +90,20 @@ function App() {
     localStorage.setItem('agenteSession', JSON.stringify(sessionData));
   };
 
+  if (window.location.pathname === '/panel-display') {
+    return <PanelDisplay />;
+  }
+
+  if (window.location.pathname === '/panel-admin') {
+    if (agente?.tipo === 'Developer') {
+      return <PanelAdmin />;
+    }
+    if (agente) {
+      return <div style={{ padding: 40, fontFamily: 'var(--font-inter)' }}>Acceso restringido.</div>;
+    }
+    return <Registro onRegister={handleUpdateAgente} />;
+  }
+
   if (currentScreen === 'splash') {
     return <Inicio onEnterMission={() => setCurrentScreen('registro')} />;
   }
@@ -134,6 +151,12 @@ function App() {
                 title="Interacción"
                 subtitle="PREGUNTAS Y RESPUESTAS"
                 onClick={() => setActiveTab('Interacciones')}
+              />
+              <GridCard
+                icon="poll"
+                title="Panel"
+                subtitle="ENCUESTA EN VIVO"
+                onClick={() => setActiveTab('Panel')}
               />
               <GridCard
                 icon="map"
@@ -271,6 +294,7 @@ function App() {
           <DigitalPass onBack={() => setActiveTab('Inicio')} agente={agente} />
         )}
         {activeTab === 'Interacciones' && <Interacciones onBack={() => setActiveTab('Inicio')} agente={agente} />}
+          {activeTab === 'Panel' && <Panel onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Logistica' && <Logistica onBack={() => setActiveTab('Inicio')} />}
         {activeTab === 'Biblioteca' && <Biblioteca onBack={() => setActiveTab('Inicio')} />}
       </div>

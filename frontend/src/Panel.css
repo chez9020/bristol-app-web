@@ -1,0 +1,236 @@
+.pnl-container {
+  padding-bottom: 40px;
+  min-height: 100vh;
+}
+
+.pnl-body {
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pnl-conf-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fbfdff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0px 4px 20px rgba(98, 0, 238, 0.04);
+  cursor: pointer;
+}
+
+.pnl-conf-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: rgba(79, 1, 128, 0.08);
+  color: #4f0180;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pnl-conf-info h4 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 14px;
+  color: #3a3534;
+  margin: 0 0 2px;
+}
+
+.pnl-conf-info p {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #7f7383;
+  margin: 0;
+}
+
+.pnl-live-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e0245e;
+  box-shadow: 0 0 0 4px rgba(224, 36, 94, 0.15);
+}
+
+.pnl-staff-toggle {
+  display: block;
+  margin: 24px auto 0;
+  background: none;
+  border: none;
+  color: #7f7383;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pnl-waiting-card,
+.pnl-poll-card {
+  background: #fbfdff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0px 4px 20px rgba(98, 0, 238, 0.04);
+}
+
+.pnl-waiting-card {
+  text-align: center;
+  color: #7f7383;
+}
+
+.pnl-waiting-icon {
+  font-size: 40px !important;
+  color: #4f0180;
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+
+.pnl-waiting-card h3 {
+  font-family: var(--font-inter);
+  color: #45006a;
+  margin: 0 0 6px;
+}
+
+.pnl-waiting-card p {
+  font-family: var(--font-inter);
+  font-size: 13px;
+  margin: 0;
+}
+
+.pnl-poll-question {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 16px;
+  color: #45006a;
+  margin: 0 0 16px;
+}
+
+.pnl-poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pnl-poll-option {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(79, 1, 128, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 14px;
+  color: #3a3534;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pnl-poll-option-disabled {
+  cursor: default;
+}
+
+.pnl-poll-option-mine {
+  border-color: #4f0180;
+}
+
+.pnl-poll-option-bar {
+  position: absolute;
+  inset: 0;
+  background: rgba(79, 1, 128, 0.12);
+  z-index: 0;
+  transition: width 0.4s ease;
+}
+
+.pnl-poll-option-text,
+.pnl-poll-option-pct {
+  position: relative;
+  z-index: 1;
+}
+
+.pnl-poll-option-pct {
+  font-weight: 700;
+  color: #4f0180;
+}
+
+.pnl-poll-closed-note {
+  text-align: center;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #7f7383;
+  margin: 16px 0 0;
+}
+
+.pnl-staff-body {
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pnl-staff-label {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 12px;
+  color: #7f7383;
+  margin-top: 12px;
+}
+
+.pnl-staff-select {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #3a3534;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fbfdff;
+}
+
+.pnl-staff-status {
+  margin-top: 16px;
+  font-family: var(--font-inter);
+  font-size: 13px;
+  color: #45006a;
+  font-weight: 700;
+}
+
+.pnl-staff-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pnl-staff-btn {
+  border: 1px solid rgba(79, 1, 128, 0.3);
+  background: #fbfdff;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 14px;
+  color: #4f0180;
+  cursor: pointer;
+}
+
+.pnl-staff-btn-primary {
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 20px rgba(79, 1, 128, 0.2);
+}
+
+.pnl-staff-btn-danger {
+  color: #d9534f;
+  border-color: rgba(217, 83, 79, 0.3);
+}
