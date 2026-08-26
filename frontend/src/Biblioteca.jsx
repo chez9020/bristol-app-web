@@ -1,44 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Agenda.css';
 import './Biblioteca.css';
 
-const PRESENTACIONES = [
-  {
-    id: 1,
-    categoria: 'HEMATOLOGÍA',
-    titulo: 'Avances en Leucemia Mieloide',
-    autor: 'Dr. Roberto Gómez',
-    icon: '/assets/icon_biblioteca_hematologia.svg',
-  },
-  {
-    id: 2,
-    categoria: 'GENÓMICA',
-    titulo: 'Terapia Génica en Linfomas',
-    autor: 'Dra. Elena Ruiz',
-    icon: '/assets/icon_biblioteca_genomica.svg',
-  },
-  {
-    id: 3,
-    categoria: 'CLÍNICA',
-    titulo: 'Nuevos Protocolos de Transfusión',
-    autor: 'Dr. Carlos Maza',
-    icon: '/assets/icon_biblioteca_clinica.svg',
-  },
-  {
-    id: 4,
-    categoria: 'DATOS',
-    titulo: 'Manejo de Datos en Hematología',
-    autor: 'Ing. Sofía Ortiz',
-    icon: '/assets/icon_biblioteca_datos.svg',
-  },
-];
+const ICON_FALLBACK = '/assets/icon_biblioteca_datos.svg';
 
 function Biblioteca({ onBack }) {
   const [busqueda, setBusqueda] = useState('');
+  const [presentaciones, setPresentaciones] = useState([]);
 
-  const presentacionesFiltradas = PRESENTACIONES.filter((p) => {
+  useEffect(() => {
+    fetch('/api/biblioteca/presentaciones')
+      .then((res) => res.json())
+      .then(setPresentaciones)
+      .catch((e) => console.error('Error cargando presentaciones', e));
+  }, []);
+
+  const presentacionesFiltradas = presentaciones.filter((p) => {
     const q = busqueda.toLowerCase();
-    return p.titulo.toLowerCase().includes(q) || p.autor.toLowerCase().includes(q);
+    return p.titulo.toLowerCase().includes(q) || p.ponente.toLowerCase().includes(q);
   });
 
   return (
@@ -76,23 +55,34 @@ function Biblioteca({ onBack }) {
           <h2>Presentaciones</h2>
           <p className="biblioteca-section-subtitle">Accede a todo el material científico del evento.</p>
 
-          <div className="biblioteca-grid">
-            {presentacionesFiltradas.map((p) => (
-              <div className="biblioteca-card" key={p.id}>
-                <div className="biblioteca-card-icon-area">
-                  <img src={p.icon} alt="" />
-                  <span className="biblioteca-card-badge">{p.categoria}</span>
+          {presentacionesFiltradas.length === 0 ? (
+            <p className="biblioteca-empty">Sin presentaciones disponibles por el momento.</p>
+          ) : (
+            <div className="biblioteca-grid">
+              {presentacionesFiltradas.map((p) => (
+                <div className="biblioteca-card" key={p.id}>
+                  <div className="biblioteca-card-icon-area">
+                    {p.portada_url ? (
+                      <img src={p.portada_url} alt="" className="biblioteca-card-portada" />
+                    ) : (
+                      <img src={ICON_FALLBACK} alt="" />
+                    )}
+                    <span className="biblioteca-card-badge">{p.categoria}</span>
+                  </div>
+                  <div className="biblioteca-card-body">
+                    <h3>{p.titulo}</h3>
+                    <p className="biblioteca-card-author">{p.ponente}</p>
+                    <button
+                      className="biblioteca-descargar-btn"
+                      onClick={() => window.open(p.archivo_url, '_blank')}
+                    >
+                      Descargar
+                    </button>
+                  </div>
                 </div>
-                <div className="biblioteca-card-body">
-                  <h3>{p.titulo}</h3>
-                  <p className="biblioteca-card-author">{p.autor}</p>
-                  <button className="btn-premium-gradient" style={{ width: '100%' }}>
-                    Descargar
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>

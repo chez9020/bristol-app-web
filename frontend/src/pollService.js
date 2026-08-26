@@ -7,9 +7,12 @@ const GLOBAL_COL = "live_polls";
 const VOTES_COL = "live_polls_votes";
 const CONFIG_COL = "live_polls_config";
 
+export const RANKING_MAX = 5;
+
 const INITIAL_DB = {
   activePolls: {},
   votes: {},
+  answers: {},
   userVotes: {},
   pollsClosed: {}
 };
@@ -88,6 +91,63 @@ export async function castVote(userId, pollId, optionId) {
   }
 }
 
+export async function castVoteMultiple(userId, pollId, optionIds) {
+  const pollRef = doc(db, VOTES_COL, pollId);
+  try {
+      const pSnap = await getDoc(pollRef);
+      if (pSnap.exists() && pSnap.data().users && pSnap.data().users[userId]) {
+         return false; // already voted
+      }
+      const optsInc = {};
+      optionIds.forEach(id => { optsInc[id] = increment(1); });
+      await setDoc(pollRef, {
+        options: optsInc,
+        users: { [userId]: optionIds }
+      }, { merge: true });
+      return true;
+  } catch(e) {
+      console.error("Error casting multiple vote", e);
+      return false;
+  }
+}
+
+export async function castRespuesta(userId, pollId, valor) {
+  const pollRef = doc(db, VOTES_COL, pollId);
+  try {
+      const pSnap = await getDoc(pollRef);
+      if (pSnap.exists() && pSnap.data().users && pSnap.data().users[userId] !== undefined) {
+         return false; // already voted
+      }
+      await setDoc(pollRef, {
+        users: { [userId]: valor }
+      }, { merge: true });
+      return true;
+  } catch(e) {
+      console.error("Error casting respuesta", e);
+      return false;
+  }
+}
+
+export async function castRanking(userId, pollId, rankedIds) {
+  const pollRef = doc(db, VOTES_COL, pollId);
+  try {
+      const pSnap = await getDoc(pollRef);
+      if (pSnap.exists() && pSnap.data().users && pSnap.data().users[userId]) {
+         return false; // already voted
+      }
+      const optsInc = {};
+      rankedIds.forEach((id, i) => { optsInc[id] = increment(rankedIds.length - i); });
+      await setDoc(pollRef, {
+        options: optsInc,
+        users: { [userId]: rankedIds }
+      }, { merge: true });
+      return true;
+  } catch(e) {
+      console.error("Error casting ranking", e);
+      return false;
+  }
+}
+
 export async function savePollConfig(confId, preguntas) {
   await setDoc(doc(db, CONFIG_COL, String(confId)), { preguntas });
 }
@@ -151,12 +211,14 @@ export function useLiveDB() {
     function subscribeVotes() {
       unsubVotes = onSnapshot(collection(db, VOTES_COL), (snapshot) => {
         const newVotes = {};
+        const newAnswers = {};
         const newUserVotes = {};
         snapshot.forEach(docSnap => {
           const pollId = docSnap.id;
           const data = docSnap.data();
           newVotes[pollId] = data.options || {};
           const usersMap = data.users || {};
+          newAnswers[pollId] = usersMap;
           Object.keys(usersMap).forEach(uid => {
             if (!newUserVotes[uid]) newUserVotes[uid] = {};
             newUserVotes[uid][pollId] = usersMap[uid];
@@ -165,6 +227,7 @@ export function useLiveDB() {
         setDbState(prev => ({
           ...prev,
           votes: { ...prev.votes, ...newVotes },
+          answers: { ...prev.answers, ...newAnswers },
           userVotes: newUserVotes
         }));
       }, (error) => {

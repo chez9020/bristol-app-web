@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from typing import Optional
 from fastapi.responses import StreamingResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from io import BytesIO
@@ -486,6 +487,163 @@ async def generar_constancia(id_unico: str):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error al generar constancia PDF: {str(e)}")
 
+
+# ── Biblioteca: presentaciones (bucket bristol-presentaciones-2026) ────────
+BIBLIOTECA_BUCKET = "bristol-presentaciones-2026"
+BIBLIOTECA_COLLECTION = "biblioteca_presentaciones"
+ARCHIVO_EXTS_VALIDAS = (".pdf", ".pptx")
+
+
+def _subir_a_bucket_biblioteca(file_bytes: bytes, content_type: str, blob_name: str) -> str:
+    bucket = gcp_storage.Client().bucket(BIBLIOTECA_BUCKET)
+    blob = bucket.blob(blob_name)
+    blob.upload_from_string(file_bytes, content_type=content_type)
+    return blob.public_url
+
+
+@app.post("/api/biblioteca/presentacion")
+async def crear_presentacion(
+    titulo: str = Form(...),
+    categoria: str = Form(...),
+    ponente: str = Form(...),
+    archivo: UploadFile = File(...),
+    portada: Optional[UploadFile] = File(None),
+):
+    try:
+        archivo_ext = os.path.splitext(archivo.filename or "")[1].lower()
+        if archivo_ext not in ARCHIVO_EXTS_VALIDAS:
+            raise HTTPException(status_code=400, detail="El archivo debe ser PDF o PPTX")
+
+        ts = int(time.time())
+        archivo_bytes = await archivo.read()
+        archivo_url = _subir_a_bucket_biblioteca(
+            archivo_bytes, archivo.content_type, f"Presentaciones/archivo_{ts}{archivo_ext}"
+        )
+
+        portada_url = None
+        if portada is not None:
+            portada_ext = os.path.splitext(portada.filename or "")[1].lower() or ".jpg"
+            portada_bytes = await portada.read()
+            portada_url = _subir_a_bucket_biblioteca(
+                portada_bytes, portada.content_type, f"Presentaciones/portada_{ts}{portada_ext}"
+            )
+
+        db = get_db()
+        data = {
+            "titulo": titulo,
+            "categoria": categoria,
+            "ponente": ponente,
+            "archivo_url": archivo_url,
+            "portada_url": portada_url,
+            "created_at": firestore.SERVER_TIMESTAMP,
+        }
+        _, doc_ref = db.collection(BIBLIOTECA_COLLECTION).add(data)
+        return {"success": True, "id": doc_ref.id, **{k: v for k, v in data.items() if k != "created_at"}}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al subir presentación: {str(e)}")
+
+
+@app.get("/api/biblioteca/presentaciones")
+async def listar_presentaciones():
+    db = get_db()
+    docs = db.collection(BIBLIOTECA_COLLECTION).order_by(
+        "created_at", direction=firestore.Query.DESCENDING
+    ).stream()
+    return [{"id": d.id, **d.to_dict()} for d in docs]
+
+
+@app.delete("/api/biblioteca/presentacion/{doc_id}")
+async def eliminar_presentacion(doc_id: str):
+    # ponytail: no borra el blob del bucket, solo el registro. Limpiar el bucket a mano si hace falta.
+    db = get_db()
+    db.collection(BIBLIOTECA_COLLECTION).document(doc_id).delete()
+    return {"success": True}
+
+
+@app.get("/admin/biblioteca", response_class=HTMLResponse, include_in_schema=False)
+async def admin_biblioteca():
+    return HTMLResponse(content="""
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Admin Biblioteca</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 30px auto; padding: 0 16px; color: #3a3534; }
+  h1 { color: #45006a; }
+  form { display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 24px; }
+  label { font-weight: 700; font-size: 13px; }
+  input { padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+  button { padding: 10px; border: none; border-radius: 8px; background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%); color: #fff; font-weight: 700; cursor: pointer; }
+  .item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+  .item img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 8px; }
+  .info { display: flex; align-items: center; }
+  .del { background: #d9534f; padding: 6px 12px; font-size: 12px; }
+  .warn { background: #fff3cd; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<h1>Admin Biblioteca</h1>
+<div class="warn">Esta página no tiene autenticación. No compartir la URL públicamente.</div>
+
+<form id="form">
+  <label>Título</label>
+  <input name="titulo" required>
+  <label>Categoría</label>
+  <input name="categoria" required>
+  <label>Ponente</label>
+  <input name="ponente" required>
+  <label>Portada (imagen, opcional)</label>
+  <input name="portada" type="file" accept="image/*">
+  <label>Archivo (PDF o PPTX)</label>
+  <input name="archivo" type="file" accept=".pdf,.pptx" required>
+  <button type="submit">Subir presentación</button>
+</form>
+
+<div id="lista"></div>
+
+<script>
+async function cargar() {
+  const res = await fetch('/api/biblioteca/presentaciones');
+  const items = await res.json();
+  const lista = document.getElementById('lista');
+  lista.innerHTML = items.map(p => `
+    <div class="item">
+      <div class="info">
+        ${p.portada_url ? `<img src="${p.portada_url}">` : ''}
+        <div><strong>${p.titulo}</strong><br><small>${p.ponente} — ${p.categoria}</small></div>
+      </div>
+      <button class="del" onclick="eliminar('${p.id}')">Eliminar</button>
+    </div>
+  `).join('') || '<p>Sin presentaciones aún.</p>';
+}
+
+async function eliminar(id) {
+  if (!confirm('¿Eliminar esta presentación?')) return;
+  await fetch(`/api/biblioteca/presentacion/${id}`, { method: 'DELETE' });
+  cargar();
+}
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const res = await fetch('/api/biblioteca/presentacion', { method: 'POST', body: formData });
+  const data = await res.json();
+  if (data.success) {
+    e.target.reset();
+    cargar();
+  } else {
+    alert('Error: ' + (data.detail || 'desconocido'));
+  }
+});
+
+cargar();
+</script>
+</body>
+</html>
+""")
 
 
 # ── Servir el frontend compilado (Producción y Local) ──────────────────────

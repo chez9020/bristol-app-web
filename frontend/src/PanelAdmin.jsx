@@ -19,12 +19,14 @@ function PanelAdmin() {
 
   const addPregunta = () => {
     const id = `p${confId}_${Date.now()}`;
-    setPreguntas([...preguntas, { id, texto: '', opciones: [{ id: `${id}_a`, texto: '' }, { id: `${id}_b`, texto: '' }] }]);
+    setPreguntas([...preguntas, { id, texto: '', tipo: 'unica', opciones: [{ id: `${id}_a`, texto: '' }, { id: `${id}_b`, texto: '' }] }]);
   };
 
   const removePregunta = (id) => setPreguntas(preguntas.filter(p => p.id !== id));
 
   const updateTexto = (id, texto) => setPreguntas(preguntas.map(p => (p.id === id ? { ...p, texto } : p)));
+
+  const updateTipo = (id, tipo) => setPreguntas(preguntas.map(p => (p.id === id ? { ...p, tipo } : p)));
 
   const addOpcion = (pid) => setPreguntas(preguntas.map(p => (p.id === pid
     ? { ...p, opciones: [...p.opciones, { id: `${pid}_${p.opciones.length}_${Date.now()}`, texto: '' }] }
@@ -38,8 +40,14 @@ function PanelAdmin() {
     ? { ...p, opciones: p.opciones.map(o => (o.id === oid ? { ...o, texto } : o)) }
     : p)));
 
+  const NEEDS_OPCIONES = ['unica', 'multiple', 'ranking'];
+
   const save = async () => {
-    const clean = preguntas.filter(p => p.texto.trim() && p.opciones.filter(o => o.texto.trim()).length >= 2);
+    const clean = preguntas.filter(p => {
+      if (!p.texto.trim()) return false;
+      if (!NEEDS_OPCIONES.includes(p.tipo || 'unica')) return true;
+      return p.opciones.filter(o => o.texto.trim()).length >= 2;
+    });
     await savePollConfig(confId, clean);
     alert('Guardado');
   };
@@ -79,20 +87,35 @@ function PanelAdmin() {
               value={p.texto}
               onChange={(e) => updateTexto(p.id, e.target.value)}
             />
-            {p.opciones.map((o, oi) => (
-              <div key={o.id} className="pnladm-opcion-row">
-                <input
-                  className="pnladm-input pnladm-input-opcion"
-                  placeholder={`Opción ${oi + 1}`}
-                  value={o.texto}
-                  onChange={(e) => updateOpcion(p.id, o.id, e.target.value)}
-                />
-                {p.opciones.length > 2 && (
-                  <button className="pnladm-remove-small" onClick={() => removeOpcion(p.id, o.id)}>✕</button>
-                )}
-              </div>
-            ))}
-            <button className="pnladm-add-opcion" onClick={() => addOpcion(p.id)}>+ Opción</button>
+            <select
+              className="pnladm-select pnladm-select-tipo"
+              value={p.tipo || 'unica'}
+              onChange={(e) => updateTipo(p.id, e.target.value)}
+            >
+              <option value="unica">Opción única</option>
+              <option value="multiple">Selección múltiple</option>
+              <option value="porcentaje">Porcentaje</option>
+              <option value="abierta">Respuesta abierta</option>
+              <option value="ranking">Ranking</option>
+            </select>
+            {NEEDS_OPCIONES.includes(p.tipo || 'unica') && (
+              <>
+                {p.opciones.map((o, oi) => (
+                  <div key={o.id} className="pnladm-opcion-row">
+                    <input
+                      className="pnladm-input pnladm-input-opcion"
+                      placeholder={`Opción ${oi + 1}`}
+                      value={o.texto}
+                      onChange={(e) => updateOpcion(p.id, o.id, e.target.value)}
+                    />
+                    {p.opciones.length > 2 && (
+                      <button className="pnladm-remove-small" onClick={() => removeOpcion(p.id, o.id)}>✕</button>
+                    )}
+                  </div>
+                ))}
+                <button className="pnladm-add-opcion" onClick={() => addOpcion(p.id)}>+ Opción</button>
+              </>
+            )}
           </div>
         ))}
 

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Agenda.css';
 import './Panel.css';
 import { conferenciasData } from './conferenciasData';
-import { useLiveDB, useLiveConfigs, castVote, setActivePoll, closePoll, resetPoll, finishPoll } from './pollService';
+import { useLiveDB, useLiveConfigs, castVote, castVoteMultiple, castRespuesta, castRanking, RANKING_MAX, setActivePoll, closePoll, resetPoll, finishPoll } from './pollService';
 
 function Panel({ onBack, agente }) {
   const userId = agente?.id || 'USER_DEMO_123';
@@ -16,6 +16,18 @@ function Panel({ onBack, agente }) {
   const [showStaff, setShowStaff] = useState(false);
   const [staffConfId, setStaffConfId] = useState(null);
   const [staffPollId, setStaffPollId] = useState(null);
+  const [porcentajeVal, setPorcentajeVal] = useState('');
+  const [abiertaVal, setAbiertaVal] = useState('');
+  const [rankingPicked, setRankingPicked] = useState([]);
+  const [multiplePicked, setMultiplePicked] = useState([]);
+  const activePollIdForReset = selectedConfId ? db.activePolls[selectedConfId] : null;
+
+  useEffect(() => {
+    setPorcentajeVal('');
+    setAbiertaVal('');
+    setRankingPicked([]);
+    setMultiplePicked([]);
+  }, [activePollIdForReset]);
 
   const header = (title) => (
     <header className="agenda-header">
@@ -139,30 +151,193 @@ function Panel({ onBack, agente }) {
           ) : (
             <div className="pnl-poll-card">
               <h3 className="pnl-poll-question">{activePoll.texto}</h3>
-              <div className="pnl-poll-options">
-                {activePoll.opciones.map(opt => {
-                  const votes = pollVotes[opt.id] || 0;
-                  const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
-                  const voted = !!userSelectedOption;
-                  const isMine = userSelectedOption === opt.id;
+
+              {(!activePoll.tipo || activePoll.tipo === 'unica') && (
+                <div className="pnl-poll-options">
+                  {activePoll.opciones.map(opt => {
+                    const votes = pollVotes[opt.id] || 0;
+                    const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+                    const voted = !!userSelectedOption;
+                    const isMine = userSelectedOption === opt.id;
+                    return (
+                      <div
+                        key={opt.id}
+                        className={`pnl-poll-option ${voted || isClosed ? 'pnl-poll-option-disabled' : ''} ${isMine ? 'pnl-poll-option-mine' : ''}`}
+                        onClick={() => {
+                          if (voted || isClosed) return;
+                          castVote(userId, activePollId, opt.id);
+                        }}
+                      >
+                        {(voted || isClosed) && (
+                          <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
+                        )}
+                        <span className="pnl-poll-option-text">{opt.texto}</span>
+                        {(voted || isClosed) && <span className="pnl-poll-option-pct">{pct}%</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {activePoll.tipo === 'multiple' && (() => {
+                const voted = Array.isArray(userSelectedOption);
+                const respondentes = Object.keys(db.answers[activePollId] || {}).length;
+                const checked = multiplePicked;
+                const setChecked = setMultiplePicked;
+                return (
+                  <div className="pnl-poll-options">
+                    {activePoll.opciones.map(opt => {
+                      const votes = pollVotes[opt.id] || 0;
+                      const pct = respondentes > 0 ? Math.round((votes / respondentes) * 100) : 0;
+                      const isMine = voted && userSelectedOption.includes(opt.id);
+                      if (voted || isClosed) {
+                        return (
+                          <div key={opt.id} className={`pnl-poll-option pnl-poll-option-disabled ${isMine ? 'pnl-poll-option-mine' : ''}`}>
+                            <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
+                            <span className="pnl-poll-option-text">{opt.texto}</span>
+                            <span className="pnl-poll-option-pct">{pct}%</span>
+                          </div>
+                        );
+                      }
+                      const isChecked = checked.includes(opt.id);
+                      return (
+                        <label key={opt.id} className="pnl-poll-checkbox-row">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => setChecked(isChecked ? checked.filter(id => id !== opt.id) : [...checked, opt.id])}
+                          />
+                          <span className="pnl-poll-option-text">{opt.texto}</span>
+                        </label>
+                      );
+                    })}
+                    {!voted && !isClosed && (
+                      <button
+                        className="pnl-poll-submit-btn"
+                        disabled={checked.length === 0}
+                        onClick={() => castVoteMultiple(userId, activePollId, checked)}
+                      >
+                        Votar
+                      </button>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {activePoll.tipo === 'porcentaje' && (() => {
+                const voted = userSelectedOption !== undefined && userSelectedOption !== null;
+                const respuestas = Object.values(db.answers[activePollId] || {});
+                const promedio = respuestas.length > 0 ? Math.round(respuestas.reduce((a, b) => a + Number(b), 0) / respuestas.length) : 0;
+                if (voted || isClosed) {
                   return (
-                    <div
-                      key={opt.id}
-                      className={`pnl-poll-option ${voted || isClosed ? 'pnl-poll-option-disabled' : ''} ${isMine ? 'pnl-poll-option-mine' : ''}`}
-                      onClick={() => {
-                        if (voted || isClosed) return;
-                        castVote(userId, activePollId, opt.id);
-                      }}
-                    >
-                      {(voted || isClosed) && (
-                        <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
-                      )}
-                      <span className="pnl-poll-option-text">{opt.texto}</span>
-                      {(voted || isClosed) && <span className="pnl-poll-option-pct">{pct}%</span>}
+                    <div className="pnl-poll-porcentaje-result">
+                      <div className="pnl-poll-porcentaje-num">{promedio}%</div>
+                      <p className="pnl-poll-porcentaje-sub">Promedio de {respuestas.length} respuestas{voted ? ` · tu respuesta: ${userSelectedOption}%` : ''}</p>
                     </div>
                   );
-                })}
-              </div>
+                }
+                return (
+                  <div className="pnl-poll-porcentaje-input">
+                    <input
+                      type="number"
+                      min={0}
+                      max={100}
+                      className="pnl-poll-num-input"
+                      value={porcentajeVal}
+                      onChange={(e) => setPorcentajeVal(e.target.value)}
+                      placeholder="0-100"
+                    />
+                    <button
+                      className="pnl-poll-submit-btn"
+                      disabled={porcentajeVal === '' || Number(porcentajeVal) < 0 || Number(porcentajeVal) > 100}
+                      onClick={() => castRespuesta(userId, activePollId, Number(porcentajeVal))}
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                );
+              })()}
+
+              {activePoll.tipo === 'abierta' && (() => {
+                const voted = userSelectedOption !== undefined && userSelectedOption !== null;
+                if (voted || isClosed) {
+                  return <p className="pnl-poll-closed-note">{voted ? 'Respuesta enviada' : 'Votación cerrada'}</p>;
+                }
+                return (
+                  <div className="pnl-poll-abierta-input">
+                    <textarea
+                      className="pnl-poll-textarea"
+                      value={abiertaVal}
+                      onChange={(e) => setAbiertaVal(e.target.value)}
+                      placeholder="Escribe tu respuesta..."
+                    />
+                    <button
+                      className="pnl-poll-submit-btn"
+                      disabled={!abiertaVal.trim()}
+                      onClick={() => castRespuesta(userId, activePollId, abiertaVal.trim())}
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                );
+              })()}
+
+              {activePoll.tipo === 'ranking' && (() => {
+                const voted = Array.isArray(userSelectedOption);
+                const cap = Math.min(RANKING_MAX, activePoll.opciones.length);
+                if (voted || isClosed) {
+                  const maxScore = Math.max(1, ...Object.values(pollVotes));
+                  return (
+                    <div className="pnl-poll-options">
+                      {activePoll.opciones
+                        .slice()
+                        .sort((a, b) => (pollVotes[b.id] || 0) - (pollVotes[a.id] || 0))
+                        .map(opt => {
+                          const score = pollVotes[opt.id] || 0;
+                          const pct = Math.round((score / maxScore) * 100);
+                          return (
+                            <div key={opt.id} className="pnl-poll-option pnl-poll-option-disabled">
+                              <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
+                              <span className="pnl-poll-option-text">{opt.texto}</span>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  );
+                }
+                return (
+                  <div className="pnl-poll-options">
+                    <p className="pnl-poll-ranking-hint">Toca para ordenar tus {cap} favoritas (1 = más valiosa)</p>
+                    {activePoll.opciones.map(opt => {
+                      const pos = rankingPicked.indexOf(opt.id);
+                      return (
+                        <div
+                          key={opt.id}
+                          className={`pnl-poll-option pnl-poll-ranking-row ${pos >= 0 ? 'pnl-poll-option-mine' : ''}`}
+                          onClick={() => {
+                            if (pos >= 0) {
+                              setRankingPicked(rankingPicked.filter(id => id !== opt.id));
+                            } else if (rankingPicked.length < cap) {
+                              setRankingPicked([...rankingPicked, opt.id]);
+                            }
+                          }}
+                        >
+                          {pos >= 0 && <span className="pnl-poll-ranking-badge">{pos + 1}</span>}
+                          <span className="pnl-poll-option-text">{opt.texto}</span>
+                        </div>
+                      );
+                    })}
+                    <button
+                      className="pnl-poll-submit-btn"
+                      disabled={rankingPicked.length < cap}
+                      onClick={() => castRanking(userId, activePollId, rankingPicked)}
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                );
+              })()}
+
               {isClosed && <p className="pnl-poll-closed-note">Votación cerrada</p>}
             </div>
           )}
