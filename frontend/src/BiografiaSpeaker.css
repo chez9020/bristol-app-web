@@ -25,7 +25,7 @@
 .bs-speaker-img {
   width: 96px;
   height: 96px;
-  border-radius: 50%;
+  border-radius: 16px;
   object-fit: cover;
   border: 3px solid #ffffff;
   box-shadow: 0 10px 25px rgba(79, 1, 128, 0.15);
@@ -73,17 +73,8 @@
 }
 
 .bs-bio-item {
-  position: relative;
-  padding-left: 18px;
   font-family: var(--font-inter);
   font-size: 13px;
   color: #3a3534;
   line-height: 1.5;
-}
-
-.bs-bio-item::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #4f0180;
 }

@@ -33,7 +33,7 @@ const PONENTES = [
     'Su trabajo se ha centrado en el desarrollo de nuevas estrategias terapéuticas, biomarcadores pronósticos y medicina de precisión para pacientes con enfermedades hematológicas. Actualmente es considerado una de las principales referencias europeas en el abordaje del mieloma múltiple.',
   ].join('\n') },
   { id: 6, nombre: 'Dr. Kenny Mauricio Gálvez Cárdenas', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_kenny_galvez.png', biografia_larga: BIO_CARDIOLOGIA },
-  { id: 7, nombre: 'Dra. Enriqueta Gabriela Hernandez Rivera', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_gabriela_hernandez.png', biografia_larga: BIO_CARDIOLOGIA },
+  { id: 7, nombre: 'Dra. Gabriela Hernández Rivera', puesto: 'Hematóloga', foto: '/assets/ponente_gabriela_hernandez.png', biografia_larga: 'Egresada de la Universidad Nacional Autónoma de México como médico y especialista en medicina interna y hematología por el Instituto Nacional de Ciencias Médicas y Nutrición Salvador Zubirán, Especialista en trasplante de células hepatopoyéticas por el Hospital San Louis en Paris, Francia y actualmente Directora médica global para Iberdomide en BMS Suiza.' },
   { id: 8, nombre: 'Carla Iliana Da Passano', puesto: 'Omnichannel Specialist para BMS Mexico', foto: '/assets/ponente_carla_da_passano.jpeg', biografia_larga: '' },
 ];
 
