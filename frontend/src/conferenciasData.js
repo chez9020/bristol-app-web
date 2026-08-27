@@ -5,9 +5,9 @@ export const conferenciasData = [
     titulo: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
     modulo: 'PANEL',
     descripcion: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
-    fecha: '2026-08-27',
-    horario_inicio: '17:30',
-    horario_fin: '18:10',
+    fecha: '2026-08-28',
+    horario_inicio: '19:30',
+    horario_fin: '20:10',
     sala: 'Salón Principal',
     ponentes: [
       { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/ponente_gabriel_barragan.png' }
