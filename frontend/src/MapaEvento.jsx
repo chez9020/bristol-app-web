@@ -2,10 +2,6 @@ import React from 'react';
 import './Agenda.css';
 import './MapaEvento.css';
 
-const salonesData = [
-  { id: 1, name: "Salón del Prado", session: "PLENARIA" }
-];
-
 function MapaEvento({ onBack }) {
   const [isZoomed, setIsZoomed] = React.useState(false);
   const mapUrl = "/assets/mapa_salones_bloodl2026.png";
@@ -44,23 +40,6 @@ function MapaEvento({ onBack }) {
               <span className="material-icons-round">fullscreen</span>
               Ampliar Mapa
             </button>
-          </div>
-        </div>
-
-        <div className="salones-section">
-          <h2 className="salones-title">Salones y Sesiones</h2>
-          <div className="salones-list">
-            {salonesData.map((salon) => (
-              <div className="salon-card" key={salon.id}>
-                <div className="salon-info">
-                  <h3 className="salon-name">{salon.name}</h3>
-                  <p className="salon-session">{salon.session}</p>
-                </div>
-                <div className="salon-icon">
-                  <span className="material-icons-round">chevron_right</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

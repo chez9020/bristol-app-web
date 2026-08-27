@@ -7,7 +7,6 @@ import MiAgenda from './MiAgenda.jsx';
 import Apuntes from './Apuntes.jsx';
 import Perfil from './Perfil.jsx';
 import Conferencias from './Conferencias.jsx';
-import DetalleConferencias from './DetalleConferencias.jsx';
 import BiografiaSpeaker from './BiografiaSpeaker.jsx';
 import Ponentes from './Ponentes.jsx';
 import Constancia from './Constancia.jsx';
@@ -70,9 +69,8 @@ function App() {
   const [currentScreen, setCurrentScreen] = useState(initialSession.screen);
   const [agente, setAgente] = useState(initialSession.agente);
 
-  const [selectedConferencia, setSelectedConferencia] = useState(null);
   const [selectedPonente, setSelectedPonente] = useState(null);
-  const [biografiaOrigin, setBiografiaOrigin] = useState('Detalle');
+  const [biografiaOrigin, setBiografiaOrigin] = useState('Ponentes');
   const [showLockedModal, setShowLockedModal] = useState(false);
   const [comingSoonLabel, setComingSoonLabel] = useState(null);
 
@@ -216,24 +214,7 @@ function App() {
         {activeTab === 'Agenda' && <Agenda onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'MiAgenda' && <MiAgenda onBack={() => setActiveTab('Inicio')} agente={agente} />}
         {activeTab === 'Conferencias' && (
-          <Conferencias
-            onBack={() => setActiveTab('Inicio')}
-            onDetalle={(conf) => {
-              setSelectedConferencia(conf);
-              setActiveTab('Detalle');
-            }}
-          />
-        )}
-        {activeTab === 'Detalle' && (
-          <DetalleConferencias
-            conferencia={selectedConferencia}
-            onBack={() => setActiveTab('Conferencias')}
-            onBiografia={(ponente) => {
-              setSelectedPonente(ponente);
-              setBiografiaOrigin('Detalle');
-              setActiveTab('Biografia');
-            }}
-          />
+          <Conferencias onBack={() => setActiveTab('Inicio')} />
         )}
         {activeTab === 'Ponentes' && (
           <Ponentes

@@ -40,7 +40,7 @@ function fechaLabel(fecha) {
 }
 
 
-function Conferencias({ onBack, onDetalle }) {
+function Conferencias({ onBack }) {
   const [activeFilter, setActiveFilter] = useState('Todas las Sesiones');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentTime, setCurrentTime] = useState(Date.now());
@@ -135,7 +135,6 @@ function Conferencias({ onBack, onDetalle }) {
                     </>
                   )}
                 </div>
-                <button className="c-btn-details" onClick={() => onDetalle(conf)}>Ver detalles</button>
               </div>
             </div>
           ))}
@@ -156,7 +155,7 @@ function Conferencias({ onBack, onDetalle }) {
           </div>
           <div className="c-upcoming-list">
             {conferenciasDelDia.map(conf => (
-              <div key={conf.id} className="c-upcoming-card" onClick={() => onDetalle(conf)}>
+              <div key={conf.id} className="c-upcoming-card">
                 <div className="c-upcoming-time">{conf.horario_inicio}</div>
                 <div className="c-upcoming-content">
                   <h4>{conf.titulo.length > 60 ? conf.titulo.substring(0, 60) + '...' : conf.titulo}</h4>

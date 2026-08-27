@@ -5,12 +5,12 @@ export const conferenciasData = [
     titulo: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
     modulo: 'PANEL',
     descripcion: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
-    fecha: '2026-08-28',
-    horario_inicio: '19:30',
-    horario_fin: '20:10',
+    fecha: '2026-08-27',
+    horario_inicio: '17:30',
+    horario_fin: '18:10',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/ponente_gabriel_barragan.png' }
     ]
   },
   {
@@ -23,7 +23,7 @@ export const conferenciasData = [
     horario_fin: '20:30',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: '', foto: '/assets/ponente_gabriel_barragan.png' }
     ]
   },
   {
@@ -36,7 +36,7 @@ export const conferenciasData = [
     horario_fin: '21:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 208, nombre: 'Carla Da Passano', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 208, nombre: 'Carla Da Passano', puesto: '', foto: '/assets/ponente_carla_da_passano.jpeg' }
     ]
   },
   // SÁBADO 29 DE AGOSTO
@@ -61,7 +61,7 @@ export const conferenciasData = [
     horario_fin: '09:30',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: '', foto: '/assets/ponente_aline_ramirez.png' }
     ]
   },
   {
@@ -74,7 +74,7 @@ export const conferenciasData = [
     horario_fin: '10:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: '', foto: '/assets/ponente_cristian_ramos.png' }
     ]
   },
   {
@@ -87,9 +87,9 @@ export const conferenciasData = [
     horario_fin: '10:40',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Coordinador', foto: '/assets/icon_ponentes.png' },
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Coordinador', foto: '/assets/ponente_cristian_ramos.png' },
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Panelista', foto: '/assets/ponente_aline_ramirez.png' },
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/ponente_joaquin_martinez.png' }
     ]
   },
   {
@@ -102,9 +102,9 @@ export const conferenciasData = [
     horario_fin: '11:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Coordinador', foto: '/assets/icon_ponentes.png' },
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Coordinador', foto: '/assets/ponente_cristian_ramos.png' },
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Panelista', foto: '/assets/ponente_aline_ramirez.png' },
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/ponente_joaquin_martinez.png' }
     ]
   },
   {
@@ -128,7 +128,7 @@ export const conferenciasData = [
     horario_fin: '11:50',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: '', foto: '/assets/ponente_joaquin_martinez.png' }
     ]
   },
   {
@@ -141,7 +141,7 @@ export const conferenciasData = [
     horario_fin: '12:20',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: '', foto: '/assets/ponente_kenny_galvez.png' }
     ]
   },
   {
@@ -154,10 +154,10 @@ export const conferenciasData = [
     horario_fin: '13:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Coordinadora', foto: '/assets/icon_ponentes.png' },
-      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Coordinadora', foto: '/assets/ponente_aline_ramirez.png' },
+      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Panelista', foto: '/assets/ponente_cristian_ramos.png' },
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Panelista', foto: '/assets/ponente_gabriel_barragan.png' },
+      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/ponente_carolina_garcia.png' }
     ]
   },
   {
@@ -170,10 +170,10 @@ export const conferenciasData = [
     horario_fin: '13:20',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Coordinadora', foto: '/assets/icon_ponentes.png' },
-      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: 'Coordinadora', foto: '/assets/ponente_aline_ramirez.png' },
+      { id: 201, nombre: 'Dr. Ramos Peñafiel', puesto: 'Panelista', foto: '/assets/ponente_cristian_ramos.png' },
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Panelista', foto: '/assets/ponente_gabriel_barragan.png' },
+      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/ponente_carolina_garcia.png' }
     ]
   },
   {
@@ -197,7 +197,7 @@ export const conferenciasData = [
     horario_fin: '15:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: '', foto: '/assets/ponente_joaquin_martinez.png' }
     ]
   },
   {
@@ -210,10 +210,10 @@ export const conferenciasData = [
     horario_fin: '15:40',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Coordinador', foto: '/assets/icon_ponentes.png' },
-      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Coordinador', foto: '/assets/ponente_gabriel_barragan.png' },
+      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: 'Panelista', foto: '/assets/ponente_kenny_galvez.png' },
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/ponente_joaquin_martinez.png' },
+      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/ponente_carolina_garcia.png' }
     ]
   },
   {
@@ -226,7 +226,7 @@ export const conferenciasData = [
     horario_fin: '16:10',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 207, nombre: 'Dra. Gabriela Hernández', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 207, nombre: 'Dra. Gabriela Hernández', puesto: '', foto: '/assets/ponente_gabriela_hernandez.png' }
     ]
   },
   {
@@ -239,11 +239,11 @@ export const conferenciasData = [
     horario_fin: '16:30',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Coordinador', foto: '/assets/icon_ponentes.png' },
-      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' },
-      { id: 207, nombre: 'Dra. Gabriela Hernández', puesto: 'Panelista', foto: '/assets/icon_ponentes.png' }
+      { id: 204, nombre: 'Dr. Gabriel Barragán', puesto: 'Coordinador', foto: '/assets/ponente_gabriel_barragan.png' },
+      { id: 206, nombre: 'Dr. Kenny Gálvez', puesto: 'Panelista', foto: '/assets/ponente_kenny_galvez.png' },
+      { id: 203, nombre: 'Dr. Joaquín Martínez', puesto: 'Panelista', foto: '/assets/ponente_joaquin_martinez.png' },
+      { id: 205, nombre: 'Dra. Carolina García', puesto: 'Panelista', foto: '/assets/ponente_carolina_garcia.png' },
+      { id: 207, nombre: 'Dra. Gabriela Hernández', puesto: 'Panelista', foto: '/assets/ponente_gabriela_hernandez.png' }
     ]
   },
   {
@@ -256,7 +256,7 @@ export const conferenciasData = [
     horario_fin: '17:00',
     sala: 'Salón Principal',
     ponentes: [
-      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: '', foto: '/assets/icon_ponentes.png' }
+      { id: 202, nombre: 'Dra. Aline Ramírez', puesto: '', foto: '/assets/ponente_aline_ramirez.png' }
     ]
   },
   {
