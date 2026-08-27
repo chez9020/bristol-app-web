@@ -3,18 +3,13 @@ import './Agenda.css';
 import './Restaurantes.css';
 
 const restaurantesData = [
-  { id: 1, name: "Mo's Burgers & Shakes", type: 'Estadounidense', img: '/assets/rest_mo_burgers.png' },
-  { id: 2, name: 'Izakaya Cuisine', type: 'Asiática', img: '/assets/rest_izakaya.png' },
-  { id: 3, name: 'Cevichería by la Isla', type: 'Pescados y mariscos', img: '/assets/rest_ceviche_isla.png' },
-  { id: 4, name: 'Mikado', type: 'Japonesa Teppanyaki', img: '/assets/rest_mikado.png' },
-  { id: 5, name: 'Mexican Cuisine', type: 'Mexicana', img: '/assets/rest_mexican_cuisine.png' },
-  { id: 6, name: 'Restaurante Italiano', type: 'Restaurante italiano', img: '/assets/rest_italiano.png' },
-  { id: 7, name: 'Hana Polynesian Grill', type: 'Cocina polinesia', img: '/assets/rest_hana_polynesian.png' },
-  { id: 8, name: 'Pizzeria by La Isla', type: 'Pizza', img: '/assets/rest_pizzeria_isla.png' },
-  { id: 9, name: 'Mediterranean Restaurant', type: 'Internacional', img: '/assets/rest_mediterranean.png' },
-  { id: 10, name: 'Botanika by La Isla', type: 'Cocina libanesa', img: '/assets/rest_botanika_isla.png' },
-  { id: 11, name: 'The Great Room', type: 'Lobby bar', img: '/assets/rest_great_room.png' },
-  { id: 12, name: '750 Pizzería', type: 'Pizza', img: '/assets/rest_750_pizzeria.png' }
+  { id: 1, name: 'Toscanni', horario: 'Desayuno 6:30 - 11:30\nCena 17:30 - 23:00', img: '/assets/rest_toscanni.png' },
+  { id: 2, name: 'Mikado | Teppanyaky', horario: 'Cenas 17:00 - 23:00', img: '/assets/rest_mikado_teppanyaki.png' },
+  { id: 3, name: 'Mikado | Kasai', horario: 'Cenas 17:30 - 23:00', img: '/assets/rest_mikado_kasai.png' },
+  { id: 4, name: 'Hana', horario: 'Cenas 17:30 - 23:00', img: '/assets/rest_hana.png' },
+  { id: 5, name: 'Casa Madre', horario: 'Cenas 17:30 - 22:00', img: '/assets/rest_casamadre.png' },
+  { id: 6, name: 'Delphina', horario: 'Cenas 17:30 - 22:00', img: '/assets/rest_delphina.png' },
+  { id: 7, name: 'Champions', horario: 'Cenas/Bar 15:00 - 00:00', img: '/assets/rest_champions.png' },
 ];
 
 function Restaurantes({ onBack }) {
@@ -42,11 +37,14 @@ function Restaurantes({ onBack }) {
             </div>
             <div className="rest-info">
               <h3>{rest.name}</h3>
-              <div className="rest-type-text">{rest.type}</div>
+              {rest.horario.split('\n').map((line, i) => (
+                <div className="rest-type-text" key={i}>{line}</div>
+              ))}
             </div>
           </div>
         ))}
       </div>
+      <p className="restaurantes-footer-disclaimer">HE-MX-2600018</p>
     </div>
   );
 }

@@ -163,7 +163,7 @@ function Logistica({ onBack }) {
               className="btn-premium-gradient"
               onClick={() => setShowRestaurantes(true)}
             >
-              Ver restaurantes recomendados
+              Conoce los horarios
             </button>
           </div>
         </section>
