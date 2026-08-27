@@ -6,21 +6,18 @@ export const agendaData = {
       {
         id: 'panel_1',
         time: '19:30 - 20:10',
-        title: 'Panel 1:',
         description: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
         speakers: ['Dr. Gabriel Barragán']
       },
       {
         id: 'panel_2',
         time: '20:10 - 20:30',
-        title: 'Panel 2:',
         description: 'Q&A',
         speakers: ['Dr. Gabriel Barragán']
       },
       {
         id: 'panel_3',
         time: '20:30 - 21:00',
-        title: 'Panel 3:',
         description: 'Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
         speakers: ['Carla Da Passano']
       }
@@ -51,7 +48,6 @@ export const agendaData = {
       {
         id: 'panel_1_sabado',
         time: '10:00 - 10:40',
-        title: 'Panel 1:',
         description: 'Retos actuales en el diagnóstico y estratificación de riesgo en Mieloma Múltiple',
         speakers: ['Coordinador: Dr. Ramos Peñafiel', 'Panelistas: Dra. Aline Ramírez y Dr. Joaquín Martínez']
       },
@@ -81,7 +77,6 @@ export const agendaData = {
       {
         id: 'panel_2_sabado',
         time: '12:20 - 13:00',
-        title: 'Panel:',
         description: 'Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
         speakers: ['Coordinadora: Dra. Aline Ramírez', 'Panelistas: Dr. Ramos Peñafiel, Dr. Gabriel Barragán y Dra. Carolina García']
       },
@@ -105,7 +100,6 @@ export const agendaData = {
       {
         id: 'panel_3_sabado',
         time: '15:00 - 15:40',
-        title: 'Panel:',
         description: 'Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
         speakers: ['Coordinador: Dr. Gabriel Barragán', 'Panelistas: Dr. Kenny Gálvez, Dr. Joaquín Martínez y Dra. Carolina García']
       },

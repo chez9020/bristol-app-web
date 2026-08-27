@@ -71,6 +71,17 @@
   flex: 1;
 }
 
+.pnladm-opcion-libre {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-family: var(--font-inter);
+  font-size: 11px;
+  color: #7f7383;
+  white-space: nowrap;
+}
+
 .pnladm-remove,
 .pnladm-remove-small {
   border: none;

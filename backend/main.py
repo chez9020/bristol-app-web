@@ -504,7 +504,6 @@ def _subir_a_bucket_biblioteca(file_bytes: bytes, content_type: str, blob_name: 
 @app.post("/api/biblioteca/presentacion")
 async def crear_presentacion(
     titulo: str = Form(...),
-    categoria: str = Form(...),
     ponente: str = Form(...),
     archivo: UploadFile = File(...),
     portada: Optional[UploadFile] = File(None),
@@ -531,7 +530,6 @@ async def crear_presentacion(
         db = get_db()
         data = {
             "titulo": titulo,
-            "categoria": categoria,
             "ponente": ponente,
             "archivo_url": archivo_url,
             "portada_url": portada_url,
@@ -543,6 +541,44 @@ async def crear_presentacion(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al subir presentación: {str(e)}")
+
+
+@app.put("/api/biblioteca/presentacion/{doc_id}")
+async def editar_presentacion(
+    doc_id: str,
+    titulo: str = Form(...),
+    ponente: str = Form(...),
+    archivo: Optional[UploadFile] = File(None),
+    portada: Optional[UploadFile] = File(None),
+):
+    try:
+        data = {"titulo": titulo, "ponente": ponente}
+
+        if archivo is not None and archivo.filename:
+            archivo_ext = os.path.splitext(archivo.filename)[1].lower()
+            if archivo_ext not in ARCHIVO_EXTS_VALIDAS:
+                raise HTTPException(status_code=400, detail="El archivo debe ser PDF o PPTX")
+            ts = int(time.time())
+            archivo_bytes = await archivo.read()
+            data["archivo_url"] = _subir_a_bucket_biblioteca(
+                archivo_bytes, archivo.content_type, f"Presentaciones/archivo_{ts}{archivo_ext}"
+            )
+
+        if portada is not None and portada.filename:
+            ts = int(time.time())
+            portada_ext = os.path.splitext(portada.filename)[1].lower() or ".jpg"
+            portada_bytes = await portada.read()
+            data["portada_url"] = _subir_a_bucket_biblioteca(
+                portada_bytes, portada.content_type, f"Presentaciones/portada_{ts}{portada_ext}"
+            )
+
+        db = get_db()
+        db.collection(BIBLIOTECA_COLLECTION).document(doc_id).update(data)
+        return {"success": True, "id": doc_id, **data}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al editar presentación: {str(e)}")
 
 
 @app.get("/api/biblioteca/presentaciones")
@@ -581,7 +617,13 @@ async def admin_biblioteca():
   .item img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 8px; }
   .info { display: flex; align-items: center; }
   .del { background: #d9534f; padding: 6px 12px; font-size: 12px; }
+  .edit { background: #4f0180; padding: 6px 12px; font-size: 12px; margin-right: 6px; }
+  .btns { display: flex; }
   .warn { background: #fff3cd; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 10; }
+  .modal-overlay.open { display: flex; }
+  .modal-box { background: #fff; border-radius: 10px; padding: 20px; width: 90%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
+  .modal-box form { border: none; padding: 0; margin: 0; }
 </style>
 </head>
 <body>
@@ -591,8 +633,6 @@ async def admin_biblioteca():
 <form id="form">
   <label>Título</label>
   <input name="titulo" required>
-  <label>Categoría</label>
-  <input name="categoria" required>
   <label>Ponente</label>
   <input name="ponente" required>
   <label>Portada (imagen, opcional)</label>
@@ -604,21 +644,78 @@ async def admin_biblioteca():
 
 <div id="lista"></div>
 
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <h2>Editar presentación</h2>
+    <form id="edit-form">
+      <input type="hidden" name="id">
+      <label>Título</label>
+      <input name="titulo" required>
+      <label>Ponente</label>
+      <input name="ponente" required>
+      <label>Nueva portada (opcional, deja vacío para no cambiar)</label>
+      <input name="portada" type="file" accept="image/*">
+      <label>Nuevo archivo PDF/PPTX (opcional, deja vacío para no cambiar)</label>
+      <input name="archivo" type="file" accept=".pdf,.pptx">
+      <button type="submit">Guardar cambios</button>
+      <button type="button" onclick="cerrarModal()" style="background:#999;">Cancelar</button>
+    </form>
+  </div>
+</div>
+
 <script>
+let itemsCache = [];
+
 async function cargar() {
   const res = await fetch('/api/biblioteca/presentaciones');
   const items = await res.json();
+  itemsCache = items;
   const lista = document.getElementById('lista');
   lista.innerHTML = items.map(p => `
     <div class="item">
       <div class="info">
         ${p.portada_url ? `<img src="${p.portada_url}">` : ''}
-        <div><strong>${p.titulo}</strong><br><small>${p.ponente} — ${p.categoria}</small></div>
+        <div><strong>${p.titulo}</strong><br><small>${p.ponente}</small></div>
       </div>
-      <button class="del" onclick="eliminar('${p.id}')">Eliminar</button>
+      <div class="btns">
+        <button class="edit" onclick="editar('${p.id}')">Editar</button>
+        <button class="del" onclick="eliminar('${p.id}')">Eliminar</button>
+      </div>
     </div>
   `).join('') || '<p>Sin presentaciones aún.</p>';
 }
+
+function editar(id) {
+  const p = itemsCache.find(x => x.id === id);
+  if (!p) return;
+  const form = document.getElementById('edit-form');
+  form.id.value = p.id;
+  form.titulo.value = p.titulo || '';
+  form.ponente.value = p.ponente || '';
+  form.portada.value = '';
+  form.archivo.value = '';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function cerrarModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+document.getElementById('edit-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const id = form.id.value;
+  const formData = new FormData(form);
+  formData.delete('id');
+  const res = await fetch(`/api/biblioteca/presentacion/${id}`, { method: 'PUT', body: formData });
+  const data = await res.json();
+  if (data.success) {
+    cerrarModal();
+    cargar();
+  } else {
+    alert('Error: ' + (data.detail || 'desconocido'));
+  }
+});
 
 async function eliminar(id) {
   if (!confirm('¿Eliminar esta presentación?')) return;

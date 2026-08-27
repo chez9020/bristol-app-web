@@ -12,7 +12,7 @@ const BIO_CARDIOLOGIA = [
 ].join('\n');
 
 const PONENTES = [
-  { id: 1, nombre: 'Dr. Cristian Ramos Peñafiel', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_placeholder.png', biografia_larga: BIO_CARDIOLOGIA },
+  { id: 1, nombre: 'Dr. Cristian Ramos Peñafiel', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_cristian_ramos.png', biografia_larga: BIO_CARDIOLOGIA },
   { id: 2, nombre: 'Dra. Aline Guillermina Ramirez', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_aline_ramirez.png', biografia_larga: [
     'Hematóloga adscrita al Servicio de Hematología del Hospital de Especialidades "Dr. Antonio Fraga Mouret" del Centro Médico Nacional La Raza, IMSS.',
     'Su práctica clínica e investigación se centran en las gammapatías monoclonales y el mieloma multiple, liderado proyectos de investigación, participado en colaboraciones nacionales e internacionales y publicando en colaboración con COMMIMEX EL Consenso Mexicano de Mieloma Múltiple 2026.',
@@ -32,8 +32,8 @@ const PONENTES = [
     'Es reconocido internacionalmente por sus contribuciones en mieloma múltiple, neoplasias mieloproliferativas y terapias celulares avanzadas. Ha liderado numerosos estudios clínicos y programas de investigación traslacional, con una destacada producción científica que incluye cientos de publicaciones en revistas de alto impacto y una amplia participación en congresos internacionales.',
     'Su trabajo se ha centrado en el desarrollo de nuevas estrategias terapéuticas, biomarcadores pronósticos y medicina de precisión para pacientes con enfermedades hematológicas. Actualmente es considerado una de las principales referencias europeas en el abordaje del mieloma múltiple.',
   ].join('\n') },
-  { id: 6, nombre: 'Dr. Kenny Mauricio Gálvez Cárdenas', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_placeholder.png', biografia_larga: BIO_CARDIOLOGIA },
-  { id: 7, nombre: 'Dra. Enriqueta Gabriela Hernandez Rivera', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_placeholder.png', biografia_larga: BIO_CARDIOLOGIA },
+  { id: 6, nombre: 'Dr. Kenny Mauricio Gálvez Cárdenas', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_kenny_galvez.png', biografia_larga: BIO_CARDIOLOGIA },
+  { id: 7, nombre: 'Dra. Enriqueta Gabriela Hernandez Rivera', puesto: 'HEMATOLOGÍA', foto: '/assets/ponente_gabriela_hernandez.png', biografia_larga: BIO_CARDIOLOGIA },
   { id: 8, nombre: 'Carla Iliana Da Passano', puesto: 'Omnichannel Specialist para BMS Mexico', foto: '/assets/ponente_carla_da_passano.jpeg', biografia_larga: '' },
 ];
 

@@ -13,6 +13,7 @@ const INITIAL_DB = {
   activePolls: {},
   votes: {},
   answers: {},
+  otros: {},
   userVotes: {},
   pollsClosed: {}
 };
@@ -91,7 +92,7 @@ export async function castVote(userId, pollId, optionId) {
   }
 }
 
-export async function castVoteMultiple(userId, pollId, optionIds) {
+export async function castVoteMultiple(userId, pollId, optionIds, otroTexto) {
   const pollRef = doc(db, VOTES_COL, pollId);
   try {
       const pSnap = await getDoc(pollRef);
@@ -100,10 +101,12 @@ export async function castVoteMultiple(userId, pollId, optionIds) {
       }
       const optsInc = {};
       optionIds.forEach(id => { optsInc[id] = increment(1); });
-      await setDoc(pollRef, {
+      const payload = {
         options: optsInc,
         users: { [userId]: optionIds }
-      }, { merge: true });
+      };
+      if (otroTexto) payload.otros = { [userId]: otroTexto };
+      await setDoc(pollRef, payload, { merge: true });
       return true;
   } catch(e) {
       console.error("Error casting multiple vote", e);
@@ -212,6 +215,7 @@ export function useLiveDB() {
       unsubVotes = onSnapshot(collection(db, VOTES_COL), (snapshot) => {
         const newVotes = {};
         const newAnswers = {};
+        const newOtros = {};
         const newUserVotes = {};
         snapshot.forEach(docSnap => {
           const pollId = docSnap.id;
@@ -219,6 +223,7 @@ export function useLiveDB() {
           newVotes[pollId] = data.options || {};
           const usersMap = data.users || {};
           newAnswers[pollId] = usersMap;
+          newOtros[pollId] = data.otros || {};
           Object.keys(usersMap).forEach(uid => {
             if (!newUserVotes[uid]) newUserVotes[uid] = {};
             newUserVotes[uid][pollId] = usersMap[uid];
@@ -228,6 +233,7 @@ export function useLiveDB() {
           ...prev,
           votes: { ...prev.votes, ...newVotes },
           answers: { ...prev.answers, ...newAnswers },
+          otros: { ...prev.otros, ...newOtros },
           userVotes: newUserVotes
         }));
       }, (error) => {

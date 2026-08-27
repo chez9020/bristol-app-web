@@ -67,7 +67,6 @@ function Biblioteca({ onBack }) {
                     ) : (
                       <img src={ICON_FALLBACK} alt="" />
                     )}
-                    <span className="biblioteca-card-badge">{p.categoria}</span>
                   </div>
                   <div className="biblioteca-card-body">
                     <h3>{p.titulo}</h3>

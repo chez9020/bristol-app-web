@@ -20,6 +20,7 @@ function Panel({ onBack, agente }) {
   const [abiertaVal, setAbiertaVal] = useState('');
   const [rankingPicked, setRankingPicked] = useState([]);
   const [multiplePicked, setMultiplePicked] = useState([]);
+  const [otroTextos, setOtroTextos] = useState({});
   const activePollIdForReset = selectedConfId ? db.activePolls[selectedConfId] : null;
 
   useEffect(() => {
@@ -27,6 +28,7 @@ function Panel({ onBack, agente }) {
     setAbiertaVal('');
     setRankingPicked([]);
     setMultiplePicked([]);
+    setOtroTextos({});
   }, [activePollIdForReset]);
 
   const header = (title) => (
@@ -201,21 +203,36 @@ function Panel({ onBack, agente }) {
                       }
                       const isChecked = checked.includes(opt.id);
                       return (
-                        <label key={opt.id} className="pnl-poll-checkbox-row">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => setChecked(isChecked ? checked.filter(id => id !== opt.id) : [...checked, opt.id])}
-                          />
-                          <span className="pnl-poll-option-text">{opt.texto}</span>
-                        </label>
+                        <div key={opt.id}>
+                          <label className="pnl-poll-checkbox-row">
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => setChecked(isChecked ? checked.filter(id => id !== opt.id) : [...checked, opt.id])}
+                            />
+                            <span className="pnl-poll-option-text">{opt.texto}</span>
+                          </label>
+                          {opt.libre && isChecked && (
+                            <input
+                              type="text"
+                              className="pnl-poll-num-input pnl-poll-otro-input"
+                              placeholder="¿Cuál?"
+                              value={otroTextos[opt.id] || ''}
+                              onChange={(e) => setOtroTextos({ ...otroTextos, [opt.id]: e.target.value })}
+                            />
+                          )}
+                        </div>
                       );
                     })}
                     {!voted && !isClosed && (
                       <button
                         className="pnl-poll-submit-btn"
                         disabled={checked.length === 0}
-                        onClick={() => castVoteMultiple(userId, activePollId, checked)}
+                        onClick={() => {
+                          const libreOpt = activePoll.opciones.find(o => o.libre && checked.includes(o.id));
+                          const otroTexto = libreOpt ? (otroTextos[libreOpt.id] || '').trim() : undefined;
+                          castVoteMultiple(userId, activePollId, checked, otroTexto || undefined);
+                        }}
                       >
                         Votar
                       </button>

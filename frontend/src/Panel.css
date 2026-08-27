@@ -295,6 +295,11 @@
   width: 100%;
 }
 
+.pnl-poll-otro-input {
+  margin: 4px 0 4px 26px;
+  width: calc(100% - 26px);
+}
+
 .pnl-poll-textarea {
   min-height: 100px;
   resize: vertical;

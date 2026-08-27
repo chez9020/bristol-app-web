@@ -2,7 +2,7 @@ export const conferenciasData = [
   // VIERNES 28 DE AGOSTO
   {
     id: 27,
-    titulo: 'Panel 1: Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
+    titulo: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
     modulo: 'PANEL',
     descripcion: 'Perlas clínicas para optimizar el manejo del SMD de riesgo bajo',
     fecha: '2026-08-28',
@@ -15,7 +15,7 @@ export const conferenciasData = [
   },
   {
     id: 28,
-    titulo: 'Panel 2: Q&A',
+    titulo: 'Q&A',
     modulo: 'PANEL',
     descripcion: 'Q&A',
     fecha: '2026-08-28',
@@ -28,7 +28,7 @@ export const conferenciasData = [
   },
   {
     id: 29,
-    titulo: 'Panel 3: Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
+    titulo: 'Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
     modulo: 'GENERAL',
     descripcion: 'Actividades de entrenamiento aplicado en herramientas de Inteligencia Artificial (IA)',
     fecha: '2026-08-28',
@@ -79,7 +79,7 @@ export const conferenciasData = [
   },
   {
     id: 14,
-    titulo: 'Panel 1: Retos actuales en el diagnóstico y estratificación de riesgo en Mieloma Múltiple',
+    titulo: 'Retos actuales en el diagnóstico y estratificación de riesgo en Mieloma Múltiple',
     modulo: 'PANEL',
     descripcion: 'Retos actuales en el diagnóstico y estratificación de riesgo en Mieloma Múltiple',
     fecha: '2026-08-29',
@@ -146,7 +146,7 @@ export const conferenciasData = [
   },
   {
     id: 19,
-    titulo: 'Panel 2: Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
+    titulo: 'Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
     modulo: 'PANEL',
     descripcion: 'Práctica clínica en México: enfoques actuales para tratar el mieloma múltiple',
     fecha: '2026-08-29',
@@ -202,7 +202,7 @@ export const conferenciasData = [
   },
   {
     id: 23,
-    titulo: 'Panel 3: Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
+    titulo: 'Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
     modulo: 'PANEL',
     descripcion: 'Manejo de eventos adversos y secuenciación terapéutica en mieloma múltiple: decisiones en la práctica clínica',
     fecha: '2026-08-29',
@@ -258,5 +258,16 @@ export const conferenciasData = [
     ponentes: [
       { id: 202, nombre: 'Dra. Aline Ramírez', puesto: '', foto: '/assets/icon_ponentes.png' }
     ]
+  },
+  {
+    id: 30,
+    titulo: 'RUTA DEL PACIENTE CON ANEMIA EN INSTITUCIONES PÚBLICAS',
+    modulo: 'PANEL',
+    descripcion: 'RUTA DEL PACIENTE CON ANEMIA EN INSTITUCIONES PÚBLICAS',
+    fecha: '2026-08-29',
+    horario_inicio: '00:00',
+    horario_fin: '00:00',
+    sala: 'Salón Principal',
+    ponentes: []
   }
 ];

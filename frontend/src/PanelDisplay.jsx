@@ -16,6 +16,7 @@ function PanelDisplay() {
   const maxVotes = Math.max(0, ...Object.values(pollVotes));
   const pollAnswers = activePollId ? (db.answers[activePollId] || {}) : {};
   const respondentes = Object.keys(pollAnswers).length;
+  const pollOtros = activePollId ? (db.otros[activePollId] || {}) : {};
   const tipo = activePoll?.tipo || 'unica';
   const conf = activeConfId ? conferenciasData.find(c => c.id === Number(activeConfId)) : null;
 
@@ -58,6 +59,14 @@ function PanelDisplay() {
                 </>
               );
             })()}
+
+            {tipo === 'multiple' && Object.keys(pollOtros).length > 0 && (
+              <ul className="pd-abierta-list">
+                {Object.values(pollOtros).slice(-10).reverse().map((texto, i) => (
+                  <li key={i} className="pd-abierta-item">{texto}</li>
+                ))}
+              </ul>
+            )}
 
             {tipo === 'ranking' && (
               <>

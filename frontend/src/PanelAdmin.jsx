@@ -40,6 +40,10 @@ function PanelAdmin() {
     ? { ...p, opciones: p.opciones.map(o => (o.id === oid ? { ...o, texto } : o)) }
     : p)));
 
+  const updateOpcionLibre = (pid, oid, libre) => setPreguntas(preguntas.map(p => (p.id === pid
+    ? { ...p, opciones: p.opciones.map(o => (o.id === oid ? { ...o, libre } : o)) }
+    : p)));
+
   const NEEDS_OPCIONES = ['unica', 'multiple', 'ranking'];
 
   const save = async () => {
@@ -108,6 +112,16 @@ function PanelAdmin() {
                       value={o.texto}
                       onChange={(e) => updateOpcion(p.id, o.id, e.target.value)}
                     />
+                    {p.tipo === 'multiple' && (
+                      <label className="pnladm-opcion-libre">
+                        <input
+                          type="checkbox"
+                          checked={!!o.libre}
+                          onChange={(e) => updateOpcionLibre(p.id, o.id, e.target.checked)}
+                        />
+                        Otra (texto libre)
+                      </label>
+                    )}
                     {p.opciones.length > 2 && (
                       <button className="pnladm-remove-small" onClick={() => removeOpcion(p.id, o.id)}>✕</button>
                     )}
