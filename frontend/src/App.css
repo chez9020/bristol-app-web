@@ -94,6 +94,21 @@
   border-color: rgba(79, 1, 128, 0.4);
 }
 
+/* Bloqueado: sigue en el home y sigue siendo clickeable (abre el modal
+   que explica desde cuándo), pero se lee como botón desactivado. */
+.dashboard-card.is-disabled {
+  background: rgba(240, 238, 243, 0.9);
+  border-color: rgba(0, 0, 0, 0.06);
+  opacity: 0.55;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.dashboard-card.is-disabled:hover {
+  transform: none;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
 .card-icon-container {
   width: 41px;
   height: 41px;

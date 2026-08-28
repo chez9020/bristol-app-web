@@ -34,9 +34,9 @@ function NavItem({ icon, iconSrc, label, isActive, onClick }) {
   );
 }
 
-function GridCard({ icon, iconSrc, title, subtitle, onClick }) {
+function GridCard({ icon, iconSrc, title, subtitle, onClick, disabled }) {
   return (
-    <div className="dashboard-card" onClick={onClick}>
+    <div className={`dashboard-card${disabled ? ' is-disabled' : ''}`} onClick={onClick}>
       <div className="card-icon-container">
         {iconSrc
           ? <img src={iconSrc} alt="" className="card-icon-img" />
@@ -79,7 +79,7 @@ function App() {
   const [comingSoonLabel, setComingSoonLabel] = useState(null);
 
   // Cancún usa EST (UTC-5) permanente, sin cambio de horario
-  const CONSTANCIA_UNLOCK = new Date('2026-04-17T11:00:00-05:00');
+  const CONSTANCIA_UNLOCK = new Date('2026-08-29T17:00:00-05:00');
   const dateUnlocked = new Date() >= CONSTANCIA_UNLOCK;
   const encuestaCompletada = isEncuestaCompletada(agente?.id);
   const constanciaAvailable = dateUnlocked && encuestaCompletada;
@@ -184,7 +184,8 @@ function App() {
               <GridCard
                 icon={constanciaAvailable ? 'verified' : !dateUnlocked ? 'lock_clock' : 'assignment_late'}
                 title="Constancia"
-                subtitle={constanciaAvailable ? 'CERTIFICADO' : !dateUnlocked ? '17 ABR · 11:00 AM' : 'CONTESTA TU ENCUESTA'}
+                subtitle={constanciaAvailable ? 'CERTIFICADO' : !dateUnlocked ? '29 AGO · 5:00 PM' : 'CONTESTA TU ENCUESTA'}
+                disabled={!constanciaAvailable}
                 onClick={() => {
                   if (constanciaAvailable) setActiveTab('Constancia');
                   else if (!dateUnlocked) setShowLockedModal(true);
@@ -316,7 +317,7 @@ function App() {
             <span className="material-icons-round modal-lock-icon">lock_clock</span>
             <h3>Próximamente</h3>
             <p>Tu constancia estará disponible a partir del:</p>
-            <div className="modal-locked-date">17 de Abril · 11:00 AM</div>
+            <div className="modal-locked-date">29 de Agosto · 5:00 PM</div>
             <p className="modal-locked-tz">Hora Cancún, México (EST)</p>
             <button className="modal-close-btn" onClick={() => setShowLockedModal(false)}>
               Entendido
