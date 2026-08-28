@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Agenda.css';
 import './PreguntasPonentes.css';
 import { conferenciasData } from './conferenciasData';
 
@@ -6,84 +7,101 @@ function PreguntasPonentes() {
   const [selectedConfId, setSelectedConfId] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const fetchAllQuestions = async () => {
-    if (!selectedConfId) return;
-    try {
-      // Calling the same API but WITHOUT id_unico to get everything
-      const response = await fetch(`/api/preguntas/${selectedConfId}`);
-      if (response.ok) {
+  useEffect(() => {
+    if (!selectedConfId) {
+      setQuestions([]);
+      setError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchAllQuestions = async () => {
+      try {
+        // Mismo endpoint que Interacciones pero SIN id_unico: devuelve todas las preguntas
+        const response = await fetch(`/api/preguntas/${selectedConfId}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
+        if (cancelled) return;
         if (data.success) {
           setQuestions(data.preguntas);
+          setError(null);
+        } else {
+          setError('No se pudieron cargar las preguntas.');
         }
+      } catch {
+        if (!cancelled) setError('Sin conexión con el servidor. Reintentando…');
       }
-    } catch (e) {
-      console.error("Error fetching all questions:", e);
-    }
-  };
+    };
+
+    setLoading(true);
+    fetchAllQuestions().finally(() => {
+      if (!cancelled) setLoading(false);
+    });
+
+    const interval = setInterval(fetchAllQuestions, 5000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [selectedConfId]);
 
   const toggleStatus = async (questionId, currentStatus) => {
+    // Optimista: la UI responde ya, el poll de 5s reconcilia
+    setQuestions(prev => prev.map(q => (q.id === questionId ? { ...q, respondida: !currentStatus } : q)));
     try {
       const response = await fetch(`/api/pregunta/${selectedConfId}/${questionId}/respondida`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ respondida: !currentStatus }),
       });
-      if (response.ok) {
-        fetchAllQuestions();
-      }
-    } catch (e) {
-      console.error("Error toggling question status:", e);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    } catch {
+      setQuestions(prev => prev.map(q => (q.id === questionId ? { ...q, respondida: currentStatus } : q)));
+      setError('No se pudo actualizar el estado de la pregunta.');
     }
   };
 
-  useEffect(() => {
-    if (selectedConfId) {
-      setLoading(true);
-      fetchAllQuestions().finally(() => setLoading(false));
-      
-      const interval = setInterval(() => {
-        fetchAllQuestions();
-      }, 5000);
-      return () => clearInterval(interval);
-    } else {
-      setQuestions([]);
-    }
-  }, [selectedConfId]);
-
   if (!selectedConfId) {
+    const sesiones = conferenciasData.filter(c => c.ponentes && c.ponentes.length > 0);
     return (
-      <div className="ponentes-container animate-fade-in">
-        <div className="qa-header-area">
-          <div className="qa-header-text">
+      <div className="qp-container animate-fade-in">
+        <header className="agenda-header">
+          <div className="agenda-header-text">
             <h1>Panel de Ponentes</h1>
-            <div className="qa-header-subtitle">
+            <div className="agenda-subtitle">
               <span className="material-icons-round">analytics</span>
               <span>LISTADO GLOBAL DE PREGUNTAS</span>
             </div>
           </div>
-        </div>
+        </header>
 
-        <div className="ponentes-content">
-          <h2 className="v-list-title">Selecciona una sesión</h2>
-          <p className="v-list-desc">Elige la conferencia para ver las preguntas que el público está enviando.</p>
-          
-          <div className="v-conf-list">
-            {conferenciasData.filter(c => c.ponentes && c.ponentes.length > 0).map(conf => (
-              <div key={conf.id} className="v-conf-item" onClick={() => setSelectedConfId(conf.id)}>
-                <div className="v-conf-icon" style={{ background: 'rgba(0, 143, 180, 0.15)', color: '#008fb4' }}>
+        <div className="qp-body">
+          <h2 className="qp-list-title">Selecciona una sesión</h2>
+          <p className="qp-list-desc">Elige la conferencia para ver las preguntas que el público está enviando.</p>
+
+          <div className="qp-conf-list">
+            {sesiones.map(conf => (
+              <div
+                key={conf.id}
+                className="qp-conf-item"
+                role="button"
+                tabIndex={0}
+                onClick={() => setSelectedConfId(conf.id)}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setSelectedConfId(conf.id); }}
+              >
+                <div className="qp-conf-icon">
                   <span className="material-icons-round">forum</span>
                 </div>
-                <div className="v-conf-info">
+                <div className="qp-conf-info">
                   <h3>{conf.titulo}</h3>
-                  <span style={{color: 'rgba(255,255,255,0.6)'}}>
-                    {conf.ponentes[0]?.nombre} {conf.ponentes.length > 1 ? 'y otros' : ''}
+                  <span>
+                    {conf.ponentes[0]?.nombre}{conf.ponentes.length > 1 ? ' y otros' : ''}
                   </span>
                 </div>
-                <span className="material-icons-round" style={{ color: 'rgba(255,255,255,0.3)' }}>chevron_right</span>
+                <span className="material-icons-round qp-conf-chevron">chevron_right</span>
               </div>
             ))}
           </div>
@@ -93,58 +111,70 @@ function PreguntasPonentes() {
   }
 
   const conf = conferenciasData.find(c => c.id === selectedConfId);
-  
-  // Sort questions: unanswered first, then answered
+
+  // Pendientes primero, respondidas al final
   const sortedQuestions = [...questions].sort((a, b) => {
     if (a.respondida === b.respondida) return 0;
     return a.respondida ? 1 : -1;
   });
+  const pendientes = questions.filter(q => !q.respondida).length;
 
   return (
-    <div className="ponentes-container animate-fade-in">
-      <div className="qa-header-area">
-        <div className="qa-header-text">
-           <h1>Preguntas Recibidas</h1>
-           <div className="qa-header-subtitle">
-             <span className="material-icons-round">mic</span>
-             <span>SESIÓN: {conf?.titulo}</span>
-           </div>
+    <div className="qp-container animate-fade-in">
+      <header className="agenda-header">
+        <div className="agenda-header-text">
+          <h1>Preguntas Recibidas</h1>
+          <div className="agenda-subtitle">
+            <span className="material-icons-round">mic</span>
+            <span>{conf?.titulo}</span>
+          </div>
         </div>
-        <div className="qa-back-btn" onClick={() => setSelectedConfId(null)}>
-           <span className="material-icons-round">close</span>
+        <div className="back-btn-circle" onClick={() => setSelectedConfId(null)}>
+          <span className="material-icons-round" style={{ color: 'white' }}>close</span>
         </div>
-      </div>
+      </header>
 
-      <div className="ponentes-list-wrapper">
-        <div className="qa-section-header">
-          <span className="qa-section-title">FLUJO EN VIVO</span>
-          <div className="qa-section-line"></div>
+      <div className="qp-body">
+        <div className="qp-section-header">
+          <span className="qp-section-title">Flujo en vivo</span>
+          <span className="qp-live-dot"></span>
+          <div className="qp-section-line"></div>
+          <span className="qp-counter">{pendientes} pendiente{pendientes === 1 ? '' : 's'}</span>
         </div>
 
-        <div className="ponentes-grid">
-          {sortedQuestions.length === 0 ? (
-            <div className="qa-empty-state" style={{ marginTop: '40px' }}>
-              <span className="material-icons-round" style={{ fontSize: '48px', color: 'rgba(255,255,255,0.1)'}}>hourglass_empty</span>
-              <p>Esperando preguntas de los asistentes...</p>
+        {error && <p className="qp-error">{error}</p>}
+
+        <div className="qp-grid">
+          {loading && questions.length === 0 ? (
+            <div className="qp-empty-state">
+              <span className="material-icons-round">sync</span>
+              <p>Cargando preguntas…</p>
+            </div>
+          ) : sortedQuestions.length === 0 ? (
+            <div className="qp-empty-state">
+              <span className="material-icons-round">hourglass_empty</span>
+              <p>Esperando preguntas de los asistentes…</p>
             </div>
           ) : (
             sortedQuestions.map((q, idx) => (
-              <div key={q.id || idx} className={`qa-card-glass ponente-card ${q.respondida ? 'is-answered' : ''}`}>
-                <div className="qa-card-header">
-                  <div className="qa-status-badge">
-                   #{sortedQuestions.length - idx}
-                  </div>
-                  <div className="ponente-user-tag">
-                    {q.nombre}
-                  </div>
-                  <div className={`qa-check-btn ${q.respondida ? 'checked' : ''}`} onClick={() => toggleStatus(q.id, q.respondida)}>
+              <div key={q.id || idx} className={`qp-card ${q.respondida ? 'is-answered' : ''}`}>
+                <div className="qp-card-header">
+                  <div className="qp-status-badge">#{idx + 1}</div>
+                  <div className="qp-user-tag">{q.nombre}</div>
+                  <button
+                    type="button"
+                    className={`qp-check-btn ${q.respondida ? 'checked' : ''}`}
+                    title={q.respondida ? 'Marcar como pendiente' : 'Marcar como respondida'}
+                    aria-label={q.respondida ? 'Marcar como pendiente' : 'Marcar como respondida'}
+                    onClick={() => toggleStatus(q.id, q.respondida)}
+                  >
                     <span className="material-icons-round">
                       {q.respondida ? 'check_circle' : 'radio_button_unchecked'}
                     </span>
-                  </div>
+                  </button>
                 </div>
-                <div className="qa-card-body">
-                  <p className="ponente-question-text">{q.pregunta}</p>
+                <div className="qp-card-body">
+                  <p className="qp-question-text">{q.pregunta}</p>
                 </div>
               </div>
             ))
@@ -153,7 +183,6 @@ function PreguntasPonentes() {
       </div>
     </div>
   );
-
 }
 
 export default PreguntasPonentes;

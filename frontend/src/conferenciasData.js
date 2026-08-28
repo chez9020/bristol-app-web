@@ -261,9 +261,9 @@ export const conferenciasData = [
   },
   {
     id: 30,
-    titulo: 'Q&A Día 2',
+    titulo: 'Preguntas SMD',
     modulo: 'PANEL',
-    descripcion: 'Q&A Día 2',
+    descripcion: 'Preguntas SMD',
     fecha: '2026-08-29',
     horario_inicio: '00:00',
     horario_fin: '00:00',

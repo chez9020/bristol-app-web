@@ -12,7 +12,7 @@ function Panel({ onBack, agente }) {
   const pollsList = Object.keys(configs)
     .map(confId => ({ confId: Number(confId), preguntas: configs[confId] }))
     .filter(p => conferenciasData.some(c => c.id === p.confId))
-    .sort((a, b) => (a.confId === 30 ? -1 : b.confId === 30 ? 1 : 0)); // Q&A Día 2 (id 30) siempre primero
+    .sort((a, b) => (a.confId === 30 ? -1 : b.confId === 30 ? 1 : 0)); // Preguntas SMD (id 30) siempre primero
   const [selectedConfId, setSelectedConfId] = useState(null);
   const [showStaff, setShowStaff] = useState(false);
   const [staffConfId, setStaffConfId] = useState(null);
