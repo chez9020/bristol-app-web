@@ -261,9 +261,9 @@ export const conferenciasData = [
   },
   {
     id: 30,
-    titulo: 'RUTA DEL PACIENTE CON ANEMIA EN INSTITUCIONES PÚBLICAS',
+    titulo: 'Q&A Día 2',
     modulo: 'PANEL',
-    descripcion: 'RUTA DEL PACIENTE CON ANEMIA EN INSTITUCIONES PÚBLICAS',
+    descripcion: 'Q&A Día 2',
     fecha: '2026-08-29',
     horario_inicio: '00:00',
     horario_fin: '00:00',

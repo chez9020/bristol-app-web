@@ -14,6 +14,7 @@ import Interacciones from './Interacciones.jsx';
 import Logistica from './Logistica.jsx';
 import Biblioteca from './Biblioteca.jsx';
 import Encuestas from './Encuestas.jsx';
+import EncuestaEntrada from './EncuestaEntrada.jsx';
 import DigitalPass from './DigitalPass.jsx';
 import Panel from './Panel.jsx';
 import PanelDisplay from './PanelDisplay.jsx';
@@ -82,6 +83,9 @@ function App() {
   const dateUnlocked = new Date() >= CONSTANCIA_UNLOCK;
   const encuestaCompletada = isEncuestaCompletada(agente?.id);
   const constanciaAvailable = dateUnlocked && encuestaCompletada;
+
+  const ENCUESTA_SALIDA_UNLOCK = new Date('2026-08-29T00:00:00-05:00');
+  const salidaActiva = new Date() >= ENCUESTA_SALIDA_UNLOCK;
 
   const handleUpdateAgente = (newAgenteData) => {
     setAgente(newAgenteData);
@@ -209,7 +213,7 @@ function App() {
                 iconSrc="/assets/icon_encuesta.png"
                 title="Encuesta"
                 subtitle="QUEREMOS CONOCER TU OPINIÓN"
-                onClick={() => setActiveTab('Encuestas')}
+                onClick={() => setActiveTab(salidaActiva ? 'Encuestas' : 'EncuestaEntrada')}
               />
               <GridCard
                 icon="edit_note"
@@ -287,6 +291,10 @@ function App() {
             onBack={() => setActiveTab('Inicio')}
             agente={agente}
           />
+        )}
+
+        {activeTab === 'EncuestaEntrada' && (
+          <EncuestaEntrada onBack={() => setActiveTab('Inicio')} agente={agente} />
         )}
         {activeTab === 'DigitalPass' && (
           <DigitalPass onBack={() => setActiveTab('Inicio')} agente={agente} />

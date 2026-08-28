@@ -245,3 +245,49 @@
 .encuesta-btn-siguiente:not(:disabled):hover {
   opacity: 0.9;
 }
+
+.encuesta-rank-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #4f0180;
+  color: #ffffff;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.encuesta-suboption {
+  margin: 4px 0 0 18px;
+}
+
+.encuesta-input-numero {
+  width: 100%;
+  background: #fcfbfd;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  color: #3a3534;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.encuesta-input-numero:focus {
+  border-color: #4f0180;
+}
+
+.encuesta-seccion {
+  margin: 0 22px 6px;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #4f0180;
+  text-transform: uppercase;
+}

@@ -14,7 +14,7 @@ function BiografiaSpeaker({ onBack, ponente }) {
     <div className="biografia-container animate-fade-in">
       <header className="agenda-header">
         <div className="agenda-header-text">
-          <h1>Biografía Speaker</h1>
+          <h1>Biografía</h1>
           <div className="agenda-subtitle">
             <span className="material-icons-round">event</span>
             <span>BLOOD 2026</span>
@@ -26,17 +26,15 @@ function BiografiaSpeaker({ onBack, ponente }) {
         </div>
       </header>
       <div className="bs-card">
-        <div className="bs-speaker-header">
-          <img src={data.foto} alt={data.nombre} className="bs-speaker-img" />
-          <h2 className="bs-speaker-name">{data.nombre}</h2>
-          <p className="bs-speaker-role">{data.puesto}</p>
-        </div>
+        <img src={data.foto} alt={data.nombre} className="bs-speaker-img" />
+        <h2 className="bs-speaker-name">{data.nombre}</h2>
+        <p className="bs-speaker-role">{data.puesto}</p>
         <div className="bs-divider"></div>
-        <ul className="bs-bio-list">
+        <div className="bs-bio">
           {bioLines.map((line, index) => (
-            <li key={index} className="bs-bio-item">{line.trim()}</li>
+            <p key={index} className="bs-bio-item">{line.trim()}</p>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
