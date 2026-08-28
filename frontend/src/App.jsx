@@ -18,6 +18,8 @@ import DigitalPass from './DigitalPass.jsx';
 import Panel from './Panel.jsx';
 import PanelDisplay from './PanelDisplay.jsx';
 import PanelAdmin from './PanelAdmin.jsx';
+import { isEncuestaCompletada } from './encuestaSalida';
+import EncuestaResultados from './EncuestaResultados.jsx';
 
 // NavItem and GridCard
 function NavItem({ icon, iconSrc, label, isActive, onClick }) {
@@ -72,11 +74,14 @@ function App() {
   const [selectedPonente, setSelectedPonente] = useState(null);
   const [biografiaOrigin, setBiografiaOrigin] = useState('Ponentes');
   const [showLockedModal, setShowLockedModal] = useState(false);
+  const [showEncuestaRequiredModal, setShowEncuestaRequiredModal] = useState(false);
   const [comingSoonLabel, setComingSoonLabel] = useState(null);
 
   // Cancún usa EST (UTC-5) permanente, sin cambio de horario
   const CONSTANCIA_UNLOCK = new Date('2026-04-17T11:00:00-05:00');
-  const constanciaAvailable = new Date() >= CONSTANCIA_UNLOCK;
+  const dateUnlocked = new Date() >= CONSTANCIA_UNLOCK;
+  const encuestaCompletada = isEncuestaCompletada(agente?.id);
+  const constanciaAvailable = dateUnlocked && encuestaCompletada;
 
   const handleUpdateAgente = (newAgenteData) => {
     setAgente(newAgenteData);
@@ -95,6 +100,16 @@ function App() {
   if (window.location.pathname === '/panel-admin') {
     if (agente?.tipo === 'Developer') {
       return <PanelAdmin />;
+    }
+    if (agente) {
+      return <div style={{ padding: 40, fontFamily: 'var(--font-inter)' }}>Acceso restringido.</div>;
+    }
+    return <Registro onRegister={handleUpdateAgente} />;
+  }
+
+  if (window.location.pathname === '/encuesta-resultados') {
+    if (agente?.tipo === 'Developer') {
+      return <EncuestaResultados />;
     }
     if (agente) {
       return <div style={{ padding: 40, fontFamily: 'var(--font-inter)' }}>Acceso restringido.</div>;
@@ -163,12 +178,14 @@ function App() {
                 onClick={() => setActiveTab('Logistica')}
               />
               <GridCard
-                icon={constanciaAvailable ? 'verified' : 'lock_clock'}
+                icon={constanciaAvailable ? 'verified' : !dateUnlocked ? 'lock_clock' : 'assignment_late'}
                 title="Constancia"
-                subtitle={constanciaAvailable ? 'CERTIFICADO' : '17 ABR · 11:00 AM'}
-                onClick={() => constanciaAvailable
-                  ? setActiveTab('Constancia')
-                  : setShowLockedModal(true)}
+                subtitle={constanciaAvailable ? 'CERTIFICADO' : !dateUnlocked ? '17 ABR · 11:00 AM' : 'CONTESTA TU ENCUESTA'}
+                onClick={() => {
+                  if (constanciaAvailable) setActiveTab('Constancia');
+                  else if (!dateUnlocked) setShowLockedModal(true);
+                  else setShowEncuestaRequiredModal(true);
+                }}
               />
               <GridCard
                 iconSrc="/assets/icon_digital_pass.png"
@@ -295,6 +312,23 @@ function App() {
             <p className="modal-locked-tz">Hora Cancún, México (EST)</p>
             <button className="modal-close-btn" onClick={() => setShowLockedModal(false)}>
               Entendido
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Constancia bloqueada por encuesta pendiente */}
+      {showEncuestaRequiredModal && (
+        <div className="modal-overlay" onClick={() => setShowEncuestaRequiredModal(false)}>
+          <div className="modal-locked-card" onClick={e => e.stopPropagation()}>
+            <span className="material-icons-round modal-lock-icon">assignment_late</span>
+            <h3>Encuesta pendiente</h3>
+            <p>Contesta la encuesta de salida para desbloquear tu constancia.</p>
+            <button
+              className="modal-close-btn"
+              onClick={() => { setShowEncuestaRequiredModal(false); setActiveTab('Encuestas'); }}
+            >
+              Ir a la encuesta
             </button>
           </div>
         </div>

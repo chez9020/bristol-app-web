@@ -15,6 +15,10 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
   const [showEncuestaAlert, setShowEncuestaAlert] = useState(false);
 
   const userName = agente?.nombre || 'Invitado';
+  const nombreFontSize =
+    userName.length > 28 ? '2.5cqw' :
+    userName.length > 22 ? '3cqw' :
+    userName.length > 16 ? '3.6cqw' : '4.394cqw';
 
   useEffect(() => {
     const checkPreviousSubmission = async () => {
@@ -23,7 +27,8 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
       try {
         const q = query(
           collection(db, 'encuestas_resultados'),
-          where('agente_id', '==', agente.id)
+          where('agente_id', '==', agente.id),
+          where('proyecto', '==', 'Blood 2026')
         );
         const snap = await getDocs(q);
         if (!snap.empty) {
@@ -104,7 +109,7 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
             <p className="cert-figma-titulo">CONSTANCIA</p>
             <span className="cert-figma-a">a:</span>
             <img src="/assets/blood2026_constancia_linea_nombre.png" alt="" className="cert-figma-linea-nombre" />
-            <h2 className="cert-figma-nombre">{userName}</h2>
+            <h2 className="cert-figma-nombre" style={{ fontSize: nombreFontSize }}>{userName}</h2>
             <div className="cert-figma-parrafo">
               <p>por su participación en el evento:</p>
               <p className="cert-figma-parrafo-strong">&ldquo;BLOOD 2026&rdquo;.</p>
