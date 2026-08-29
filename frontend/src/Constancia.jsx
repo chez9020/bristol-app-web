@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Agenda.css';
 import './Constancia.css';
-import { db } from './firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { isEncuestaCompletada, marcarEncuestaCompletada } from './encuestaSalida';
+import { ENCUESTAS, estadoLocal, leerEstado } from './encuestasEstado';
+
+// La constancia exige las dos encuestas, entrada y salida.
+const pendientesDe = (estado) => ENCUESTAS.filter(e => !estado[e.clave]).map(e => e.nombre);
 
 function Constancia({ onBack, onGoToEncuesta, agente }) {
   const certCardRef = useRef(null);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [surveyCompleted, setSurveyCompleted] = useState(isEncuestaCompletada(agente?.id));
+  const [faltantes, setFaltantes] = useState(() => pendientesDe(estadoLocal(agente?.id)));
+  const surveyCompleted = faltantes.length === 0;
+  const faltantesTexto = faltantes.length === 2
+    ? 'las encuestas de entrada y de salida'
+    : `la encuesta ${faltantes[0] || ''}`;
+  const faltantesTitulo = faltantes.length === 2 ? 'Encuestas pendientes' : 'Encuesta pendiente';
   const [checkingPrev, setCheckingPrev] = useState(true);
   const [showEncuestaAlert, setShowEncuestaAlert] = useState(false);
 
@@ -23,23 +29,10 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
   useEffect(() => {
     const checkPreviousSubmission = async () => {
       if (!agente?.id) { setCheckingPrev(false); return; }
-      if (isEncuestaCompletada(agente.id)) { setSurveyCompleted(true); setCheckingPrev(false); return; }
-      try {
-        const q = query(
-          collection(db, 'encuestas_resultados'),
-          where('agente_id', '==', agente.id),
-          where('proyecto', '==', 'Blood 2026')
-        );
-        const snap = await getDocs(q);
-        if (!snap.empty) {
-          marcarEncuestaCompletada(agente.id);
-          setSurveyCompleted(true);
-        }
-      } catch (e) {
-        console.warn('No se pudo verificar encuesta previa:', e.message);
-      } finally {
-        setCheckingPrev(false);
-      }
+      // localStorage puede estar vacío (otro dispositivo, caché limpia):
+      // la bandera de Firestore manda.
+      setFaltantes(pendientesDe(await leerEstado(agente.id)));
+      setCheckingPrev(false);
     };
     checkPreviousSubmission();
   }, [agente?.id]);
@@ -140,8 +133,8 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
       ) : (
         <div className="constancia-locked-body">
           <span className="material-icons-round constancia-locked-icon">assignment_late</span>
-          <h2>Encuesta pendiente</h2>
-          <p className="constancia-locked-sub">Completa la encuesta de salida para obtener tu constancia.</p>
+          <h2>{faltantesTitulo}</h2>
+          <p className="constancia-locked-sub">Completa {faltantesTexto} para obtener tu constancia.</p>
         </div>
       )}
 
@@ -149,10 +142,10 @@ function Constancia({ onBack, onGoToEncuesta, agente }) {
         <div className="modal-overlay" onClick={() => setShowEncuestaAlert(false)}>
           <div className="modal-locked-card" onClick={(e) => e.stopPropagation()}>
             <span className="material-icons-round modal-alert-icon">assignment_late</span>
-            <h3>Encuesta pendiente</h3>
-            <p>Debes completar la encuesta de salida para poder generar tu constancia.</p>
+            <h3>{faltantesTitulo}</h3>
+            <p>Debes completar {faltantesTexto} para poder generar tu constancia.</p>
             <button className="modal-close-btn" onClick={onGoToEncuesta}>
-              Ir a la encuesta
+              {faltantes.length === 2 ? 'Ir a las encuestas' : 'Ir a la encuesta'}
             </button>
           </div>
         </div>

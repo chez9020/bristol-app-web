@@ -3,7 +3,7 @@ import './Agenda.css';
 import './Encuestas.css';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
-import { marcarEncuestaCompletada } from './encuestaSalida';
+import { marcarContestada } from './encuestasEstado';
 
 const RATING_QUESTIONS = [
   { id: 'q1', text: '¿Cómo calificaría la relevancia científica del contenido presentado en el evento Blood?' },
@@ -102,7 +102,7 @@ function Encuestas({ onBack, agente }) {
         );
         const snap = await getDocs(q);
         if (!snap.empty) {
-          marcarEncuestaCompletada(agente.id);
+          marcarContestada(agente.id, 'salida');
           setAlreadyCompleted(true);
         }
       } catch (e) {
@@ -151,7 +151,7 @@ function Encuestas({ onBack, agente }) {
         fecha: serverTimestamp(),
         proyecto: 'Blood 2026',
       });
-      marcarEncuestaCompletada(agente?.id);
+      await marcarContestada(agente?.id, 'salida');
       setDone(true);
     } catch (error) {
       console.error('Error al guardar encuesta:', error);

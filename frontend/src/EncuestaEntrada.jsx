@@ -3,7 +3,8 @@ import './Agenda.css';
 import './Encuestas.css';
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
-import { isEncuestaEntradaCompletada, marcarEncuestaEntradaCompletada } from './encuestaEntrada';
+import { isEncuestaEntradaCompletada } from './encuestaEntrada';
+import { marcarContestada } from './encuestasEstado';
 
 const PREGUNTAS = [
   { id: 'q1', tipo: 'unica', texto: '¿Cuál es su posición actual?', opciones: ['Hematólogo', 'Residente de Hematología', 'Otro'] },
@@ -83,7 +84,7 @@ function EncuestaEntrada({ onBack, agente }) {
         );
         const snap = await getDocs(q);
         if (!snap.empty) {
-          marcarEncuestaEntradaCompletada(agente.id);
+          marcarContestada(agente.id, 'entrada');
           setAlreadyCompleted(true);
         }
       } catch (e) {
@@ -160,7 +161,7 @@ function EncuestaEntrada({ onBack, agente }) {
         fecha: serverTimestamp(),
         proyecto: 'Blood 2026',
       });
-      marcarEncuestaEntradaCompletada(agente?.id);
+      await marcarContestada(agente?.id, 'entrada');
       setDone(true);
     } catch (error) {
       console.error('Error al guardar encuesta de entrada:', error);

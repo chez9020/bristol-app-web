@@ -28,8 +28,14 @@ service cloud.firestore {
     match /encuesta_entrada_resultados/{document=**} {
       allow read, create: if true;
     }
+    // Bandera de qué encuestas contestó cada usuario (un doc por agente).
+    // Necesita write, no solo create: el mismo doc se actualiza al contestar
+    // la segunda encuesta.
+    match /encuestas_estado/{document=**} {
+      allow read, write: if true;
+    }
     // ------------------
-    
+
     // Regla general para el resto (seguridad)
     match /{document=**} {
       allow read, write: if false;

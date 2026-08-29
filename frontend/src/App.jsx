@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Inicio from './Inicio.jsx';
 import Registro from './Registro.jsx';
@@ -21,6 +21,7 @@ import PanelDisplay from './PanelDisplay.jsx';
 import PanelAdmin from './PanelAdmin.jsx';
 import { isEncuestaCompletada } from './encuestaSalida';
 import { isEncuestaEntradaCompletada } from './encuestaEntrada';
+import { leerEstado } from './encuestasEstado';
 import EncuestasHub from './EncuestasHub.jsx';
 import EncuestaResultados from './EncuestaResultados.jsx';
 
@@ -84,11 +85,19 @@ function App() {
   const CONSTANCIA_UNLOCK = new Date('2026-08-29T17:00:00-05:00');
   const dateUnlocked = new Date() >= CONSTANCIA_UNLOCK;
   // La constancia exige las dos encuestas, entrada y salida.
-  const salidaCompletada = isEncuestaCompletada(agente?.id);
-  const entradaCompletada = isEncuestaEntradaCompletada(agente?.id);
+  // localStorage responde al instante; la bandera de Firestore llega después y
+  // cubre el caso de haber contestado en otro dispositivo o con la caché limpia.
+  const [estadoRemoto, setEstadoRemoto] = useState({ entrada: false, salida: false });
+  const salidaCompletada = isEncuestaCompletada(agente?.id) || estadoRemoto.salida;
+  const entradaCompletada = isEncuestaEntradaCompletada(agente?.id) || estadoRemoto.entrada;
   const encuestasCompletadas = (entradaCompletada ? 1 : 0) + (salidaCompletada ? 1 : 0);
   const encuestaCompletada = encuestasCompletadas === 2;
   const constanciaAvailable = dateUnlocked && encuestaCompletada;
+
+  useEffect(() => {
+    if (!agente?.id) return;
+    leerEstado(agente.id).then(setEstadoRemoto);
+  }, [agente?.id]);
 
   const ENCUESTA_SALIDA_UNLOCK = new Date('2026-08-29T00:00:00-05:00');
   const salidaActiva = new Date() >= ENCUESTA_SALIDA_UNLOCK;
