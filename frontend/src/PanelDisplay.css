@@ -32,6 +32,33 @@
 .pd-waiting-icon {
   font-size: 64px !important;
   margin-bottom: 16px;
+  /* inline-block: los <span> en línea ignoran transform */
+  display: inline-block;
+  animation: pd-hourglass-flip 3.2s ease-in-out infinite;
+}
+
+/* Reposa boca arriba, gira media vuelta, reposa, y completa el giro
+   para volver al punto de partida sin salto al reiniciar. */
+@keyframes pd-hourglass-flip {
+  0%, 40% { transform: rotate(0deg); }
+  50%, 90% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pd-waiting h2 {
+  animation: pd-waiting-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes pd-waiting-pulse {
+  0%, 100% { opacity: 0.55; }
+  45% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-waiting-icon,
+  .pd-waiting h2 {
+    animation: none;
+  }
 }
 
 .pd-question-section {
