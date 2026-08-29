@@ -3,8 +3,10 @@ import { conferenciasData } from './conferenciasData';
 import { useLiveDB, useLiveConfigs } from './pollService';
 import './EncuestaResultados.css';
 
-function Barras({ filas, total, sufijo }) {
-  if (!filas.length) return <p className="eres-vacio">Sin respuestas.</p>;
+function Barras({ filas, total }) {
+  if (!filas.length || filas.every((f) => f.n === 0)) {
+    return <p className="eres-vacio">Sin respuestas.</p>;
+  }
   const tope = Math.max(...filas.map((f) => f.n), 1);
   return (
     <table className="eres-tabla">
@@ -18,7 +20,7 @@ function Barras({ filas, total, sufijo }) {
               </div>
             </td>
             <td className="eres-num">
-              {f.n}{sufijo || ''}{total ? ` · ${Math.round((f.n / total) * 100)}%` : ''}
+              {f.n}{total ? ` · ${Math.round((f.n / total) * 100)}%` : ''}
             </td>
           </tr>
         ))}
@@ -27,16 +29,41 @@ function Barras({ filas, total, sufijo }) {
   );
 }
 
-function ResultadoPregunta({ pregunta, votos, respuestas, otros }) {
+function ResultadoPregunta({ pregunta, respuestas, otros }) {
   const tipo = pregunta.tipo || 'unica';
-  const participantes = Object.keys(respuestas).length;
   const valores = Object.values(respuestas);
   const textosOtros = Object.values(otros).filter((t) => t && String(t).trim());
+
+  // Los contadores agregados (campo `options`) no son confiables: varias
+  // conferencias comparten ids de pregunta (p1..p5) y sus votos se suman en el
+  // mismo documento. Recontamos desde `users`, aceptando sólo respuestas cuya
+  // forma y opciones correspondan a ESTA pregunta.
+  const validas = new Set((pregunta.opciones || []).map((o) => o.id));
+  const conteo = {};
+  let participantes = 0;
+
+  valores.forEach((valor) => {
+    const esLista = Array.isArray(valor);
+    if (tipo === 'ranking' || tipo === 'multiple') {
+      if (!esLista) return;
+      const propias = valor.filter((id) => validas.has(id));
+      if (!propias.length) return;
+      participantes += 1;
+      // Contamos personas, no puntos: cada quien suma 1 por opción elegida.
+      propias.forEach((id) => { conteo[id] = (conteo[id] || 0) + 1; });
+    } else if (tipo === 'unica') {
+      if (esLista || !validas.has(valor)) return;
+      participantes += 1;
+      conteo[valor] = (conteo[valor] || 0) + 1;
+    } else {
+      participantes += 1;
+    }
+  });
 
   const filas = (pregunta.opciones || []).map((op) => ({
     id: op.id,
     texto: op.texto,
-    n: votos[op.id] || 0,
+    n: conteo[op.id] || 0,
   }));
 
   let cuerpo;
@@ -59,17 +86,20 @@ function ResultadoPregunta({ pregunta, votos, respuestas, otros }) {
     ) : (
       <p className="eres-vacio">Sin respuestas.</p>
     );
-  } else if (tipo === 'ranking') {
+  } else {
+    // unica, multiple y ranking: personas por opción. En unica la suma de las
+    // filas es el total; en multiple/ranking cada persona elige varias.
+    const ordenadas = filas.slice().sort((a, b) => b.n - a.n);
     cuerpo = (
       <>
-        <p className="eres-hint">Puntos acumulados (1er lugar = más puntos).</p>
-        <Barras filas={filas.slice().sort((a, b) => b.n - a.n)} total={0} sufijo=" pts" />
+        {tipo !== 'unica' && (
+          <p className="eres-hint">
+            Cada persona eligió varias opciones: los porcentajes son sobre {participantes} participante{participantes === 1 ? '' : 's'} y suman más de 100%.
+          </p>
+        )}
+        <Barras filas={ordenadas} total={participantes} />
       </>
     );
-  } else {
-    // unica y multiple
-    const total = tipo === 'multiple' ? participantes : filas.reduce((a, f) => a + f.n, 0);
-    cuerpo = <Barras filas={filas.slice().sort((a, b) => b.n - a.n)} total={total} />;
   }
 
   return (
@@ -136,7 +166,6 @@ function PanelResultados() {
               <ResultadoPregunta
                 key={p.id}
                 pregunta={p}
-                votos={db.votes[p.id] || {}}
                 respuestas={db.answers[p.id] || {}}
                 otros={db.otros[p.id] || {}}
               />
