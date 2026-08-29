@@ -4,11 +4,11 @@ import './Logistica.css';
 import Traslados from './Traslados.jsx';
 import Restaurantes from './Restaurantes.jsx';
 import MapaEvento from './MapaEvento.jsx';
+import { VUELOS } from './trasladosData';
 
-// Traslados oculto: el cliente aún no comparte la información de vuelos y transfers.
-// Para reactivarlo basta poner esto en true — Traslados.jsx y su CSS quedan intactos.
-// Al reactivar, revisa también el subtítulo de la tarjeta Logística en App.jsx.
-const TRASLADOS_VISIBLE = false;
+const salidas29 = VUELOS.filter((v) => v.dia === '29');
+const salidas30 = VUELOS.filter((v) => v.dia === '30');
+
 
 const imgHotel = "/assets/hotel_marriott_cancun.png";
 const imgMapa = "/assets/mapa_salones_bloodl2026.png";
@@ -50,33 +50,33 @@ function Logistica({ onBack }) {
       <div className="logistica-content">
 
         {/* Vuelos y Transfers */}
-        {TRASLADOS_VISIBLE && (
         <section className="logistica-section">
           <div className="section-title-wrapper">
             <h2>Vuelos y Transfers</h2>
-            <span className="section-subtitle-link">Próximo vuelo</span>
+            <span className="section-subtitle-link">Salidas confirmadas</span>
           </div>
           <div className="flight-glass-card">
-            <div className="logi-route-info">
-              <div className="logi-route-point">
-                <span className="logi-route-time">08:59</span>
-                <span className="logi-route-city">MID</span>
+            <div className="logi-salidas-grid">
+              <div className="logi-salidas-item">
+                <span className="logi-salidas-dia">29 AGO</span>
+                <span className="logi-salidas-num">{salidas29.length}</span>
+                <span className="logi-salidas-label">salidas</span>
               </div>
-              <div className="logi-flight-path">
-                <div className="logi-path-line"></div>
-                <img src="/assets/icon_flight_small.svg" alt="" className="logi-path-plane-icon" />
-              </div>
-              <div className="logi-route-point">
-                <span className="logi-route-time">11:10</span>
-                <span className="logi-route-city">CDMX</span>
+              <div className="logi-salidas-divider"></div>
+              <div className="logi-salidas-item">
+                <span className="logi-salidas-dia">30 AGO</span>
+                <span className="logi-salidas-num">{salidas30.length}</span>
+                <span className="logi-salidas-label">salidas</span>
               </div>
             </div>
 
             <div className="logi-transfer-inner-card">
               <img src="/assets/icon_transfer_bus.svg" alt="" className="logi-transfer-icon-box" />
               <div className="logi-transfer-text-block">
-                <span className="logi-transfer-label-small">RECOGIDA EN HOTEL</span>
-                <span className="logi-transfer-time-val">07:00 AM</span>
+                <span className="logi-transfer-label-small">PICK UP EN EL LOBBY</span>
+                <span className="logi-transfer-nota">
+                  El transporte sale a la hora indicada para tu vuelo. Llega 10 min antes.
+                </span>
               </div>
             </div>
 
@@ -89,7 +89,6 @@ function Logistica({ onBack }) {
             </button>
           </div>
         </section>
-        )}
 
         {/* Hotel y Sede */}
         <section className="logistica-section">

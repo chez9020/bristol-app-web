@@ -193,7 +193,7 @@ function App() {
               <GridCard
                 icon="map"
                 title="Logística"
-                subtitle="HOTEL, SEDE Y RESTAURANTES"
+                subtitle="TRASLADOS, HOTEL Y SEDE"
                 onClick={() => setActiveTab('Logistica')}
               />
               <GridCard
