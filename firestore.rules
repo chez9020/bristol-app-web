@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permitir lectura en tiempo real de invitados
+    match /guests/{guestId} {
+      allow read: if true;
+      allow write: if false; 
+    }
+    
+    // Bristol Health: Acceso a agentes
+    match /acceso_agentes/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Bristol Health: Sesiones y preguntas
+    match /sesiones/{document=**} {
+      allow read, write: if true;
+    }
+
+    // --- AÑADE ESTO ---
+    match /encuestas_resultados/{document=**} {
+      allow read, create: if true;
+    }
+
+    // Encuesta de entrada (28 ago). Necesita read porque la app consulta
+    // si el usuario ya contestó antes de mostrar el formulario.
+    match /encuesta_entrada_resultados/{document=**} {
+      allow read, create: if true;
+    }
+    // ------------------
+    
+    // Regla general para el resto (seguridad)
+    match /{document=**} {
+      allow read, write: if false;
+      
+    }
+    // Bristol Health: Panel en vivo (encuestas)
+    match /live_polls/{document=**} {
+      allow read, write: if true;
+    }
+    match /live_polls_votes/{document=**} {
+      allow read, write: if true;
+    }
+    match /live_polls_config/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

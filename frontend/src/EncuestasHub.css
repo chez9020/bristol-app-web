@@ -1,0 +1,169 @@
+.ehub-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  background-image: url('/assets/blood2026_dashboard_bg.png');
+  background-size: cover;
+  background-position: center top;
+  color: #3a3534;
+  font-family: var(--font-inter);
+}
+
+.ehub-body {
+  /* 100px al pie: la barra de navegación es fixed y mide 85px. */
+  padding: 24px 24px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Progreso */
+.ehub-progreso {
+  background: #fbfdff;
+  border: 1px solid rgba(58, 53, 52, 0.08);
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+
+.ehub-progreso-texto {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #45006a;
+  line-height: 1.4;
+}
+
+.ehub-progreso-barra {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(79, 1, 128, 0.1);
+  overflow: hidden;
+}
+
+.ehub-progreso-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  transition: width 0.3s ease;
+}
+
+.ehub-progreso-conteo {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7f7383;
+  letter-spacing: 0.5px;
+}
+
+/* Filas */
+.ehub-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fbfdff;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Borde degradado sin perder el radio: fondo del contenido + fondo del borde. */
+  background-image:
+    linear-gradient(#fbfdff, #fbfdff),
+    linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.ehub-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 1, 128, 0.12);
+}
+
+.ehub-row-badge {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #4f0180 0%, #c601b6 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ehub-row-badge .material-icons-round {
+  font-size: 20px;
+}
+
+.ehub-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ehub-row-text h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #45006a;
+  line-height: 1.3;
+}
+
+.ehub-row-text p {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #7f7383;
+  line-height: 1.4;
+}
+
+.ehub-row-estado {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #c601b6;
+}
+
+.ehub-row-chevron {
+  flex-shrink: 0;
+  color: #c601b6;
+}
+
+/* Completada: hundida, sin invitación a tocar */
+.ehub-row-done,
+.ehub-row-locked {
+  cursor: default;
+  background-image: none;
+  background-color: rgba(240, 238, 243, 0.75);
+  border-color: rgba(58, 53, 52, 0.08);
+}
+
+.ehub-row-done:hover,
+.ehub-row-locked:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.ehub-row-done .ehub-row-badge {
+  background: #2e7d5b;
+}
+
+.ehub-row-done .ehub-row-text h3,
+.ehub-row-locked .ehub-row-text h3 {
+  color: #7f7383;
+}
+
+.ehub-row-done .ehub-row-estado {
+  color: #2e7d5b;
+}
+
+.ehub-row-locked .ehub-row-badge {
+  background: #b9aebd;
+}
+
+.ehub-row-locked .ehub-row-estado {
+  color: #7f7383;
+}

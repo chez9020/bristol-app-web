@@ -20,6 +20,8 @@ import Panel from './Panel.jsx';
 import PanelDisplay from './PanelDisplay.jsx';
 import PanelAdmin from './PanelAdmin.jsx';
 import { isEncuestaCompletada } from './encuestaSalida';
+import { isEncuestaEntradaCompletada } from './encuestaEntrada';
+import EncuestasHub from './EncuestasHub.jsx';
 import EncuestaResultados from './EncuestaResultados.jsx';
 
 // NavItem and GridCard
@@ -81,7 +83,11 @@ function App() {
   // Cancún usa EST (UTC-5) permanente, sin cambio de horario
   const CONSTANCIA_UNLOCK = new Date('2026-08-29T17:00:00-05:00');
   const dateUnlocked = new Date() >= CONSTANCIA_UNLOCK;
-  const encuestaCompletada = isEncuestaCompletada(agente?.id);
+  // La constancia exige las dos encuestas, entrada y salida.
+  const salidaCompletada = isEncuestaCompletada(agente?.id);
+  const entradaCompletada = isEncuestaEntradaCompletada(agente?.id);
+  const encuestasCompletadas = (entradaCompletada ? 1 : 0) + (salidaCompletada ? 1 : 0);
+  const encuestaCompletada = encuestasCompletadas === 2;
   const constanciaAvailable = dateUnlocked && encuestaCompletada;
 
   const ENCUESTA_SALIDA_UNLOCK = new Date('2026-08-29T00:00:00-05:00');
@@ -184,7 +190,7 @@ function App() {
               <GridCard
                 icon={constanciaAvailable ? 'verified' : !dateUnlocked ? 'lock_clock' : 'assignment_late'}
                 title="Constancia"
-                subtitle={constanciaAvailable ? 'CERTIFICADO' : !dateUnlocked ? '29 AGO · 5:00 PM' : 'CONTESTA TU ENCUESTA'}
+                subtitle={constanciaAvailable ? 'CERTIFICADO' : !dateUnlocked ? '29 AGO · 5:00 PM' : 'CONTESTA TUS ENCUESTAS'}
                 disabled={!constanciaAvailable}
                 onClick={() => {
                   if (constanciaAvailable) setActiveTab('Constancia');
@@ -212,9 +218,13 @@ function App() {
               />
               <GridCard
                 iconSrc="/assets/icon_encuesta.png"
-                title="Encuesta"
-                subtitle="QUEREMOS CONOCER TU OPINIÓN"
-                onClick={() => setActiveTab(salidaActiva ? 'Encuestas' : 'EncuestaEntrada')}
+                title="Encuestas"
+                subtitle={
+                  encuestasCompletadas === 2 ? 'COMPLETADAS'
+                    : encuestasCompletadas === 1 ? 'FALTA 1'
+                      : 'PENDIENTES: 2'
+                }
+                onClick={() => setActiveTab('EncuestasHub')}
               />
               <GridCard
                 icon="edit_note"
@@ -270,7 +280,7 @@ function App() {
         )}
         {activeTab === 'Constancia' && (
           constanciaAvailable
-            ? <Constancia onBack={() => setActiveTab('Inicio')} onGoToEncuesta={() => setActiveTab('Encuestas')} agente={agente} />
+            ? <Constancia onBack={() => setActiveTab('Inicio')} onGoToEncuesta={() => setActiveTab('EncuestasHub')} agente={agente} />
             : <div className="constancia-locked animate-fade-in">
                 <header className="agenda-header">
                   <div className="agenda-header-text"><h1>Constancia</h1></div>
@@ -287,15 +297,26 @@ function App() {
                 </div>
               </div>
         )}
+        {activeTab === 'EncuestasHub' && (
+          <EncuestasHub
+            onBack={() => setActiveTab('Inicio')}
+            onAbrirEntrada={() => setActiveTab('EncuestaEntrada')}
+            onAbrirSalida={() => setActiveTab('Encuestas')}
+            entradaHecha={entradaCompletada}
+            salidaHecha={salidaCompletada}
+            salidaActiva={salidaActiva}
+          />
+        )}
+
         {activeTab === 'Encuestas' && (
           <Encuestas
-            onBack={() => setActiveTab('Inicio')}
+            onBack={() => setActiveTab('EncuestasHub')}
             agente={agente}
           />
         )}
 
         {activeTab === 'EncuestaEntrada' && (
-          <EncuestaEntrada onBack={() => setActiveTab('Inicio')} agente={agente} />
+          <EncuestaEntrada onBack={() => setActiveTab('EncuestasHub')} agente={agente} />
         )}
         {activeTab === 'DigitalPass' && (
           <DigitalPass onBack={() => setActiveTab('Inicio')} agente={agente} />
@@ -331,11 +352,15 @@ function App() {
         <div className="modal-overlay" onClick={() => setShowEncuestaRequiredModal(false)}>
           <div className="modal-locked-card" onClick={e => e.stopPropagation()}>
             <span className="material-icons-round modal-lock-icon">assignment_late</span>
-            <h3>Encuesta pendiente</h3>
-            <p>Contesta la encuesta de salida para desbloquear tu constancia.</p>
+            <h3>{encuestasCompletadas === 1 ? 'Te falta una encuesta' : 'Encuestas pendientes'}</h3>
+            <p>
+              {encuestasCompletadas === 1
+                ? `Contesta la encuesta de ${entradaCompletada ? 'salida' : 'entrada'} para desbloquear tu constancia.`
+                : 'Contesta las encuestas de entrada y salida para desbloquear tu constancia.'}
+            </p>
             <button
               className="modal-close-btn"
-              onClick={() => { setShowEncuestaRequiredModal(false); setActiveTab('Encuestas'); }}
+              onClick={() => { setShowEncuestaRequiredModal(false); setActiveTab('EncuestasHub'); }}
             >
               Ir a la encuesta
             </button>
