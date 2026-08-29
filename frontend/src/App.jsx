@@ -24,6 +24,7 @@ import { isEncuestaEntradaCompletada } from './encuestaEntrada';
 import { leerEstado } from './encuestasEstado';
 import EncuestasHub from './EncuestasHub.jsx';
 import EncuestaResultados from './EncuestaResultados.jsx';
+import PanelResultados from './PanelResultados.jsx';
 
 // NavItem and GridCard
 function NavItem({ icon, iconSrc, label, isActive, onClick }) {
@@ -129,6 +130,16 @@ function App() {
   if (window.location.pathname === '/encuesta-resultados') {
     if (agente?.tipo === 'Developer') {
       return <EncuestaResultados />;
+    }
+    if (agente) {
+      return <div style={{ padding: 40, fontFamily: 'var(--font-inter)' }}>Acceso restringido.</div>;
+    }
+    return <Registro onRegister={handleUpdateAgente} />;
+  }
+
+  if (window.location.pathname === '/panel-resultados') {
+    if (agente?.tipo === 'Developer') {
+      return <PanelResultados />;
     }
     if (agente) {
       return <div style={{ padding: 40, fontFamily: 'var(--font-inter)' }}>Acceso restringido.</div>;
