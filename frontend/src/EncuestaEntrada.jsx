@@ -5,51 +5,8 @@ import { db } from './firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { isEncuestaEntradaCompletada } from './encuestaEntrada';
 import { marcarContestada } from './encuestasEstado';
+import { PREGUNTAS } from './encuestaEntradaPreguntas';
 
-const PREGUNTAS = [
-  { id: 'q1', tipo: 'unica', texto: '¿Cuál es su posición actual?', opciones: ['Hematólogo', 'Residente de Hematología', 'Otro'] },
-  {
-    id: 'q2', tipo: 'unica_anidada',
-    texto: '¿Dónde realiza su práctica médica?',
-    opciones: ['Institución pública, seleccione a continuación:', 'Institución privada', 'Ambas'],
-    subTrigger: 'Institución pública, seleccione a continuación:',
-    subOpciones: ['IMSS', 'ISSSTE', 'Secretaría de Salud / IMSS Bienestar / CCINSHAE', 'SEDENA', 'SEMAR', 'Otra'],
-  },
-  { id: 'q3', tipo: 'abierta_numero', texto: '¿Cuántos años de experiencia tiene? Especificar número de años' },
-  { id: 'q4', tipo: 'abierta_numero', texto: '¿Aproximadamente cuántos pacientes con MM de nuevo diagnóstico llegan a su consulta al año?' },
-  { id: 'q5', tipo: 'unica', texto: '¿Considera que tiene acceso a todas las pruebas diagnósticas recomendadas por la IMWG?', opciones: ['Sí', 'No'] },
-  { id: 'q6', tipo: 'multiple', texto: '¿Tiene acceso a electroforesis e inmunofijación?', escala: 'Selecciona una o varias opciones', opciones: ['Suero', 'Orina', 'Ninguno'] },
-  { id: 'q7', tipo: 'unica', texto: '¿Tiene acceso a cuantificación de cadenas ligeras libres en suero?', opciones: ['Sí', 'No'] },
-  { id: 'q8', tipo: 'multiple', texto: '¿Tiene acceso a estudios genéticos?', escala: 'Selecciona una o varias opciones', opciones: ['Cariotipo', 'FISH general', 'FISH en células plasmáticas', 'PCR', 'Secuenciación por NGS'] },
-  { id: 'q9', tipo: 'unica', texto: '¿Realiza EMR en sus pacientes?', opciones: ['Sí', 'No'] },
-  { id: 'q10', tipo: 'unica', texto: '¿Por qué método realiza EMR en sus pacientes con MM?', opciones: ['Citometría de flujo', 'NGS', 'Ninguno'] },
-  { id: 'q11', tipo: 'multiple', texto: 'En estudios de imagen, sus pacientes ¿a cuál tiene acceso?', escala: 'Seleccione una o varias', opciones: ['TAC baja dosis de radiación', 'RM cuerpo entero', 'PET-CT', 'SOM', 'Ninguna'] },
-  { id: 'q12', tipo: 'unica', texto: 'La mayor parte de estos estudios', opciones: ['Se tienen disponibles en mi Institución', 'Son gestionados por la Industria farmacéutica', 'Los realiza el paciente por su cuenta'] },
-  { id: 'q13', seccion: 'TRATAMIENTO', tipo: 'unica', texto: 'En pacientes candidatos a trasplante ¿qué terapias de 1L otorga con mayor frecuencia?', opciones: ['VRd', 'VTd', 'VCd', 'KRd', 'D-VRd', 'D-KRd', 'D-VTd', 'Isa-VRd', 'Otro: ______'] },
-  { id: 'q14', tipo: 'unica', texto: 'En pacientes NO candidatos a trasplante ¿qué terapias de 1L usa con mayor frecuencia?', opciones: ['VRd', 'VTd', 'VRd Lite', 'VCd', 'VMP', 'DRd', 'D-VRd', 'Isa-VRd', 'Rd', 'Otro: ______'] },
-  { id: 'q15', tipo: 'abierta_numero', texto: '¿Qué porcentaje de sus pacientes son candidatos a trasplante?' },
-  { id: 'q16', tipo: 'abierta_numero', texto: '¿Cuántos pacientes de los candidatos pueden EFECTIVAMENTE trasplantarse?' },
-  { id: 'q17', tipo: 'abierta_numero', texto: '¿Qué porcentaje de sus pacientes puede acceder a terapia con anti-CD38 en 1L?' },
-  { id: 'q18', tipo: 'abierta_numero', texto: '¿Que porcentaje de pacientes considera son sensibles o naive a anti-CD38 en la 2L?' },
-  { id: 'q19', tipo: 'unica', texto: '¿Qué mantenimiento otorga con mayor frecuencia?', opciones: ['Lenalidomida (R)', 'Bortezomib', 'Daratumumab (D)', 'D-R', 'Otro: ______'] },
-  { id: 'q20', tipo: 'unica', texto: 'En caso de otorgar mantenimiento con lenalidomida, ¿por cuánto tiempo lo hace generalmente, de no presentarse intolerancia o progresión?', opciones: ['Un año', 'Dos años', 'Más de dos años, de forma indefinida', 'No utilizo lenalidomida como mantenimiento'] },
-  { id: 'q21', tipo: 'unica', texto: 'En caso de otorgar mantenimiento con daratumumab, ¿por cuánto tiempo lo hace generalmente, de no presentarse intolerancia o progresión?', opciones: ['Un año', 'Dos años', 'Más de dos años, de forma indefinida', 'No utilizo daratumumab como mantenimiento'] },
-  { id: 'q22', tipo: 'unica', texto: 'En pacientes que ya recibieron anticuerpo anti-CD38 en alguna línea previa y que pudieran continuar siendo sensibles a dicho fármaco, Ud. prefiere:', opciones: ['Reexponerlo a dicho anticuerpo, por su perfil de eficacia y seguridad', 'Tratar con fármacos con mecanismos de acción diferente'] },
-  { id: 'q23', tipo: 'multiple', texto: '¿Qué factores toma en cuenta para considerar que el paciente sigue siendo sensible a anticuerpos anti-CD38 y que pudiera utilizarlo nuevamente en una línea de tratamiento subsecuente?', opciones: ['Tiempo de exposición', 'Tiempo transcurrido entre última exposición y necesidad de retratamiento', 'Fármacos con los que se combine el anticuerpo', 'Otros'] },
-  { id: 'q24', tipo: 'unica', texto: 'En pacientes con MM en recaída no expuestos (naive) o sensibles a anticuerpos anti-CD38, ¿Qué esquemas utiliza más frecuentemente?', opciones: ['DKd', 'DPd', 'DVRd', 'DRd', 'IsaCd', 'IsaPd', 'BelaPd', 'BelaVd', 'Teclistamab / elranatamab', 'Talquetamab', 'Estudio clínico', 'Uso compasivo', 'Otro: ______'] },
-  { id: 'q25', tipo: 'unica', texto: 'En pacientes con MM en recaída, refractarios a anti-CD38 y Lena, ¿Qué esquema utiliza más frecuentemente?', opciones: ['KPd', 'KCd', 'BelaPd', 'BelaVd', 'IsaCd', 'IsaPd', 'Teclistamab / elranatamab', 'Talquetamab', 'Estudio clínico', 'Uso compasivo', 'Otro: ______'] },
-  { id: 'q26', tipo: 'unica', texto: 'Aproximadamente, ¿qué porcentaje de sus pacientes en primera recaída son refractarios a lenalidomida?', opciones: ['<10%', '10-25%', '26-50%', '51-75%', '>75%'] },
-  { id: 'q27', tipo: 'ranking', rankCount: 3, texto: 'En pacientes refractarios a lenalidomida, ¿qué factor tiene mayor peso al seleccionar el siguiente tratamiento?', escala: 'Enumere del 1 al 3', opciones: ['Eficacia', 'Perfil de seguridad', 'Estado funcional del paciente', 'Disponibilidad institucional', 'Tiempo para iniciar tratamiento', 'Mecanismo de acción diferente', 'Coste/cobertura institucional'] },
-  { id: 'q28', seccion: 'SEGURIDAD', tipo: 'multiple', texto: 'Para el manejo de neutropenia grave, ¿A que tiene acceso?', escala: 'Seleccione una o varias', opciones: ['Filgrastrim', 'Pegfilgrastrim / lipegfilgrastim', 'Profilaxis antimicrobiana/fúngica', 'Aislamiento'] },
-  { id: 'q29', tipo: 'unica', texto: '¿Con qué frecuencia las citopenias limitan sus decisiones terapéuticas en MMRR?', opciones: ['Nunca', 'Rara vez', 'Algunas veces', 'Frecuentemente', 'Muy frecuentemente'] },
-  { id: 'q30', tipo: 'unica', texto: '¿Cuál de las siguientes citopenias representa el mayor reto clínico en pacientes con MMRR?', opciones: ['Neutropenia', 'Anemia', 'Trombocitopenia', 'Combinación de varias citopenias'] },
-  { id: 'q31', tipo: 'ranking', rankCount: 5, texto: 'Al momento de elegir una terapia en un paciente con MMRR, ¿qué tiene más valor para usted en su práctica clínica?', escala: 'Enumere del 1 al 5', opciones: ['Tratamiento ambulatorio', 'Perfil de seguridad manejable', 'Profundidad de EMR', 'Datos de PFS', 'Rápido control de la enfermedad', 'Proceso fácil para la solicitud de la terapia', 'Mayor duración de respuesta', 'Menor toxicidad hematológica', 'Menor riesgo de infecciones', 'Mejor calidad de vida', 'Alternativas después de refractar a lenalidomida', 'Alternativas después de refractar a anti-CD38', 'Otro: ______'] },
-  { id: 'q32', tipo: 'ranking', rankCount: 5, texto: '¿Qué atributo tendría mayor valor para usted en una nueva terapia oral para MMRR?', escala: 'Enumere del 1 al 5', opciones: ['Mayor tasa de respuesta', 'Mayor duración de respuesta', 'Actividad en pacientes refractarios a lenalidomida', 'Perfil de seguridad manejable', 'Administración oral', 'Menor necesidad de hospitalización', 'Menor carga administrativa para acceso'] },
-  { id: 'q33', seccion: 'ACCESO', tipo: 'unica', texto: '¿Considera que existe una necesidad de mecanismos de acción novedosos antes de la utilización de anticuerpos biespecíficos?', opciones: ['Sí', 'No', 'Depende del paciente'] },
-  { id: 'q34', tipo: 'unica', texto: '¿En qué línea de tratamiento observa la mayor necesidad de nuevas alternativas terapéuticas?', opciones: ['Primera recaída', 'Segunda recaída', 'Tercera recaída', 'Cuarta recaída o posterior', 'En todas las líneas'] },
-  { id: 'q35', tipo: 'unica', texto: '¿Cuál considera que es la principal barrera para el acceso a terapias innovadoras en su práctica?', escala: 'Seleccione una', opciones: ['Disponibilidad institucional', 'Restricciones presupuestales', 'Autorizaciones administrativas', 'Falta de infraestructura', 'Falta de experiencia con las terapias', 'Tiempo para obtener aprobación', 'Otra: ______'] },
-  { id: 'q36', tipo: 'unica', texto: '¿Con qué frecuencia refiere pacientes para inclusión en estudios clínicos?', opciones: ['Nunca', 'Rara vez', 'Ocasionalmente', 'Frecuentemente', 'Muy frecuentemente'] },
-];
 
 const STEP_IDS = PREGUNTAS.map((p) => p.id);
 
