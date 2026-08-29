@@ -79,6 +79,24 @@
   gap: 20px;
 }
 
+/* Preguntas con muchas opciones (>= 7) se desbordan de la pantalla en
+   una sola columna: se reparten en dos y la sección se ensancha. */
+.pd-options-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 20px;
+}
+
+.pd-question-section:has(.pd-options-grid-2col) {
+  max-width: 1500px;
+}
+
+.pd-options-grid-2col .pd-option-row {
+  padding: 14px 22px;
+  font-size: clamp(15px, 1.5vw, 21px);
+  gap: 16px;
+}
+
 .pd-option-row {
   position: relative;
   overflow: hidden;

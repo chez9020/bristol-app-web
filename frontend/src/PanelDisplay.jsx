@@ -41,7 +41,7 @@ function PanelDisplay() {
               const base = tipo === 'unica' ? totalVotes : respondentes;
               return (
                 <>
-                  <div className="pd-options-grid">
+                  <div className={`pd-options-grid ${activePoll.opciones.length >= 7 ? 'pd-options-grid-2col' : ''}`}>
                     {activePoll.opciones.map(opt => {
                       const votes = pollVotes[opt.id] || 0;
                       const pct = base > 0 ? Math.round((votes / base) * 100) : 0;
@@ -70,7 +70,7 @@ function PanelDisplay() {
 
             {tipo === 'ranking' && (
               <>
-                <div className="pd-options-grid">
+                <div className={`pd-options-grid ${activePoll.opciones.length >= 7 ? 'pd-options-grid-2col' : ''}`}>
                   {activePoll.opciones
                     .slice()
                     .sort((a, b) => (pollVotes[b.id] || 0) - (pollVotes[a.id] || 0))
