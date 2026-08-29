@@ -5,6 +5,11 @@ import Traslados from './Traslados.jsx';
 import Restaurantes from './Restaurantes.jsx';
 import MapaEvento from './MapaEvento.jsx';
 
+// Traslados oculto: el cliente aún no comparte la información de vuelos y transfers.
+// Para reactivarlo basta poner esto en true — Traslados.jsx y su CSS quedan intactos.
+// Al reactivar, revisa también el subtítulo de la tarjeta Logística en App.jsx.
+const TRASLADOS_VISIBLE = false;
+
 const imgHotel = "/assets/hotel_marriott_cancun.png";
 const imgMapa = "/assets/mapa_salones_bloodl2026.png";
 const imgRestaurantes = "/assets/logistica_restaurante_dolce_vita.png";
@@ -45,6 +50,7 @@ function Logistica({ onBack }) {
       <div className="logistica-content">
 
         {/* Vuelos y Transfers */}
+        {TRASLADOS_VISIBLE && (
         <section className="logistica-section">
           <div className="section-title-wrapper">
             <h2>Vuelos y Transfers</h2>
@@ -83,6 +89,7 @@ function Logistica({ onBack }) {
             </button>
           </div>
         </section>
+        )}
 
         {/* Hotel y Sede */}
         <section className="logistica-section">

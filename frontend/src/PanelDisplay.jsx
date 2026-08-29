@@ -60,7 +60,7 @@ function PanelDisplay() {
               );
             })()}
 
-            {tipo === 'multiple' && Object.keys(pollOtros).length > 0 && (
+            {(tipo === 'multiple' || tipo === 'unica' || !tipo) && Object.keys(pollOtros).length > 0 && (
               <ul className="pd-abierta-list">
                 {Object.values(pollOtros).slice(-10).reverse().map((texto, i) => (
                   <li key={i} className="pd-abierta-item">{texto}</li>

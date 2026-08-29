@@ -22,6 +22,9 @@ function Panel({ onBack, agente }) {
   const [rankingPicked, setRankingPicked] = useState([]);
   const [multiplePicked, setMultiplePicked] = useState([]);
   const [otroTextos, setOtroTextos] = useState({});
+  // Opción "Otro: ____" en preguntas de opción única: guarda cuál está elegida
+  // mientras el usuario escribe, antes de confirmar el voto.
+  const [unicaLibrePick, setUnicaLibrePick] = useState(null);
   const activePollIdForReset = selectedConfId ? db.activePolls[selectedConfId] : null;
 
   useEffect(() => {
@@ -162,20 +165,46 @@ function Panel({ onBack, agente }) {
                     const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
                     const voted = !!userSelectedOption;
                     const isMine = userSelectedOption === opt.id;
+                    const isPicked = unicaLibrePick === opt.id;
                     return (
-                      <div
-                        key={opt.id}
-                        className={`pnl-poll-option ${voted || isClosed ? 'pnl-poll-option-disabled' : ''} ${isMine ? 'pnl-poll-option-mine' : ''}`}
-                        onClick={() => {
-                          if (voted || isClosed) return;
-                          castVote(userId, activePollId, opt.id);
-                        }}
-                      >
-                        {(voted || isClosed) && (
-                          <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
+                      <div key={opt.id}>
+                        <div
+                          className={`pnl-poll-option ${voted || isClosed ? 'pnl-poll-option-disabled' : ''} ${isMine || isPicked ? 'pnl-poll-option-mine' : ''}`}
+                          onClick={() => {
+                            if (voted || isClosed) return;
+                            // Opción con texto libre: no vota al instante, primero pide el texto.
+                            if (opt.libre) { setUnicaLibrePick(isPicked ? null : opt.id); return; }
+                            setUnicaLibrePick(null);
+                            castVote(userId, activePollId, opt.id);
+                          }}
+                        >
+                          {(voted || isClosed) && (
+                            <div className="pnl-poll-option-bar" style={{ width: `${pct}%` }} />
+                          )}
+                          <span className="pnl-poll-option-text">{opt.texto}</span>
+                          {(voted || isClosed) && <span className="pnl-poll-option-pct">{pct}%</span>}
+                        </div>
+                        {opt.libre && isPicked && !voted && !isClosed && (
+                          <>
+                            <input
+                              type="text"
+                              className="pnl-poll-num-input pnl-poll-otro-input"
+                              placeholder="Escribe tu respuesta"
+                              value={otroTextos[opt.id] || ''}
+                              onChange={(e) => setOtroTextos({ ...otroTextos, [opt.id]: e.target.value })}
+                            />
+                            <button
+                              className="pnl-poll-submit-btn"
+                              disabled={!(otroTextos[opt.id] || '').trim()}
+                              onClick={() => {
+                                castVote(userId, activePollId, opt.id, (otroTextos[opt.id] || '').trim());
+                                setUnicaLibrePick(null);
+                              }}
+                            >
+                              Votar
+                            </button>
+                          </>
                         )}
-                        <span className="pnl-poll-option-text">{opt.texto}</span>
-                        {(voted || isClosed) && <span className="pnl-poll-option-pct">{pct}%</span>}
                       </div>
                     );
                   })}

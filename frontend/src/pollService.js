@@ -74,17 +74,19 @@ export async function resetPoll(pollId) {
   } catch(e) { console.error("Error resetting poll", e); }
 }
 
-export async function castVote(userId, pollId, optionId) {
+export async function castVote(userId, pollId, optionId, otroTexto) {
   const pollRef = doc(db, VOTES_COL, pollId);
   try {
       const pSnap = await getDoc(pollRef);
       if (pSnap.exists() && pSnap.data().users && pSnap.data().users[userId]) {
          return false; // already voted
       }
-      await setDoc(pollRef, {
+      const payload = {
         options: { [optionId]: increment(1) },
         users: { [userId]: optionId }
-      }, { merge: true });
+      };
+      if (otroTexto) payload.otros = { [userId]: otroTexto };
+      await setDoc(pollRef, payload, { merge: true });
       return true;
   } catch(e) {
       console.error("Error casting bulletproof vote", e);
